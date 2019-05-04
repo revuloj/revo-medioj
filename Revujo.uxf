@@ -1,0 +1,659 @@
+<?xml version="1.0" encoding="UTF-8"?><diagram program="umlet" version="13.3">
+  <zoom_level>8</zoom_level>
+  <element>
+    <id>UMLPackage</id>
+    <coordinates>
+      <x>504</x>
+      <y>528</y>
+      <w>400</w>
+      <h>280</h>
+    </coordinates>
+    <panel_attributes>Cetoniujo
+--
+bg=orange</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLPackage</id>
+    <coordinates>
+      <x>72</x>
+      <y>176</y>
+      <w>400</w>
+      <h>240</h>
+    </coordinates>
+    <panel_attributes>Araneujo
+--
+bg=orange</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLPackage</id>
+    <coordinates>
+      <x>504</x>
+      <y>176</y>
+      <w>400</w>
+      <h>336</h>
+    </coordinates>
+    <panel_attributes>Formikujo
+--
+bg=orange</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLGeneric</id>
+    <coordinates>
+      <x>216</x>
+      <y>328</y>
+      <w>128</w>
+      <h>48</h>
+    </coordinates>
+    <panel_attributes>symbol=component
+abelo</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLGeneric</id>
+    <coordinates>
+      <x>88</x>
+      <y>216</y>
+      <w>224</w>
+      <h>48</h>
+    </coordinates>
+    <panel_attributes>symbol=component
+araneo</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLGeneric</id>
+    <coordinates>
+      <x>328</x>
+      <y>216</y>
+      <w>88</w>
+      <h>48</h>
+    </coordinates>
+    <panel_attributes>symbol=component
+abelisto</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLGeneric</id>
+    <coordinates>
+      <x>96</x>
+      <y>328</y>
+      <w>104</w>
+      <h>48</h>
+    </coordinates>
+    <panel_attributes>symbol=component
+tomocero</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLActor</id>
+    <coordinates>
+      <x>192</x>
+      <y>40</y>
+      <w>48</w>
+      <h>80</h>
+    </coordinates>
+    <panel_attributes>Uzanto</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>208</x>
+      <y>72</y>
+      <w>24</w>
+      <h>80</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+
+</panel_attributes>
+    <additional_attributes>10.0;80.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>208</x>
+      <y>136</y>
+      <w>80</w>
+      <h>96</h>
+    </coordinates>
+    <panel_attributes>lt=()-
+https (443)</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;100.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>224</x>
+      <y>256</y>
+      <w>80</w>
+      <h>88</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+sql (3306)
+
+</panel_attributes>
+    <additional_attributes>10.0;90.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>296</x>
+      <y>256</y>
+      <w>96</w>
+      <h>88</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+sql (3306)
+
+</panel_attributes>
+    <additional_attributes>10.0;90.0;60.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>112</x>
+      <y>256</y>
+      <w>80</w>
+      <h>88</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+smtp (25)
+
+</panel_attributes>
+    <additional_attributes>10.0;90.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLActor</id>
+    <coordinates>
+      <x>296</x>
+      <y>40</y>
+      <w>96</w>
+      <h>80</h>
+    </coordinates>
+    <panel_attributes>Administranto</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>336</x>
+      <y>120</y>
+      <w>96</w>
+      <h>112</h>
+    </coordinates>
+    <panel_attributes>lt=()-
+http (8080)
+tra ssh-tunelo</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;120.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>336</x>
+      <y>72</y>
+      <w>24</w>
+      <h>64</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+
+</panel_attributes>
+    <additional_attributes>10.0;60.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLGeneric</id>
+    <coordinates>
+      <x>88</x>
+      <y>568</y>
+      <w>160</w>
+      <h>88</h>
+    </coordinates>
+    <panel_attributes>symbol=component
+retpoŝto-provizanto</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLGeneric</id>
+    <coordinates>
+      <x>536</x>
+      <y>584</y>
+      <w>160</w>
+      <h>48</h>
+    </coordinates>
+    <panel_attributes>symbol=component
+tomocero</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLGeneric</id>
+    <coordinates>
+      <x>552</x>
+      <y>448</y>
+      <w>160</w>
+      <h>48</h>
+    </coordinates>
+    <panel_attributes>symbol=component
+tomocero</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>240</x>
+      <y>472</y>
+      <w>328</w>
+      <h>144</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+smtp (465)
+
+</panel_attributes>
+    <additional_attributes>10.0;140.0;200.0;140.0;390.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>240</x>
+      <y>592</y>
+      <w>312</w>
+      <h>48</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+smtp (465)
+
+</panel_attributes>
+    <additional_attributes>10.0;20.0;370.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>144</x>
+      <y>368</y>
+      <w>80</w>
+      <h>216</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+smtp (465)
+
+</panel_attributes>
+    <additional_attributes>10.0;250.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLGeneric</id>
+    <coordinates>
+      <x>552</x>
+      <y>368</y>
+      <w>160</w>
+      <h>48</h>
+    </coordinates>
+    <panel_attributes>symbol=component
+afido</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>192</x>
+      <y>392</y>
+      <w>376</w>
+      <h>192</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+pop3 (993)
+
+</panel_attributes>
+    <additional_attributes>10.0;220.0;210.0;180.0;450.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLGeneric</id>
+    <coordinates>
+      <x>552</x>
+      <y>304</y>
+      <w>160</w>
+      <h>48</h>
+    </coordinates>
+    <panel_attributes>symbol=component
+vaneso-cvs</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLGeneric</id>
+    <coordinates>
+      <x>552</x>
+      <y>240</y>
+      <w>160</w>
+      <h>48</h>
+    </coordinates>
+    <panel_attributes>symbol=component
+vaneso-revo</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>456</x>
+      <y>248</y>
+      <w>112</w>
+      <h>64</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+ftp/scp
+
+</panel_attributes>
+    <additional_attributes>10.0;60.0;120.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>456</x>
+      <y>320</y>
+      <w>112</w>
+      <h>56</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+ftp/scp/(git)
+
+</panel_attributes>
+    <additional_attributes>10.0;50.0;120.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLGeneric</id>
+    <coordinates>
+      <x>768</x>
+      <y>240</y>
+      <w>104</w>
+      <h>176</h>
+    </coordinates>
+    <panel_attributes>symbol=component
+formiko</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>616</x>
+      <y>408</y>
+      <w>80</w>
+      <h>56</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+smtp (25)
+
+</panel_attributes>
+    <additional_attributes>10.0;50.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>704</x>
+      <y>376</y>
+      <w>80</w>
+      <h>48</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+ssh (22)
+
+</panel_attributes>
+    <additional_attributes>10.0;20.0;80.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>704</x>
+      <y>312</y>
+      <w>80</w>
+      <h>48</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+ssh (22)
+
+</panel_attributes>
+    <additional_attributes>10.0;20.0;80.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>704</x>
+      <y>248</y>
+      <w>80</w>
+      <h>48</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+ssh (22)
+
+</panel_attributes>
+    <additional_attributes>10.0;20.0;80.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLGeneric</id>
+    <coordinates>
+      <x>744</x>
+      <y>576</y>
+      <w>128</w>
+      <h>112</h>
+    </coordinates>
+    <panel_attributes>symbol=component
+cetonio</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLActor</id>
+    <coordinates>
+      <x>952</x>
+      <y>48</y>
+      <w>80</w>
+      <h>80</h>
+    </coordinates>
+    <panel_attributes>Redaktanto</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>864</x>
+      <y>592</y>
+      <w>144</w>
+      <h>32</h>
+    </coordinates>
+    <panel_attributes>lt=()-
+https (443)</panel_attributes>
+    <additional_attributes>160.0;20.0;10.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>984</x>
+      <y>96</y>
+      <w>24</w>
+      <h>520</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+
+</panel_attributes>
+    <additional_attributes>10.0;630.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLGeneric</id>
+    <coordinates>
+      <x>536</x>
+      <y>720</y>
+      <w>160</w>
+      <h>48</h>
+    </coordinates>
+    <panel_attributes>symbol=component
+cikado</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLGeneric</id>
+    <coordinates>
+      <x>752</x>
+      <y>744</y>
+      <w>128</w>
+      <h>48</h>
+    </coordinates>
+    <panel_attributes>symbol=component
+grilo</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLGeneric</id>
+    <coordinates>
+      <x>536</x>
+      <y>648</y>
+      <w>160</w>
+      <h>48</h>
+    </coordinates>
+    <panel_attributes>symbol=component
+akrido</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>688</x>
+      <y>680</y>
+      <w>120</w>
+      <h>88</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+http (8082)
+
+</panel_attributes>
+    <additional_attributes>10.0;90.0;90.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>688</x>
+      <y>656</y>
+      <w>72</w>
+      <h>56</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+http (8081)
+
+</panel_attributes>
+    <additional_attributes>10.0;30.0;70.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>688</x>
+      <y>600</y>
+      <w>72</w>
+      <h>48</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+smtp (25)
+
+</panel_attributes>
+    <additional_attributes>10.0;20.0;70.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>792</x>
+      <y>680</y>
+      <w>88</w>
+      <h>80</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+http (8787)
+</panel_attributes>
+    <additional_attributes>20.0;80.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLGeneric</id>
+    <coordinates>
+      <x>944</x>
+      <y>632</y>
+      <w>160</w>
+      <h>88</h>
+    </coordinates>
+    <panel_attributes>symbol=component
+Vikipedio / Vikimedio</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>864</x>
+      <y>632</y>
+      <w>96</w>
+      <h>56</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+https (443)
+
+</panel_attributes>
+    <additional_attributes>100.0;40.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLGeneric</id>
+    <coordinates>
+      <x>944</x>
+      <y>736</y>
+      <w>160</w>
+      <h>88</h>
+    </coordinates>
+    <panel_attributes>symbol=component
+Anaso (DuckDuckGo)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>864</x>
+      <y>672</y>
+      <w>104</w>
+      <h>80</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+https (443)
+
+</panel_attributes>
+    <additional_attributes>110.0;80.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>216</x>
+      <y>136</y>
+      <w>808</w>
+      <h>464</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+https (443)
+</panel_attributes>
+    <additional_attributes>10.0;10.0;920.0;10.0;920.0;540.0;820.0;560.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLGeneric</id>
+    <coordinates>
+      <x>376</x>
+      <y>296</y>
+      <w>88</w>
+      <h>80</h>
+    </coordinates>
+    <panel_attributes>symbol=component
+sesio</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>328</x>
+      <y>328</y>
+      <w>72</w>
+      <h>48</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+sql (3306)
+
+</panel_attributes>
+    <additional_attributes>20.0;20.0;60.0;20.0</additional_attributes>
+  </element>
+</diagram>
