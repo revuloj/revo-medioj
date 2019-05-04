@@ -17,7 +17,7 @@ Estas tri retaplikaĵoj, kiuj kune formas la Revujon:
   - grilo - la sintaks-kontrolilo
   - cikado - la citaĵo-serĉilo
   - akrido - la vortanalizilo
-- formiko - la transform-servo, konsistanta el:
+- formikujo - la transform-servo, konsistanta el:
   - afido - la redaktoservo, t.e. akceptilo de retpoŝtoj kun redaktoj, ĝi ankaŭ kontrolas la sintakson kaj stokas versiojn
   - formiko - la transformilo, kiu kretas ĉiujn retpaĝojn de la artikoloj, indeksoj, erarolistoj ktp.
   - vaneso - fakte du vanesoj, unu sendas ŝanĝojn de artikolversioj al la retservo kaj alia ŝanĝojn de la retpaĝoj kreitaj de formiko
