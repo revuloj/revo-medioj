@@ -12,15 +12,18 @@ Estas tri retaplikaĵoj, kiuj kune formas la Revujon:
   - araneo - la retpaĝaro kun la retservilo
   - abelo - la serĉdatumbazo 
   - abelisto - administrilo de la datumbazo
+  - tomocero - retpoŝtservo, kiu kolektas retpoŝtojn por forsendo kaj komunikas kun poŝtservo de la provizanto
 - cetoniujo - la grafika redaktilo, konsistanta el:
   - cetonio - la redakto-servilo
   - grilo - la sintaks-kontrolilo
   - cikado - la citaĵo-serĉilo
   - akrido - la vortanalizilo
+  - tomocero - retpoŝtservo, kiu kolektas retpoŝtojn por forsendo kaj komunikas kun poŝtservo de la provizanto
 - formikujo - la transform-servo, konsistanta el:
   - afido - la redaktoservo, t.e. akceptilo de retpoŝtoj kun redaktoj, ĝi ankaŭ kontrolas la sintakson kaj stokas versiojn
   - formiko - la transformilo, kiu kretas ĉiujn retpaĝojn de la artikoloj, indeksoj, erarolistoj ktp.
   - vaneso - fakte du vanesoj, unu sendas ŝanĝojn de artikolversioj al la retservo kaj alia ŝanĝojn de la retpaĝoj kreitaj de formiko
+  - tomocero - retpoŝtservo, kiu kolektas retpoŝtojn por forsendo kaj komunikas kun poŝtservo de la provizanto
   
   
   
