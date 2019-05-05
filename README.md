@@ -7,11 +7,16 @@ Ni uzas tri mediojn:
 - ĝardeno: tio estas medio por testi ĉion kune kun veraj retpoŝtfakoj, retserviloj k.s. sed izolite de la veraj servoj
 - mondo: tio estas la medio kie okazas la vera redaktado de Reta Vortaro
 
+Superrigardo pri Revujo:
+![Revujo - superrigardo](https://github.com/revuloj/revo-medioj/Revujo-superrigardo.png "Revujo - superrigardo")
+
+
 Estas tri retaplikaĵoj, kiuj kune formas la Revujon:
 - araneujo - la retservo por uzantoj, siavice konsistanta el pluraj servetoj:
   - araneo - la retpaĝaro kun la retservilo
   - abelo - la serĉdatumbazo 
   - abelisto - administrilo de la datumbazo
+  - sesio - akceptas ŝanĝojn de formiko/vaneso kaj aktualigas la datumbazon
   - tomocero - retpoŝtservo, kiu kolektas retpoŝtojn por forsendo kaj komunikas kun poŝtservo de la provizanto
 - cetoniujo - la grafika redaktilo, konsistanta el:
   - cetonio - la redakto-servilo

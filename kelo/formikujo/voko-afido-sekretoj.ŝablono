@@ -1,0 +1,19 @@
+# se vi volas testo la procesumon voko-afido unuope,
+# do sen uzi la reĝimon "docker swarm" kaj lanĉi Formikujon per docker-compose.yml
+# vi devas zorgi enŝovadon de la sekretoj en la procesumon.
+
+# Do unu kreu dosierojn en via komputilo kun la sekretoj.
+# Atentu ke tio estas nesekura maniero kaj uzu do nur por loka
+# testado!
+
+mkdir -p ~/etc/secrets
+echo "smtp.provizanto.org" > ~/etc/secrets/voko-afido.smtp_server 
+echo "redaktoservo@provizanto.org" > ~/etc/secrets/voko-afido.smtp_user
+echo "M14P$svort0" > ~/etc/secrets/voko-afido.smtp_password -
+echo "pop3.provizanto.org" > ~/etc/secrets/voko-afido.pop3_server -
+echo "redaktoservo@provizanto.org" > ~/etc/secrets/voko-afido.pop3_user -
+echo "M14P$svort0" > ~/etc/secrets/voko-afido.pop3_password -
+
+# Nun vi povas enŝovi la dosierujon kun la sekretoj kaj eniri la procesumon tiel:
+# sudo chmod 400 ~/etc/secrets/voko-afido* && chown 1074 ~/etc/secrets/voko-afido*
+# docker run -it -v ~/etc/secrets:/run/secrets voko-afido bash
