@@ -8,7 +8,7 @@ Ni uzas tri mediojn:
 - mondo: tio estas la medio kie okazas la vera redaktado de Reta Vortaro
 
 Superrigardo pri Revujo:
-![Revujo - superrigardo](https://github.com/revuloj/revo-medioj/Revujo-superrigardo.png "Revujo - superrigardo")
+![Revujo - superrigardo](https://github.com/revuloj/revo-medioj/blob/master/Revujo-superrigardo.png "Revujo - superrigardo")
 
 
 Estas tri retaplikaĵoj, kiuj kune formas la Revujon:
