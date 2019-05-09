@@ -14,15 +14,33 @@ services:
     # command: processmail.pl
     volumes:
       - xml:/home/afido/dict/xml # la artikoloj, devas esti kreita per "cvs co"
-      - var_afido:/var/afido # tmp, log
+      - afido:/var/afido # tmp, log
+      - mail:/var/mail
     secrets:
       - voko.redaktantoj
-      - voko-afido.pop3_server
-      - voko-afido.pop3_user
-      - voko-afido.pop3_password
       - voko-afido.smtp_server
       - voko-afido.smtp_user
       - voko-afido.smtp_password
+
+  tomocero:
+    image: voko-tomocero
+    build: 
+      context: .
+      dockerfile: Dockerfile
+    command: /usr/lib/postfix/master -d
+    volumes:
+      # eble ni eksterigu ankaŭ /var/spool/postfix resp. tutan /var/spool
+      - mail:/var/mail
+      - spool:/var/spool
+    secrets:
+      - voko-tomocero.pop3_server
+      - voko-tomocero.pop3_user
+      - voko-tomocero.pop3_password
+      - voko-tomocero.myhostname
+      - voko-tomocero.saslpassword
+      - voko-tomocero.relayhost
+      - voko-tomocero.relayaddress
+      - voko-tomocero.relaypassword
 
   vaneso-cvs:
     image: voko-vaneso
@@ -58,16 +76,27 @@ services:
 #   echo "" | docker secret create voko-afido.smtp_password -
 
 secrets:
-  voko-afido.pop3_server:
+  voko-tomocero.pop3_server:
     external: true
-  voko-afido.pop3_user:
+  voko-tomocero.pop3_user:
     external: true
-  voko-afido.pop3_password:
+  voko-tomocero.pop3_password:
+    external: true
+  voko-tomocero.myhostname:
+    external: true
+  voko-tomocero.saslpassword:
+    external: true
+  voko-tomocero.relayhost:
+    external: true
+  voko-tomocero.relayaddress:
+    external: true
+  voko-tomocero.relaypassword:
     external: true
   voko-afido.smtp_server:
     external: true
   voko-afido.smtp_user:
     external: true
+  # sama kiel sasl-password, ĉu?
   voko-afido.smtp_password:
     external: true
   voko.redaktantoj:
@@ -75,10 +104,12 @@ secrets:
     file: ${HOME}/etc/redaktantoj
 
 volumes:
+  mail:
+  spool:
   xml:
   mirrordat:
   log:
-  var_afido:
+  afido:
   
 
 
