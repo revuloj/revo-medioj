@@ -1,17 +1,22 @@
 #!/bin/bash
 
+keyfile.pub=${HOME}/.ssh/formiko.pub
+
+if [! -e ${keyfile.pub} ]; then
+    echo "Mankas ${keyfile.pub}. Vi devas unue lanĉi voko-formiko-sekretojn por ricevi ŝlosilparon!"
+    exit(1)
+fi
+
 echo "# forigante malnovajn sekretojn voko-afido.* ..."
 secrets=$(docker secret ls --filter name=voko-afido. -q)
 docker secret rm ${secrets}
 
 echo
 echo "# metante novajn sekretojn..."
+echo ${HOME}/.ssh/formiko.pub | docker secret create voko-afido.ssh_key.pub -
 echo "smtp.provizanto.org" | docker secret create voko-afido.smtp_server -
 echo "redaktoservo@provizanto.org" | docker secret create voko-afido.smtp_user -
 echo "M14P$svort0" | docker secret create voko-afido.smtp_password -
-echo "pop3.provizanto.org" | docker secret create voko-afido.pop3_server -
-echo "redaktoservo@provizanto.org" | docker secret create voko-afido.pop3_user -
-echo "M14P$svort0" | docker secret create voko-afido.pop3_password -
 
 docker secret ls --filter name=voko-afido. 
 

@@ -1,0 +1,18 @@
+#!/bin/bash
+
+echo "# forigante malnovajn sekretojn voko-tomocero.* ..."
+secrets=$(docker secret ls --filter name=voko-tomocero. -q)
+docker secret rm ${secrets}
+
+echo
+echo "# metante novajn sekretojn..."
+echo "myhost.mydomain.org" | docker secret create voko-tomocero.myhostname -
+echo "smtp.provizanto.org" | docker secret create voko-tomocero.relayhost -
+echo "redaktoservo@provizanto.org" | docker secret create voko-tomocero.relayaddress -
+echo "M14P$svort0" | docker secret create voko-tomocero.relaypassword -
+echo "pop3.provizanto.org" | docker secret create voko-tomocero.pop3_server -
+echo "redaktoservo@provizanto.org" | docker secret create voko-tomocero.pop3_user -
+echo "M14P$svort0" | docker secret create voko-tomocero.pop3_password -
+
+docker secret ls --filter name=voko-tomocero. 
+
