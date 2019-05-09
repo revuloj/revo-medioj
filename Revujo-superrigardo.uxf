@@ -98,15 +98,15 @@ retpoŝto-provizanto</panel_attributes>
     <coordinates>
       <x>232</x>
       <y>288</y>
-      <w>328</w>
-      <h>232</h>
+      <w>352</w>
+      <h>256</h>
     </coordinates>
     <panel_attributes>lt=&lt;.
 r1=smtp (465)
 &lt; konfirmoj
 
 </panel_attributes>
-    <additional_attributes>10.0;250.0;290.0;250.0;390.0;10.0</additional_attributes>
+    <additional_attributes>10.0;280.0;310.0;280.0;420.0;10.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
@@ -143,15 +143,15 @@ redaktoj &gt;
     <coordinates>
       <x>232</x>
       <y>288</y>
-      <w>344</w>
-      <h>256</h>
+      <w>328</w>
+      <h>232</h>
     </coordinates>
     <panel_attributes>lt=&lt;.
 r1=pop3 (993)
 redaktoj &gt;
 
 </panel_attributes>
-    <additional_attributes>10.0;280.0;300.0;280.0;410.0;10.0</additional_attributes>
+    <additional_attributes>10.0;250.0;290.0;250.0;390.0;10.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
@@ -282,7 +282,7 @@ r1=https (443)
       <h>232</h>
     </coordinates>
     <panel_attributes>lt=&lt;.
-artikolo &gt;
+datumbazo, artikolo &gt;
 </panel_attributes>
     <additional_attributes>10.0;20.0;610.0;20.0;610.0;270.0</additional_attributes>
   </element>
