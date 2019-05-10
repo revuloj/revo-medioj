@@ -11,6 +11,8 @@ docker secret rm ${secrets}
 echo
 echo "# metante novajn sekretojn..."
 cat ${keyfile} | docker secret create voko-formiko.ssh_key -
-rm ${keyfile}
+### se ne ne bezonas testi de docker-gastiganto
+### ni povus forigi la ŝlosilon:
+### rm ${keyfile}
 
 docker secret ls --filter name=voko-formiko. 

@@ -1,0 +1,30 @@
+#!/bin/bash
+
+# agordo de redaktoservo por cron
+# instalu per 
+
+admin_mail=vi@esperanto.eo
+
+cat <<EOT | docker config create voko-formiko.agordo-cron -
+MAILTO=${admin_mail}
+SHELL=/bin/bash
+HOME=/home/revo
+#VOKO=/home/revo/voko
+#LOG=$HOME/revolog
+
+# refaru vortaron komplete kun indeksoj
+10 22 * * * source $HOME/.bashrc; $VOKO/bin/redaktoservo.pl > /dev/null
+
+# traktu nur artikolojn
+10 3-21 * * * source $HOME/.bashrc; $VOKO/bin/redaktoservo.pl -a > /dev/null
+
+# resumo
+50 15 * * * source $HOME/.bashrc; $VOKO/bin/redaktoservo.pl -r
+
+# purigo
+50 1 28 * * source $HOME/.bashrc; $VOKO/bin/redaktoservo.pl -p
+
+#ant -f /home/revo/voko/ant/medio.xml med-cfg
+EOT
+
+docker config ls --filter name=voko-formiko. 

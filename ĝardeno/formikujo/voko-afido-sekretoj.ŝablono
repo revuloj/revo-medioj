@@ -13,7 +13,7 @@ docker secret rm ${secrets}
 
 echo
 echo "# metante novajn sekretojn..."
-echo ${HOME}/.ssh/formiko.pub | docker secret create voko-afido.ssh_key.pub -
+cat ${HOME}/.ssh/formiko.pub | docker secret create voko-afido.ssh_key.pub -
 echo "smtp.provizanto.org" | docker secret create voko-afido.smtp_server -
 echo "redaktoservo@provizanto.org" | docker secret create voko-afido.smtp_user -
 echo "M14P$svort0" | docker secret create voko-afido.smtp_password -

@@ -6,7 +6,13 @@ services:
     build: 
       context: .
       dockerfile: Dockerfile
-    # restart: always
+      # restart: always
+    secrets:
+      - voko-formiko.ssh_key
+    configs:
+      - source: voko-formiko.agordo-cron
+        #uid: '1001'
+        mode: 0644
 
   afido:
     image: voko-afido
@@ -18,6 +24,7 @@ services:
       - mail:/var/mail
     secrets:
       - voko.redaktantoj
+      - voko-afido.ssh_key.pub
       - voko-afido.smtp_server
       - voko-afido.smtp_user
       - voko-afido.smtp_password
@@ -41,22 +48,24 @@ services:
       - voko-tomocero.relayhost
       - voko-tomocero.relayaddress
       - voko-tomocero.relaypassword
-
-  vaneso-cvs:
-    image: voko-vaneso
-    build: https://github.com/revuloj/voko-vaneso.git
-    command: mirror.pl cvs
-    volumes:
-      - mirrordat:/home/vaneso/mirrordat
-      - log:/home/vaneso/log
-
-  vaneso-revo:
-    image: voko-vaneso
-    build: https://github.com/revuloj/voko-vaneso.git
-    command: mirror.pl revo
-    volumes:
-      - mirrordat:/home/vaneso/mirrordat
-      - log:/home/vaneso/log
+    #expose: 25, 465
+##
+##  vaneso-cvs:
+##    image: voko-vaneso
+##    build: https://github.com/revuloj/voko-vaneso.git
+##    command: mirror.pl cvs
+##    volumes:
+##      - mirrordat:/home/vaneso/mirrordat
+##      - log:/home/vaneso/log
+##
+##  vaneso-revo:
+##    image: voko-vaneso
+##    build: https://github.com/revuloj/voko-vaneso.git
+##    command: mirror.pl revo
+##    volumes:
+##      - mirrordat:/home/vaneso/mirrordat
+##      - log:/home/vaneso/log
+##
 
 # kreu sekretojn ekzemple tiel, kondiĉe ke vi uzas propran poŝtfakon
 # redaktoservo@provizanto.org por ricevi kaj forsendi artikolojn
@@ -92,6 +101,12 @@ secrets:
     external: true
   voko-tomocero.relaypassword:
     external: true
+
+  voko-formiko.ssh_key:
+    external: true
+
+  voko-afido.ssh_key.pub:
+    external: true
   voko-afido.smtp_server:
     external: true
   voko-afido.smtp_user:
@@ -99,9 +114,16 @@ secrets:
   # sama kiel sasl-password, ĉu?
   voko-afido.smtp_password:
     external: true
+
   voko.redaktantoj:
     #external: true
     file: ${HOME}/etc/redaktantoj
+    
+configs:
+  voko-formiko.agordo.cron:
+    external: true
+  # alternatice uzu file: ...
+  # por rekte lasi la agordon sur la docker-gastiganto
 
 volumes:
   mail:
