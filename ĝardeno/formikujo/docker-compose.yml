@@ -1,4 +1,4 @@
-version: '3.1'
+version: '3.7'
 
 services:
   formiko:
@@ -7,12 +7,19 @@ services:
       context: .
       dockerfile: Dockerfile
       # restart: always
+    volumes:
+      - formiko-revo:/home/formiko/revo 
+      - formiko-tmp:/home/formiko/tmp
+      - formiko-log:/home/formiko/log
     secrets:
       - voko-formiko.ssh_key
     configs:
       - source: voko-formiko.agordo-cron
         #uid: '1001'
         mode: 0644
+      - source: voko-formiko.agordo-redaktoservo
+        target: /home/formiko/etc/redaktoservo-agordo
+        mode: 0444
 
   afido:
     image: voko-afido
@@ -56,7 +63,7 @@ services:
 ##    command: mirror.pl cvs
 ##    volumes:
 ##      - mirrordat:/home/vaneso/mirrordat
-##      - log:/home/vaneso/log
+##      - vaneso-log:/home/vaneso/log
 ##
 ##  vaneso-revo:
 ##    image: voko-vaneso
@@ -64,7 +71,7 @@ services:
 ##    command: mirror.pl revo
 ##    volumes:
 ##      - mirrordat:/home/vaneso/mirrordat
-##      - log:/home/vaneso/log
+##      - vaneso-log:/home/vaneso/log
 ##
 
 # kreu sekretojn ekzemple tiel, kondiĉe ke vi uzas propran poŝtfakon
@@ -120,18 +127,23 @@ secrets:
     file: ${HOME}/etc/redaktantoj
     
 configs:
-  voko-formiko.agordo.cron:
-    external: true
   # alternatice uzu file: ...
   # por rekte lasi la agordon sur la docker-gastiganto
+  voko-formiko.agordo-cron:
+    external: true
+  voko-formiko.agordo-redaktoservo:
+    external: true
 
 volumes:
   mail:
   spool:
   xml:
   mirrordat:
-  log:
+  vaneso-log:
   afido:
+  formiko-revo:
+  formiko-tmp:
+  formiko-log:
   
 
 

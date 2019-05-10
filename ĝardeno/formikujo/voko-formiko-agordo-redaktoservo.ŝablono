@@ -1,0 +1,10 @@
+#!/bin/bash
+
+cat <<EOT | docker config create voko-formiko.agordo-redaktoservo -
+poshtoservilo=tomocero
+loka-poshto-dosiero=/var/spool/mail/afido
+revo-tempo.url=http://araneo/cgi-bin/admin/time.pl
+servoprotokolo=/home/formiko/log/redaktoservo.log
+EOT
+
+docker config ls --filter name=voko-formiko. 
