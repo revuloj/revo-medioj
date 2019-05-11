@@ -3,9 +3,7 @@ version: '3.7'
 services:
   formiko:
     image: voko-formiko
-    build: 
-      context: .
-      dockerfile: Dockerfile
+    build: https://github.com/revuloj/voko-formiko.git
       # restart: always
     volumes:
       - formiko-revo:/home/formiko/revo 
@@ -20,6 +18,10 @@ services:
       - source: voko-formiko.agordo-redaktoservo
         target: /home/formiko/etc/redaktoservo-agordo
         mode: 0444
+    #healthcheck:
+    #  test: ["CMD", "health_check_cron.sh"]
+    #  interval: 5m
+    #  timeout: 3s
 
   afido:
     image: voko-afido
@@ -38,9 +40,7 @@ services:
 
   tomocero:
     image: voko-tomocero
-    build: 
-      context: .
-      dockerfile: Dockerfile
+    build: https://github.com/revuloj/voko-tomocero.git
     command: /usr/lib/postfix/master -d
     volumes:
       # eble ni eksterigu ankaŭ /var/spool/postfix resp. tutan /var/spool
