@@ -15,3 +15,9 @@ docker exec -u1001 -it ${formiko_id} bash -c "ant -f \${VOKO}/ant/redaktoservo.x
 docker exec -u1001 -it ${formiko_id} bash -c "cd \${REVO}; ant -f \${VOKO}/ant/redaktoservo.xml srv-agordo"
 docker exec -u1001 -it ${formiko_id} bash -c "cd \${REVO}; ant -f \${VOKO}/ant/redaktoservo.xml srv-shlosu"
 docker exec -u1001 -it ${formiko_id} bash -c "cd \${REVO}; ant -f \${VOKO}/ant/redaktoservo.xml srv-malshlosu"
+
+
+echo
+echo "### Testo de skripto formiko..."
+docker exec -u1001 -it ${formiko_id} formiko art-helpo
+docker exec -u1001 -it ${formiko_id} formiko inx-helpo

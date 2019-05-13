@@ -1,10 +1,10 @@
 #!/bin/bash
 
-keyfile.pub=${HOME}/.ssh/formiko.pub
+keyfile_pub=${HOME}/.ssh/formiko.pub
 
-if [! -e ${keyfile.pub} ]; then
-    echo "Mankas ${keyfile.pub}. Vi devas unue lanĉi voko-formiko-sekretojn por ricevi ŝlosilparon!"
-    exit(1)
+if [ ! -e ${keyfile_pub} ]; then
+    echo "Mankas ${keyfile_pub}. Vi devas unue lanĉi voko-formiko-sekretojn por ricevi ŝlosilparon!"
+    exit 1
 fi
 
 echo "# forigante malnovajn sekretojn voko-afido.* ..."
@@ -14,9 +14,12 @@ docker secret rm ${secrets}
 echo
 echo "# metante novajn sekretojn..."
 cat ${HOME}/.ssh/formiko.pub | docker secret create voko-afido.ssh_key.pub -
-echo "smtp.provizanto.org" | docker secret create voko-afido.smtp_server -
-echo "redaktoservo@provizanto.org" | docker secret create voko-afido.smtp_user -
-echo "M14P$svort0" | docker secret create voko-afido.smtp_password -
+#echo "smtp.provizanto.org" | docker secret create voko-afido.smtp_server -
+#echo "redaktoservo@provizanto.org" | docker secret create voko-afido.smtp_user -
+#echo "M14P$svort0" | docker secret create voko-afido.smtp_password -
+echo "tomocero" | docker secret create voko-afido.smtp_server -
+echo "tomocero@tomocero" | docker secret create voko-afido.smtp_user -
+echo "sekreta" | docker secret create voko-afido.smtp_password -
 
 docker secret ls --filter name=voko-afido. 
 

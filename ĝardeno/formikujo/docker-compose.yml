@@ -37,6 +37,7 @@ services:
       - voko-afido.smtp_server
       - voko-afido.smtp_user
       - voko-afido.smtp_password
+      #- voko-tomocero.saslpassword
 
   tomocero:
     image: voko-tomocero
@@ -118,7 +119,7 @@ secrets:
     external: true
   voko-afido.smtp_user:
     external: true
-  # sama kiel sasl-password, ĉu?
+  # uzante tomoceron por sendo, sama kiel sasl-password
   voko-afido.smtp_password:
     external: true
 
