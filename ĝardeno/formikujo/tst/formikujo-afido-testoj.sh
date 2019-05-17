@@ -18,5 +18,9 @@ echo
 echo "### Ni atendos iomete..."
 sleep 30
 echo
-echo "### Ĉu la retpoŝto al ${testmail_addr} jam revenis?..."
+echo -e "### Ĉu la retpoŝto al\n '${testmail_addr}' jam revenis?..."
 docker exec -it -u1074 ${tomocero_id} fetchmail
+
+echo
+echo "### Ni traktu envenintajn retpoŝtojn..."
+docker exec -it -u1074 ${afido_id} processmail.pl
