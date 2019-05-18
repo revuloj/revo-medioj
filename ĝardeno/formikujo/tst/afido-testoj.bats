@@ -37,9 +37,15 @@
   [[ "${lines[1]}" == "reading message"* ]]
 }
 
-# echo -e "### Ĉu la retpoŝto al\n '${testmail_addr}' jam revenis?..."
-# docker exec -it -u1074 ${tomocero_id} fetchmail
-# 
-# echo
-# echo "### Ni traktu envenintajn retpoŝtojn..."
-# docker exec -it -u1074 ${afido_id} processmail.pl
+@test "Trakto de retpoŝto per processmail.pl kreu eraro-dosieron en ~/log/mailerr/" {
+  #skip
+  load test-preparo
+  run docker exec -u1074 ${afido_id} processmail.pl
+  local -r time_prefix=$(date --utc +"%Y%m%d_%H%M")
+  local -r last_file=$(docker exec -u1074 ${afido_id} ls -l /var/afido/log/errmail/ | tail -1)
+  echo "${last_file}"
+  echo "${time_prefix}.."
+  # la lasta dosiernomo en mailerr devus nomiĝi laŭ nuna minuto:
+  [[ "${last_file##* }" == "${time_prefix}"* ]]
+}
+
