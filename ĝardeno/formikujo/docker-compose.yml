@@ -28,9 +28,12 @@ services:
     build: https://github.com/revuloj/voko-afido.git
     # command: processmail.pl
     volumes:
-      - xml:/home/afido/dict/xml # la artikoloj, devas esti kreita per "cvs co"
+      - xml:/home/afido/dict/xml # la artikoloj, ujo devas esti kreita per "cvs co"
+      - cvsroot:/home/afido/dict/cvsroot # $CVSROOT
       - afido:/var/afido # tmp, log
       - mail:/var/mail
+    environment:
+      - CVSROOT=/home/afido/dict/cvsroot
     secrets:
       - voko.redaktantoj
       - voko-afido.ssh_key.pub
@@ -63,6 +66,7 @@ services:
 ##    build: https://github.com/revuloj/voko-vaneso.git
 ##    command: mirror.pl cvs
 ##    volumes:
+##      - cvsroot:/home/afido/dict/cvsroot # $CVSROOT
 ##      - mirrordat:/home/vaneso/mirrordat
 ##      - vaneso-log:/home/vaneso/log
 ##
@@ -138,13 +142,16 @@ configs:
 volumes:
   mail:
   spool:
-  xml:
   mirrordat:
   vaneso-log:
   afido:
   formiko-revo:
   formiko-tmp:
   formiko-log:
+  xml:
+    external: true
+  cvsroot:
+    external: true
   
 
 
