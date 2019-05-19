@@ -28,8 +28,11 @@ services:
     build: https://github.com/revuloj/voko-afido.git
     # command: processmail.pl
     volumes:
-      - xml:/home/afido/dict/xml # la artikoloj, ujo devas esti kreita per "cvs co"
-      - cvsroot:/home/afido/dict/cvsroot # $CVSROOT
+      - type: bind
+        source: ./cvsroot
+        target: /home/afido/dict/cvsroot
+      - xml:/home/afido/dict/xml # la artikoloj
+#      - cvsroot:/home/afido/dict/cvsroot # $CVSROOT
       - afido:/var/afido # tmp, log
       - mail:/var/mail
     environment:
@@ -149,9 +152,8 @@ volumes:
   formiko-tmp:
   formiko-log:
   xml:
-    external: true
-  cvsroot:
-    external: true
+#  cvsroot:
+#    external: true
   
 
 
