@@ -104,6 +104,9 @@
   run docker exec -u1074 ${afido_id} processmail.test.pl
   echo "${output}"
 
+  # forigu processmail.test.pl
+  docker exec -u0 ${afido_id} rm /usr/local/bin/processmail.test.pl
+
   local -r time_prefix=$(date --utc +"%Y%m%d_%H%M")
   local -r last_file=$(docker exec -u1074 ${afido_id} ls -l /var/afido/log/prcmail/ | tail -1)
   echo "${last_file}"
