@@ -7,7 +7,7 @@ docker config rm ${oldcfg}
 echo "# kreante novan agordon voko-formiko.agordo-redaktoservo ..."
 cat <<EOT | docker config create voko-formiko.agordo-redaktoservo -
 poshtoservilo=tomocero
-loka-poshto-dosiero=/var/spool/mail/afido
+loka-poshto-dosiero=/var/mail/tomocero
 #revo-tempo.url=http://araneo/cgi-bin/admin/time.pl
 revo-tempo.url=http://retavortaro.de/cgi-bin/admin/time.pl
 servoprotokolo=/home/formiko/log/redaktoservo.log
