@@ -113,14 +113,16 @@
   [ "$status" -eq 0 ]
 }
 
-@test "Refaro de artikoloj (test.xml)" {
+@test "Refaro de artikoloj (test.xml). Povas daŭri longe unuafoje pro kompleta refaro de artikoloj en revo/art/." {
   #skip
   load test-preparo
   run docker exec -u1001 -it ${formiko_id} formiko -Duser-mail-file-exists=yes srv-refari-nur-artikolojn
   echo "${output}"
+  artikolo=$(echo "${output}" | grep '\[xslt\] Processing /home/formiko/revo/xml/test.xml')
   success=$(echo "${output}" | grep BUILD)
+  [[ "${artikolo}" == *"test.xml"* ]]
   [[ "${success##* }" == "SUCCESSFUL"* ]]
-  [ "$status" -eq 1 ]
+  [ "$status" -eq 0 ]
 }
 
 ## testu tion: sendu kaj ricevu retpoŝton kun ŝanĝita XML-dosiero tra tomocero (vokita per ssh)
