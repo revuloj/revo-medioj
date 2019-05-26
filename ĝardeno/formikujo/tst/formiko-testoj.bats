@@ -116,7 +116,7 @@
 @test "Refaro de artikoloj (test.xml)" {
   #skip
   load test-preparo
-  run docker exec -u1001 -it ${formiko_id} formiko srv-refari-nur-artikolojn
+  run docker exec -u1001 -it ${formiko_id} formiko -Duser-mail-file-exists=yes srv-refari-nur-artikolojn
   echo "${output}"
   success=$(echo "${output}" | grep BUILD)
   [[ "${success##* }" == "SUCCESSFUL"* ]]

@@ -6,18 +6,17 @@ services:
     build: https://github.com/revuloj/voko-formiko.git
       # restart: always
     volumes:
-      - formiko-revo:/home/formiko/revo 
+      - type: bind
+        source: ./revo
+        target: /home/formiko/revo
       - formiko-tmp:/home/formiko/tmp
       - formiko-log:/home/formiko/log
       - mail:/var/mail
     secrets:
       - voko-formiko.ssh_key
       - voko.redaktantoj
-    depends_on:
-      - afido
-      ##- tomocero
-
       # necesas unufoje akcepti la ssh-servo-ŝlosilon de afido
+      # KOREKTU: ofte afido ankoraŭ ne estas aktiva, iel ni devos atendi ĝis afido reagas kaj funkcias la komando!
     command: >
       bash -c 
       "su -c 'ssh -i /run/secrets/voko-formiko.ssh_key -o StrictHostKeyChecking=no -o PasswordAuthentication=no afido@afido exit' formiko
@@ -42,7 +41,10 @@ services:
       - type: bind
         source: ./cvsroot
         target: /home/afido/dict/cvsroot
-      - xml:/home/afido/dict/xml # la artikoloj
+      - type: bind
+        source: ./revo/xml
+        target: /home/afido/dict/xml        
+#      - xml:/home/afido/dict/xml # la artikoloj
 #      - cvsroot:/home/afido/dict/cvsroot # $CVSROOT
       - afido:/var/afido # tmp, log
       - mail:/var/mail
@@ -80,7 +82,7 @@ services:
 ##    build: https://github.com/revuloj/voko-vaneso.git
 ##    command: mirror.pl cvs
 ##    volumes:
-##      - cvsroot:/home/afido/dict/cvsroot # $CVSROOT
+##      - cvsroot:/home/vaneso/cvsroot # $CVSROOT
 ##      - mirrordat:/home/vaneso/mirrordat
 ##      - vaneso-log:/home/vaneso/log
 ##
@@ -89,6 +91,9 @@ services:
 ##    build: https://github.com/revuloj/voko-vaneso.git
 ##    command: mirror.pl revo
 ##    volumes:
+##        - type: bind
+##        source: ./revo
+##        target: /home/vaneso/revo
 ##      - mirrordat:/home/vaneso/mirrordat
 ##      - vaneso-log:/home/vaneso/log
 ##
@@ -159,10 +164,10 @@ volumes:
   mirrordat:
   vaneso-log:
   afido:
-  formiko-revo:
+#  formiko-revo:
   formiko-tmp:
   formiko-log:
-  xml:
+#  xml:
 #  cvsroot:
 #    external: true
   
