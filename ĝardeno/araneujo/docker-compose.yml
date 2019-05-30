@@ -50,8 +50,11 @@ services:
     image: voko-sesio
     build: https://github.com/revuloj/voko-sesio.git
     # restart: always
+    volumes:
+      - sesio-ftp:/home/sesio/ftp
+      - sesio-log:/var/log/vsftpd
     ports:
-      - 21:21
+      - 0.0.0.0:21:21
       - 21200-21210:21200-21210
     secrets:
       - voko-sesio.ftp-password         
@@ -70,6 +73,9 @@ secrets:
   voko-sesio.ftp-password:
     external: true
 
+volumes:
+  sesio-ftp:
+  sesio-log:
 
   
 
