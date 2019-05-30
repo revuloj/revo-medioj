@@ -12,6 +12,19 @@
   [ "$pnum" = "20-21" ]
 }
 
+@test "La uzanto 'sesio' ne povu skribi al /home/vsftpd sed sub-ujo sesio/" {
+  sesio_id=$(docker ps --filter name=araneujo_sesio -q)
+  wr_ftp=$(docker exec ${sesio_id} ls -ld /home/vsftpd | awk '{ print $1 }' | grep w || true)
+  owner_ftp=$(docker exec ${sesio_id} ls -ld /home/vsftpd | awk '{ print $3 }')
+  wr_sesio=$(docker exec ${sesio_id} ls -l /home/vsftpd | awk '/sesio/ { print $1 }' | grep drwx || true)
+  owner_sesio=$(docker exec ${sesio_id} ls -l /home/vsftpd | awk '/sesio/ { print $3 }')
+
+  [ -z ${wr_ftp} ]
+  [ "${owner_ftp}" = "ftp" ]
+  [ ! -z ${wr_sesio} ]
+  [ "${owner_sesio}" = "sesio" ]
+}
+
 @test "Legi la pasvorton kiel sekreto kaj konekti per ftp" {
   sesio_id=$(docker ps --filter name=araneujo_sesio -q)
   ftp_pw=$(docker exec $sesio_id cat /run/secrets/voko-sesio.ftp-password)
