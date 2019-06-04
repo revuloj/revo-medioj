@@ -1,6 +1,6 @@
 #!/usr/bin/env bats
 
-@test "Sesio estas aktiva ĉe pordo 20-21" {
+@test "Sesio estas aktiva ĉe pordo 21" {
 
   ports=$(docker ps -f name=araneujo_sesio --format '{{.Ports}}')
   pnum=${ports%/tcp}
@@ -9,7 +9,7 @@
   echo "ports: $ports"
   echo "port-num: $pnum"
 
-  [ "$pnum" = "20-21" ]
+  [ "$pnum" = "21" ]
 }
 
 @test "La uzanto 'sesio' ne povu skribi al /home/vsftpd sed sub-ujo sesio/" {
@@ -40,3 +40,32 @@ EOFTP
   [ "$status" -eq 0 ]
 }
 
+
+@test "Alŝuti arĥivon kun dosiero per ftp al Sesio kaj malpaki ĝin per Perl en Araneo" {
+  sesio_id=$(docker ps --filter name=araneujo_sesio -q)
+  ftp_pw=$(docker exec $sesio_id cat /run/secrets/voko-sesio.ftp-password)
+  #tst_dir=$(dirname "${BASH_SOURCE[0]}")
+  tst_dir=$(dirname $BATS_TEST_FILENAME)
+  echo ${tst_dir}
+  #echo $ftp_pw
+  # kreu arĥivon kun test.xml
+  tar -czf test.tgz ${tst_dir}/test.xml
+  run ftp -p -n <<EOFTP
+open localhost
+user sesio ${ftp_pw}
+cd sesio
+rename test.tgz test.old
+put test.tgz
+ls
+quit
+EOFTP
+  rm test.tgz
+  # tio eliĝas nur se okazas problemoj...
+  echo $output
+  [ ! "$ftp_pw" = "" ]
+  [[ "$output" == *"test.tgz" ]]
+#  [[ ! "$output" == *"denied"* ]]
+#  [[ ! "$output" == *"failed"* ]]
+#  [[ ! "$output" == *"not"* ]]
+  [ "$status" -eq 0 ]
+}
