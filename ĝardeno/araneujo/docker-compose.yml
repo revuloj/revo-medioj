@@ -9,6 +9,8 @@ services:
       - 8088:80
     depends_on:
      - abelo
+    volumes:
+     - alveno:/var/www/web277/html/alveno
     secrets:
       #- mysql_root_password
       - voko-abelo.mysql_password         
@@ -51,7 +53,7 @@ services:
     build: https://github.com/revuloj/voko-sesio.git
     # restart: always
     volumes:
-      - sesio-ftp:/home/sesio/ftp
+      - alveno:/home/vsftpd/alveno
       - sesio-log:/var/log/vsftpd
     ports:
       - 0.0.0.0:21:21
@@ -74,7 +76,7 @@ secrets:
     external: true
 
 volumes:
-  sesio-ftp:
+  alveno:
   sesio-log:
 
   
