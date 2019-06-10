@@ -46,25 +46,29 @@ EOFTP
   ftp_pw=$(docker exec $sesio_id cat /run/secrets/voko-sesio.ftp-password)
   #tst_dir=$(dirname "${BASH_SOURCE[0]}")
   tst_dir=$(dirname $BATS_TEST_FILENAME)
-  echo ${tst_dir}
+  echo "dir: ${tst_dir}"
   tgz="revo-$(date +"%Y%m%d"_120000).tgz"
   #echo $ftp_pw
   # kreu arĥivon kun test.xml
-  tar -czf ${tgz} ${tst_dir}/test.xml
+  touch ${tst_dir}/revo/xml/test.xml
+  # por RSS necesas art/html, sed povas esti malplena
+  mkdir -p ${tst_dir}/revo/art && touch ${tst_dir}/revo/art/test.html
+#  tar -czf ${tgz} --transform "s/^${tst_dir}/xml/" ${tst_dir}/test.xml
+  tar -czf ${tgz} -C ${tst_dir} revo
   run ftp -p -n <<EOFTP
 open localhost
 user sesio ${ftp_pw}
 cd alveno
-rename *.tgz *.old
+mdel *.tgz
 put ${tgz}
 ls
 quit
 EOFTP
   rm ${tgz}
   # tio eliĝas nur se okazas problemoj...
-  echo $output
+  echo "$output"
   [ ! "$ftp_pw" = "" ]
-  [[ "$output" == *"_120000.tgz" ]]
+  [[ "$output" == *"${tgz}"* ]]
 #  [[ ! "$output" == *"denied"* ]]
 #  [[ ! "$output" == *"failed"* ]]
 #  [[ ! "$output" == *"not"* ]]
@@ -88,5 +92,13 @@ EOFTP
   run curl -Ls -o uprevo.log ${url}
   # tio eliĝas nur se okazas problemoj...
   echo $output
-  [ "$status" -eq 1 ]
+
+  log=$(cat uprevo.log)
+  [[ ${log} == *"revo/xml/test.xml"* ]]
+  [[ ${log} == *"revo/art/test.html"* ]]
+
+  sx=$(docker exec ${araneo_id} cat /var/www/web277/html/sxangxoj.rdf)
+  [[ ${sx} == *"http://www.reta-vortaro.de/revo/art/test.html"* ]]
+
+  [ "$status" -eq 0 ]
 }

@@ -12,8 +12,9 @@ services:
     volumes:
      - alveno:/var/www/web277/html/alveno
     secrets:
-      #- mysql_root_password
-      - voko-abelo.mysql_password         
+      - voko-abelo.mysql_password
+      # uzata por eksporto de lastaj ŝanĝoj:
+      - voko-abelo.mysql_root_password
 
   # saluto de abelisto al abelo:
   # servilo-nomo estas la nomo de abelo (docker ps)
