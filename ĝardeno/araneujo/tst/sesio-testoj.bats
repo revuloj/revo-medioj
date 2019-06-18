@@ -92,13 +92,14 @@ EOFTP
   run curl -Ls -o uprevo.log ${url}
   # tio eliĝas nur se okazas problemoj...
   echo $output
+  [ "$status" -eq 0 ]
 
   log=$(cat uprevo.log)
   [[ ${log} == *"revo/xml/test.xml"* ]]
   [[ ${log} == *"revo/art/test.html"* ]]
+  [[ ${log} == *"<pre>art = test</pre>"* ]]
 
-  sx=$(docker exec ${araneo_id} cat /var/www/web277/html/sxangxoj.rdf)
-  [[ ${sx} == *"http://www.reta-vortaro.de/revo/art/test.html"* ]]
+  shanghoj=$(docker exec ${araneo_id} cat /var/www/web277/html/sxangxoj.rdf)
+  [[ ${shanghoj} == *"http://www.reta-vortaro.de/revo/art/test.html"* ]]
 
-  [ "$status" -eq 0 ]
 }

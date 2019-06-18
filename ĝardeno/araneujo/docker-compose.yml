@@ -41,6 +41,7 @@ services:
     secrets:
       - voko-abelo.mysql_root_password
       - voko-abelo.mysql_password
+      - voko.redaktantoj
     environment:
       # FARENDA: necesas aldoni tiujn informojn ankaŭ en la dosiero revodb.pm
       MYSQL_ROOT_PASSWORD_FILE: /run/secrets/voko-abelo.mysql_root_password
@@ -62,6 +63,25 @@ services:
     secrets:
       - voko-sesio.ftp-password         
 
+  tomocero:
+    image: voko-tomocero
+    build: https://github.com/revuloj/voko-tomocero.git
+    command: /usr/lib/postfix/master -d
+    volumes:
+      # eble ni eksterigu ankaŭ /var/spool/postfix resp. tutan /var/spool
+      - mail:/var/mail
+      - spool:/var/spool
+    secrets:
+# ni bezonas nur sendi, ne legi poŝton en Araneujo
+#      - voko-tomocero.pop3_server
+#      - voko-tomocero.pop3_user
+#      - voko-tomocero.pop3_password
+      - voko-tomocero.myhostname
+      - voko-tomocero.saslpassword
+      - voko-tomocero.relayhost
+      - voko-tomocero.relayaddress
+      - voko-tomocero.relaypassword
+
 secrets:
   # FARENDA:
   # necesas adapti revodb.pm por ke ĝi legu la pasvorton el /run/secrets/mysql_password
@@ -76,9 +96,33 @@ secrets:
   voko-sesio.ftp-password:
     external: true
 
+# ni bezonas nur sendi, ne legi poŝton en Araneujo
+#  voko-tomocero.pop3_server:
+#    external: true
+#  voko-tomocero.pop3_user:
+#    external: true
+#  voko-tomocero.pop3_password:
+#    external: true
+  voko-tomocero.myhostname:
+    external: true
+  voko-tomocero.saslpassword:
+    external: true
+  voko-tomocero.relayhost:
+    external: true
+  voko-tomocero.relayaddress:
+    external: true
+  voko-tomocero.relaypassword:
+    external: true    
+
+  voko.redaktantoj:
+    #external: true
+    file: ${HOME}/etc/redaktantoj
+
 volumes:
   alveno:
   sesio-log:
+  mail:
+  spool:
 
   
 
