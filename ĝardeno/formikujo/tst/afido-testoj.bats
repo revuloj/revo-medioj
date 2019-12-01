@@ -56,14 +56,17 @@
   [[ "${last_file##* }" == "${time_prefix}"* ]]
 }
 
-@test "Variablo CVSROOT ekzistu kaj dosierujoj cvsroot/revo kaj dict/xml estu nemalplenaj" {
+@test "Variablo CVSROOT ekzistu kaj dosierujoj cvsroot/revo, dict/xml kaj dict/revo-fonto estu nemalplenaj" {
   afido_id=$(docker ps --filter name=formikujo_afido -q) && echo "Afido: ${afido_id}"
   cvs=$(docker exec -u1074 ${afido_id} bash -c "ls \${CVSROOT}/revo" | wc -w)
   xml=$(docker exec -u1074 ${afido_id} bash -c "ls /home/afido/dict/xml" | wc -w)
+  git=$(docker exec -u1074 ${afido_id} bash -c "ls /home/afido/dict/revo-fonto/revo" | wc -w)
   echo "${cvs}"
   echo "${xml}"
+  echo "${git}"
   [ "${cvs}" -gt 1 ]
   [ "${xml}" -gt 1 ]
+  [ "${git}" -gt 1 ]
 }
 
 @test "Forsendo de retpoŝto kun ŝanĝetita XML de test.xml" {
@@ -88,16 +91,11 @@
   [[ "${lines[1]}" == "reading message"* ]]
 }
 
-@test "Trakto de retpoŝto kun test.xml per processmail.pl, poste estu eraro-dosiero en /var/afido/log/prcmail/" {
+@test "Trakto de retpoŝto kun test.xml per processmail.pl, poste estu trakto-dosiero en /var/afido/log/prcmail/" {
   #skip
   load test-preparo
+  load processmail-preparo
 
-  # necesas manipulita processmail.pl por akcepti mesaĝon de $testmail_addr
-  # kaj ni metas ankaŭ $debug=1
-  local -r testmail_addr=$(docker  exec -u1074 ${tomocero_id} cat /run/secrets/voko-tomocero.relayaddress) 
-  docker exec -u0 ${afido_id} bash -c \
-    "sed \"s/\s*[\$]redaktilo_from\s*=.*/\\\$redaktilo_from='${testmail_addr}';/\" /usr/local/bin/processmail.pl \
-    > /usr/local/bin/processmail.test.pl && chmod 755 /usr/local/bin/processmail.test.pl"
   docker exec -u0 ${afido_id} bash -c \
     "sed -i \"s/\s*[\$]debug\s*=.*/\\\$debug=1;/\" /usr/local/bin/processmail.test.pl"
 

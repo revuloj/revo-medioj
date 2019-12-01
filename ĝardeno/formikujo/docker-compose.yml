@@ -44,6 +44,9 @@ services:
       - type: bind
         source: ./revo/xml
         target: /home/afido/dict/xml        
+      - type: bind
+        source: ./revo-fonto
+        target: /home/afido/dict/revo-fonto        
 #      - xml:/home/afido/dict/xml # la artikoloj
 #      - cvsroot:/home/afido/dict/cvsroot # $CVSROOT
       - afido:/var/afido # tmp, log
@@ -151,7 +154,7 @@ secrets:
     file: ${HOME}/etc/redaktantoj
     
 configs:
-  # alternatice uzu file: ...
+  # alternative uzu "file: ..."
   # por rekte lasi la agordon sur la docker-gastiganto
   voko-formiko.agordo-cron:
     external: true
