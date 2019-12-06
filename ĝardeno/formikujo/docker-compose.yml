@@ -56,6 +56,7 @@ services:
     secrets:
       - voko.redaktantoj
       - voko-afido.ssh_key.pub
+      - voko-afido.github_key
       - voko-afido.smtp_server
       - voko-afido.smtp_user
       - voko-afido.smtp_password
@@ -140,6 +141,8 @@ secrets:
     external: true
 
   voko-afido.ssh_key.pub:
+    external: true
+  voko-afido.github_key:
     external: true
   voko-afido.smtp_server:
     external: true
