@@ -70,7 +70,7 @@
 }
 
 @test "Forsendo de retpoŝto kun ŝanĝetita XML de test.xml" {
-  #skip
+  skip
   load test-preparo  
   local -r testmail_addr=$(docker  exec -u1074 ${tomocero_id} cat /run/secrets/voko-tomocero.relayaddress) 
   local -r testfrom=$(docker  exec -u1074 ${afido_id} head -1 /run/secrets/voko.redaktantoj) 
@@ -81,7 +81,7 @@
 }
 
 @test "Iom da atendo kaj poste provu legi la antaŭe senditan poŝtaĵon kun test.xml" {
-  #skip
+  skip
   load test-preparo
   sleep 20
   run docker exec -u1074 ${tomocero_id} fetchmail
@@ -92,6 +92,58 @@
 }
 
 @test "Trakto de retpoŝto kun test.xml per processmail.pl, poste estu trakto-dosiero en /var/afido/log/prcmail/" {
+  skip
+  load test-preparo
+  load processmail-preparo
+
+  docker exec -u0 ${afido_id} bash -c \
+    "sed -i \"s/\s*[\$]debug\s*=.*/\\\$debug=1;/\" /usr/local/bin/processmail.test.pl"
+
+  run docker exec -u1074 ${afido_id} processmail.test.pl
+  echo "${output}"
+
+  # forigu processmail.test.pl
+  # vd. malsupredocker exec -u0 ${afido_id} rm /usr/local/bin/processmail.test.pl
+
+  local -r time_prefix=$(date --utc +"%Y%m%d_%H%M")
+  local -r last_file=$(docker exec -u1074 ${afido_id} ls -l /var/afido/log/prcmail/ | tail -1)
+  echo "${last_file}"
+  echo "${time_prefix}.."
+
+  local -r git_status=$(docker exec -u1074 ${afido_id} bash -c "cd /home/afido/dict/revo-fonto ; git status")
+  echo "${git_status}"
+
+  load processmail-purigo
+
+  # la lasta dosiernomo en mailerr devus nomiĝi laŭ nuna minuto:
+  [[ "${last_file##* }" == "${time_prefix}"* ]]
+  [[ "${git_status}" ==  *"up-to-date"* ]]
+}
+
+@test "Forsendo de retpoŝto kun nova XML de test007.xml" {
+  #skip
+  load test-preparo  
+  local -r testmail_addr=$(docker  exec -u1074 ${tomocero_id} cat /run/secrets/voko-tomocero.relayaddress) 
+  local -r testfrom=$(docker  exec -u1074 ${afido_id} head -1 /run/secrets/voko.redaktantoj) 
+  local -r testfrom_addr=${testfrom##* }
+  run docker exec -u1074 ${afido_id} bash -c \
+    "echo -e \"Reply-To: ${testfrom_addr}\n\naldono: test007\n\n<?xml version='1.0'?>
+    <!DOCTYPE vortaro SYSTEM '../dtd/vokoxml.dtd'><vortaro><art mrk='\$Id'><kap>007</kap></art></vortaro>\" | /usr/lib/sendmail -i -v ${testmail_addr}"
+  [ "$status" -eq 0 ]
+}
+
+@test "Iom da atendo kaj poste provu legi la antaŭe senditan poŝtaĵon kun test007.xml" {
+  #skip
+  load test-preparo
+  sleep 20
+  run docker exec -u1074 ${tomocero_id} fetchmail
+  echo "out: $output"
+  echo "lin: "${lines[1]}
+  [ "$status" -eq 0 ]
+  [[ "${lines[1]}" == "reading message"* ]]
+}
+
+@test "Trakto de retpoŝto kun test007.xml per processmail.pl, poste estu trakto-dosiero en /var/afido/log/prcmail/" {
   #skip
   load test-preparo
   load processmail-preparo
@@ -103,14 +155,24 @@
   echo "${output}"
 
   # forigu processmail.test.pl
-  docker exec -u0 ${afido_id} rm /usr/local/bin/processmail.test.pl
+  # vd. malsupre... docker exec -u0 ${afido_id} rm /usr/local/bin/processmail.test.pl
 
   local -r time_prefix=$(date --utc +"%Y%m%d_%H%M")
   local -r last_file=$(docker exec -u1074 ${afido_id} ls -l /var/afido/log/prcmail/ | tail -1)
+  local -r new_file=$(docker exec -u1074 ${afido_id} bash -c "ls -l /home/afido/dict/revo-fonto/revo/test007.*" | tail -1)
   echo "${last_file}"
+  echo "${new_file}"
   echo "${time_prefix}.."
+
+  local -r git_status=$(docker exec -u1074 ${afido_id} bash -c "cd /home/afido/dict/revo-fonto ; git status")
+  echo "${git_status}"
+
+  load processmail-purigo
 
   # la lasta dosiernomo en mailerr devus nomiĝi laŭ nuna minuto:
   [[ "${last_file##* }" == "${time_prefix}"* ]]
+  [[ "${new_file##* }" == *"test007.xml"* ]]
+  [[ "${git_status}" ==  *"up-to-date"* ]]
 }
+
 
