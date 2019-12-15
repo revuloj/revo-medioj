@@ -15,7 +15,18 @@ services:
       - voko-abelo.mysql_password
       # uzata por eksporto de lastaj ŝanĝoj:
       - voko-abelo.mysql_root_password
-
+    environment:
+      EMAIL_SENDER_TRANSPORT: SMTPS
+      EMAIL_SENDER_TRANSPORT_ssl: ssl
+      # momente la sekvontoj valoroj estas en sekretoj:
+      # voko-afido.smtp_server 
+      # voko-afido.smtp_user 
+      # voko-afido.smtp_password resp. voko-tomocero.saslpassword
+      # ni prefere uzu pli ĝeneralajn sekretoj voko.smtp_server ktp.
+      # kaj kreu la mediovariablojn ekz. en entry-point.sh...
+      EMAIL_SENDER_TRANSPORT_host: tomocero
+      EMAIL_SENDER_TRANSPORT_sasl_username: tomocero@tomocero
+      EMAIL_SENDER_TRANSPORT_sasl_password: sekreta
   # saluto de abelisto al abelo:
   # servilo-nomo estas la nomo de abelo (docker ps)
   # uzanto-nomo estas "root"
