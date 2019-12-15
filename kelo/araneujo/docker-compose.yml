@@ -3,9 +3,7 @@ version: '3.1'
 services:
   araneo:
     image: voko-araneo
-    build: 
-      context: .
-      dockerfile: Dockerfile
+    build: https://github.com/revuloj/voko-araneo.git
     # restart: always
     ports:
       - 8088:80
@@ -13,7 +11,7 @@ services:
      - abelo
     secrets:
       #- mysql_root_password
-      - mysql_password         
+      - voko-abelo.mysql_password         
 
   # saluto de abelisto al abelo:
   # servilo-nomo estas la nomo de abelo (docker ps)
@@ -29,7 +27,6 @@ services:
       - 8089:8080  
     depends_on:
       - abelo
- 
 
   abelo:
     image: voko-abelo
@@ -39,15 +36,25 @@ services:
     #expose:
     #  - 3306
     secrets:
-      - mysql_root_password
-      - mysql_password
+      - voko-abelo.mysql_root_password
+      - voko-abelo.mysql_password
     environment:
       # FARENDA: necesas aldoni tiujn informojn ankaŭ en la dosiero revodb.pm
-      MYSQL_ROOT_PASSWORD_FILE: /run/secrets/mysql_root_password
-      MYSQL_PASSWORD_FILE: /run/secrets/mysql_password
+      MYSQL_ROOT_PASSWORD_FILE: /run/secrets/voko-abelo.mysql_root_password
+      MYSQL_PASSWORD_FILE: /run/secrets/voko-abelo.mysql_password
       MYSQL_DATABASE: usr_web277_1
       MYSQL_USER: web277
       # MYSQL_ROOT_PASSWORD: sekreto28343
+
+  sesio:
+    image: voko-sesio
+    build: https://github.com/revuloj/voko-sesio.git
+    # restart: always
+    ports:
+      - 21:21
+      - 21200-21210:21200-21210
+    secrets:
+      - voko-sesio.ftp-password         
 
 secrets:
   # FARENDA:
@@ -56,9 +63,11 @@ secrets:
   # vi povas krei taŭgajn pasvortojn per:
   #   openssl rand -base64 20 | docker secret create mysql_root_password -
   #   openssl rand -base64 20 | docker secret create mysql_password -
-  mysql_root_password:
+  voko-abelo.mysql_root_password:
     external: true
-  mysql_password:
+  voko-abelo.mysql_password:
+    external: true
+  voko-sesio.ftp-password:
     external: true
 
 
