@@ -15,8 +15,10 @@ services:
     secrets:
       - voko-formiko.ssh_key
       - voko.redaktantoj
-      # necesas unufoje akcepti la ssh-servo-ŝlosilon de afido
-      # KOREKTU: ofte afido ankoraŭ ne estas aktiva, iel ni devos atendi ĝis afido reagas kaj funkcias la komando!
+      - voko-sesio.ftp_password
+      - voko-araneo.cgi_password
+    # necesas unufoje akcepti la ssh-servo-ŝlosilon de afido
+    # KOREKTU: ofte afido ankoraŭ ne estas aktiva, iel ni devos atendi ĝis afido reagas kaj funkcias la komando!
     command: >
       bash -c 
       "su -c 'ssh -i /run/secrets/voko-formiko.ssh_key -o StrictHostKeyChecking=no -o PasswordAuthentication=no afido@afido exit' formiko
@@ -150,6 +152,11 @@ secrets:
     external: true
   # uzante tomoceron por sendo, sama kiel sasl-password
   voko-afido.smtp_password:
+    external: true
+
+  voko-sesio.ftp_password:
+    external: true
+  voko-araneo.cgi_password:
     external: true
 
   voko.redaktantoj:

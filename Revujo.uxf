@@ -656,4 +656,17 @@ sql (3306)
 </panel_attributes>
     <additional_attributes>20.0;20.0;60.0;20.0</additional_attributes>
   </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>216</x>
+      <y>128</y>
+      <w>608</w>
+      <h>128</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+https (443)
+</panel_attributes>
+    <additional_attributes>10.0;20.0;740.0;20.0;740.0;140.0</additional_attributes>
+  </element>
 </diagram>

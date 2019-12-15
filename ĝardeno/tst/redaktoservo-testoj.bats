@@ -4,6 +4,8 @@
 # https://github.com/sstephenson/bats/issues/136
 # https://github.com/sstephenson/bats/issues/10
 
+# https://docs.docker.com/engine/swarm/ingress/
+
 @test "Agordo de redaktoservo" {
   load test-preparo
   run docker exec -u1001 -it ${formiko_id} bash -c "cd \${REVO}; ant -f \${VOKO}/ant/redaktoservo.xml srv-agordo"
@@ -15,17 +17,6 @@
   #echo "[${poshtilo##*=}]"
   [ ! "$output" = "" ]
   [[ "${poshtilo##*=}" == "tomocero"* ]]
-  [ "$status" -eq 0 ]
-}
-
-@test "Ŝloso kaj malŝloso de la servo per ant -f" {
-  skip
-  load test-preparo
-  run docker exec -u1001 -it ${formiko_id} bash -c "cd \${REVO}; ant -f \${VOKO}/ant/redaktoservo.xml srv-shlosu srv-malshlosu"
-  # ĉu ni aldone kontrolu, ĉu la dosiero /home/formiko/tmp/inx_tmp/redaktoservo-laboranta-do-shlosita ekzistas kaj poste foriĝas...?
-  echo "${output}"
-  success=$(echo "${output}" | grep BUILD)
-  [[ "${success##* }" == "SUCCESSFUL"* ]]
   [ "$status" -eq 0 ]
 }
 
@@ -129,26 +120,7 @@
   [ "$status" -eq 0 ]
 }
 
-@test "Refaro de artikoloj laŭ listo en dosiero." {
-  skip
-  load test-preparo
-  local -r test_lst=$(pwd)/test.lst
-  printf "test.xml\nabel.xml\ncxeval.xml\n" > ${test_lst}
-  echo "${output}"
-  docker cp ${test_lst} ${formiko_id}:/test.lst 
-  run docker exec -u1001 -it ${formiko_id} formiko -Dart-listo=/test.lst art-listo
-  echo "${output}"
-  rm test.lst
-  artikolo=$(echo "${output}" | grep '\[xslt\] Processing')
-  success=$(echo "${output}" | grep BUILD)
-  [[ "${artikolo}" == *"test.xml"* ]]
-  [[ "${artikolo}" == *"abel.xml"* ]]
-  [[ "${artikolo}" == *"cxeval.xml"* ]]
-  [[ "${success##* }" == "SUCCESSFUL"* ]]
-  [ "$status" -eq 0 ]
-}
-
-@test "Refaro de artikoloj laŭ listo en dosiero kun enpakado." {
+@test "Refaro de artikoloj laŭ listo en dosiero kun enpakado..." {
   #skip
   load test-preparo
   local -r test_lst=$(pwd)/test.lst
@@ -167,15 +139,3 @@
   [ "$status" -eq 0 ]
 }
 
-
-## testu tion: sendu kaj ricevu retpoŝton kun ŝanĝita XML-dosiero tra tomocero (vokita per ssh)
-## kaj voko redaktoservo-skripton en reĝimo -a (nur artikoloj), tio
-## versiigu la ŝanĝon per afido (vokita tra ssh ... processmail.pl)
-## refaru la koncernan artikolon
-
-
-## testu nun simile refaron de la tuta vortaro
-## ne necesas resendi retpoŝton, sed poste kontroli la ŝanĝon en la indekso...
-
-## ĉu necesas malfari la ŝangon...? - nur se ni intencas uzi testadon ankaŭ en la vera medio, kion
-## ni evitu eble lasante tiun teston en la ĝardeno.
