@@ -7,6 +7,8 @@ services:
     # restart: always
     ports:
       - 8088:80
+    networks:
+      - ghardeno
     depends_on:
      - abelo
     volumes:
@@ -15,6 +17,7 @@ services:
       - voko-abelo.mysql_password
       # uzata por eksporto de lastaj ŝanĝoj:
       - voko-abelo.mysql_root_password
+      - voko-araneo.cgi_password
     environment:
       EMAIL_SENDER_TRANSPORT: SMTPS
       EMAIL_SENDER_TRANSPORT_ssl: ssl
@@ -65,6 +68,8 @@ services:
     image: voko-sesio
     build: https://github.com/revuloj/voko-sesio.git
     # restart: always
+    networks:
+      - ghardeno
     volumes:
       - alveno:/home/vsftpd/alveno
       - sesio-log:/var/log/vsftpd
@@ -72,7 +77,7 @@ services:
       - 0.0.0.0:21:21
       - 21200-21210:21200-21210
     secrets:
-      - voko-sesio.ftp-password         
+      - voko-sesio.ftp_password         
 
   tomocero:
     image: voko-tomocero
@@ -104,8 +109,11 @@ secrets:
     external: true
   voko-abelo.mysql_password:
     external: true
-  voko-sesio.ftp-password:
+  voko-sesio.ftp_password:
     external: true
+
+  voko-araneo.cgi_password:
+    external: true    
 
 # ni bezonas nur sendi, ne legi poŝton en Araneujo
 #  voko-tomocero.pop3_server:
@@ -135,6 +143,7 @@ volumes:
   mail:
   spool:
 
-  
-
+networks:
+  ghardeno:
+    external: true
 

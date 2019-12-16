@@ -20,6 +20,21 @@
   [ "$status" -eq 0 ]
 }
 
+@test "Agordo de spegulo" {
+  load test-preparo
+  run docker exec -u1001 -it ${formiko_id} bash -c "cd \${REVO}; ant -f \${VOKO}/ant/spegulo.xml revo-agordo"
+
+  # srv.poshtoservilo=tomocero
+  echo "${output}"
+  ftp_user=$(echo "${output}" | grep revo.servilo.user)
+  #echo "$poshtilo"
+  #echo "[${poshtilo##*=}]"
+  [ ! "$output" = "" ]
+  [[ "${ftp_user##*=}" == "sesio"* ]]
+  [ "$status" -eq 0 ]
+}
+
+
 @test "Ŝloso de la servo per la skripto formiko" {
   skip
   load test-preparo

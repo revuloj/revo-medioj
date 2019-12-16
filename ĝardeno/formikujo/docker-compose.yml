@@ -5,6 +5,8 @@ services:
     image: voko-formiko
     build: https://github.com/revuloj/voko-formiko.git
       # restart: always
+    networks:
+      - ghardeno
     volumes:
       - type: bind
         source: ./revo
@@ -19,10 +21,10 @@ services:
       - voko-araneo.cgi_password
     # necesas unufoje akcepti la ssh-servo-ŝlosilon de afido
     # KOREKTU: ofte afido ankoraŭ ne estas aktiva, iel ni devos atendi ĝis afido reagas kaj funkcias la komando!
-    command: >
-      bash -c 
-      "su -c 'ssh -i /run/secrets/voko-formiko.ssh_key -o StrictHostKeyChecking=no -o PasswordAuthentication=no afido@afido exit' formiko
-      && cron -f"
+###    command: >
+###      bash -c 
+###      "su -c 'ssh -i /run/secrets/voko-formiko.ssh_key -o StrictHostKeyChecking=no -o PasswordAuthentication=no afido@afido exit' formiko
+###      && cron -f"
     configs:
       - source: voko-formiko.agordo-cron
         #uid: '1001'
@@ -184,5 +186,7 @@ volumes:
 #  cvsroot:
 #    external: true
   
-
+networks:
+  ghardeno:
+    external: true
 
