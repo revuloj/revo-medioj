@@ -27,7 +27,7 @@
 
 @test "Legi la pasvorton kiel sekreto kaj konekti per ftp" {
   sesio_id=$(docker ps --filter name=araneujo_sesio -q)
-  ftp_pw=$(docker exec $sesio_id cat /run/secrets/voko-sesio.ftp-password)
+  ftp_pw=$(docker exec $sesio_id cat /run/secrets/voko-sesio.ftp_password)
   #echo $ftp_pw
   run ftp -n <<EOFTP
 open localhost
@@ -43,7 +43,7 @@ EOFTP
 
 @test "Alŝuti arĥivon kun dosiero per ftp al Sesio kaj malpaki ĝin per Perl en Araneo" {
   sesio_id=$(docker ps --filter name=araneujo_sesio -q)
-  ftp_pw=$(docker exec $sesio_id cat /run/secrets/voko-sesio.ftp-password)
+  ftp_pw=$(docker exec $sesio_id cat /run/secrets/voko-sesio.ftp_password)
   #tst_dir=$(dirname "${BASH_SOURCE[0]}")
   tst_dir=$(dirname $BATS_TEST_FILENAME)
   echo "dir: ${tst_dir}"
@@ -79,7 +79,7 @@ EOFTP
 #http://reta-vortaro.de/cgi-bin/admin/uprevo.pl?fname=
 @test "Trakti la arĥivon per uprevo.pl en Araneo" {
   araneo_id=$(docker ps --filter name=araneujo_araneo -q)
-  #ftp_pw=$(docker exec $araneo_id cat /run/secrets/voko-sesio.ftp-password)
+  #ftp_pw=$(docker exec $araneo_id cat /run/secrets/voko-sesio.ftp_password)
 
   araneo_host=localhost
   ports=$(docker service ls -f name=araneujo_araneo --format '{{.Ports}}')
