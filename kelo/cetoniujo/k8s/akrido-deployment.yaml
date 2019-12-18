@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    cmp: akrido
+  name: akrido
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      cmp: akrido  
+  strategy: {}
+  template:
+    metadata:
+      labels:
+        cmp: akrido
+    spec:
+      containers:
+      - image: voko-akrido
+        name: akrido
+        resources: {}
+      restartPolicy: Always
+status: {}

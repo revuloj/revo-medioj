@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: cetonio
+  name: cetonio
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: cetonio  
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: cetonio
+    spec:
+      containers:
+      - image: voko-cetonio
+        name: cetonio
+        ports:
+        - containerPort: 8080
+        resources: {}
+        volumeMounts:
+        - mountPath: /home/cetonio/sql
+          name: sql
+      restartPolicy: Always
+      volumes:
+      - name: sql
+        persistentVolumeClaim:
+          claimName: sql
+status: {}

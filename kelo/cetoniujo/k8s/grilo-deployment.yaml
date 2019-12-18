@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    cmp: grilo
+  name: grilo
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      cmp: grilo  
+  strategy: {}
+  template:
+    metadata:
+      labels:
+        cmp: grilo
+    spec:
+      containers:
+      - image: voko-grilo
+        name: grilo
+        resources: {}
+      restartPolicy: Always
+status: {}

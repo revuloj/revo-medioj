@@ -1,0 +1,18 @@
+images:
+  - name: voko-cetonio
+    newName: registry.local:5000/voko-cetonio
+    newTag: latest
+  - name: voko-akrido
+    newName: registry.local:5000/voko-akrido
+    newTag: latest
+  - name: voko-grilo
+    newName: registry.local:5000/voko-grilo
+    newTag: latest
+  - name: voko-cikado
+    newName: registry.local:5000/voko-cikado
+    newTag: latest
+resources:
+  - cetonio-deployment.yaml
+  - akrido-deployment.yaml
+  - grilo-deployment.yaml
+  - cikado-deployment.yaml      
