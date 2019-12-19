@@ -36,7 +36,7 @@
 
 
 @test "Ŝloso de la servo per la skripto formiko" {
-  skip
+  #skip
   load test-preparo
   run docker exec -u1001 -it ${formiko_id} formiko srv-shlosu
   echo "${output}"
@@ -47,7 +47,7 @@
 
 
 @test "Malŝloso de la servo per la skripto formiko" {
-  skip
+  #skip
   load test-preparo
   run docker exec -u1001 -it ${formiko_id} formiko srv-malshlosu
   # ĉu ni aldone kontrolu, ĉu la dosiero /home/formiko/tmp/inx_tmp/redaktoservo-laboranta-do-shlosita ekzistas kaj poste foriĝas...?
@@ -63,7 +63,7 @@
 ## docker exec -u1001 -it ${formiko_id} formiko inx-helpo
 
 @test "Testo de la komunikado inter formiko -> afido per ssh..." {
-  skip
+  #skip
   load test-preparo
 #  run docker exec -u1001 -it  ${formiko_id} ssh -i /run/secrets/voko-formiko.ssh_key -o StrictHostKeyChecking=no \
 #     -o PasswordAuthentication=no afido@afido ls /usr/local/bin/processmail.pl
@@ -74,7 +74,7 @@
 }
 
 @test "Forsendo de retpoŝto kun ŝanĝetita XML de test.xml" {
-  skip
+  #skip
   load test-preparo  
   local -r testmail_addr=$(docker exec -u1074 ${tomocero_id} cat /run/secrets/voko-tomocero.relayaddress) 
   local -r testfrom=$(docker exec -u1074 ${formiko_id} head -1 /run/secrets/voko.redaktantoj) 
@@ -85,7 +85,7 @@
 }
 
 @test "Iom da atendo kaj poste provu legi la antaŭe senditan poŝtaĵon kun test.xml" {
-  skip
+  #skip
   load test-preparo
   sleep 20
   run docker exec -u1074 ${tomocero_id} fetchmail
@@ -97,7 +97,7 @@
 
 
 @test "Trakto de retpoŝto kun test.xml per processmail.pl" {
-  skip
+  #skip
   load test-preparo
 
   # necesas manipulita processmail.pl por akcepti mesaĝon de $testmail_addr
@@ -124,7 +124,7 @@
 }
 
 @test "Refaro de artikoloj (test.xml). Povas daŭri longe unuafoje pro kompleta refaro de artikoloj en revo/art/." {
-  skip
+  #skip
   load test-preparo
   run docker exec -u1001 -it ${formiko_id} formiko -Duser-mail-file-exists=yes srv-refari-nur-artikolojn
   echo "${output}"
@@ -150,7 +150,7 @@
   [[ "${artikolo}" == *"test.xml"* ]]
   [[ "${artikolo}" == *"abel.xml"* ]]
   [[ "${artikolo}" == *"cxeval.xml"* ]]
-  [[ "${success##* }" == "SCCESSFUL"* ]]
+  [[ "${success##* }" == "SUCCESSFUL"* ]]
   [ "$status" -eq 0 ]
 }
 
