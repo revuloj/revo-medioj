@@ -27,9 +27,9 @@ spec:
         resources: {}
         volumeMounts:
         - mountPath: /
-          name: voko-formiko.agordo-cron
+          name: formiko-agordo-cron
         - mountPath: /home/formiko/etc/redaktoservo-agordo
-          name: voko-formiko.agordo-redaktoservo
+          name: formiko-agordo-redaktoservo
         - mountPath: /home/formiko/revo
           name: formiko-revo
         - mountPath: /home/formiko/tmp
@@ -42,12 +42,12 @@ spec:
       volumes:
       - configMap:
           defaultMode: 420
-          name: voko-formiko.agordo-cron
-        name: voko-formiko.agordo-cron
+          name: formiko-agordo-cron
+        name: formiko-agordo-cron
       - configMap:
           defaultMode: 292
-          name: voko-formiko.agordo-redaktoservo
-        name: voko-formiko.agordo-redaktoservo
+          name: formiko-agordo-redaktoservo
+        name: formiko-agordo-redaktoservo
       - name: formiko-revo
         persistentVolumeClaim:
           claimName: formiko-revo

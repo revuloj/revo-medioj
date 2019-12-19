@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: ConfigMap
+# verŝajne estas pli bone uzi CronJob de Kuberneto ol cron-demonon ene de docker,
+# ĉar tiele oni povas vidi la staton kaj fari la administradon pere de Kuberneto
+# kaj ne devas rigardi profunde en la docker-ujon...?
+metadata:
+  name: formiko-agordo-cron
+data:
+  voko-formiko.agordo-redaktoservo: |
+    poshtoservilo=tomocero
+    loka-poshto-dosiero=/var/mail/tomocero
+    #revo-tempo.url=http://araneo/cgi-bin/admin/time.pl
+    revo-tempo.url=http://retavortaro.de/cgi-bin/admin/time.pl
+    servoprotokolo=/home/formiko/log/redaktoservo.log
