@@ -1,0 +1,14 @@
+images:
+  - name: voko-formiko
+    newName: registry.local:5000/voko-formiko
+    newTag: latest
+  - name: voko-afido
+    newName: registry.local:5000/voko-afido
+    newTag: latest
+  - name: voko-tomocero
+    newName: registry.local:5000/voko-tomocero
+    newTag: latest
+resources:
+  - formiko-deployment.yaml
+  - afido-deployment.yaml
+  - tomocero-deployment.yaml

@@ -1,0 +1,63 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: formiko
+  name: formiko
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: formiko  
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: formiko
+    spec:
+      containers:
+      - args:
+        - bash
+        - -c
+        - su -c 'ssh -i /run/secrets/voko-formiko.ssh_key -o StrictHostKeyChecking=no
+          -o PasswordAuthentication=no afido@afido exit' formiko && cron -f
+        image: voko-formiko
+        name: formiko
+        resources: {}
+        volumeMounts:
+        - mountPath: /
+          name: voko-formiko.agordo-cron
+        - mountPath: /home/formiko/etc/redaktoservo-agordo
+          name: voko-formiko.agordo-redaktoservo
+        - mountPath: /home/formiko/revo
+          name: formiko-revo
+        - mountPath: /home/formiko/tmp
+          name: formiko-tmp
+        - mountPath: /home/formiko/log
+          name: formiko-log
+        - mountPath: /var/mail
+          name: mail
+      restartPolicy: Always
+      volumes:
+      - configMap:
+          defaultMode: 420
+          name: voko-formiko.agordo-cron
+        name: voko-formiko.agordo-cron
+      - configMap:
+          defaultMode: 292
+          name: voko-formiko.agordo-redaktoservo
+        name: voko-formiko.agordo-redaktoservo
+      - name: formiko-revo
+        persistentVolumeClaim:
+          claimName: formiko-revo
+      - name: formiko-tmp
+        persistentVolumeClaim:
+          claimName: formiko-tmp
+      - name: formiko-log
+        persistentVolumeClaim:
+          claimName: formiko-log
+      - name: mail
+        persistentVolumeClaim:
+          claimName: mail
+status: {}
