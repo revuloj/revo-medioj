@@ -5,6 +5,12 @@ metadata:
   labels:
     cmp: formiko-revo
   name: formiko-revo
+# anstataŭ tio, kio funkcias nur kun sola nodo necesas alia tipo de memoro por    
+# plurnoda ĉirkaŭaĵo (NFS ktp)
+# kp. https://kubernetes.io/docs/concepts/storage/persistent-volumes/
+# https://rancher.com/docs/rancher/v2.x/en/cluster-admin/volumes-and-storage/
+# https://longhorn.io/
+# https://raw.githubusercontent.com/longhorn/longhorn/master/deploy/longhorn.yaml  
 spec:
   accessModes:
   - ReadWriteOnce

@@ -20,15 +20,15 @@ spec:
       - args:
         - bash
         - -c
-        - su -c 'ssh -i /run/secrets/voko-formiko.ssh_key -o StrictHostKeyChecking=no
+        - su -c 'ssh -i /secrets/voko-formiko/ssh_key -o StrictHostKeyChecking=no
           -o PasswordAuthentication=no afido@afido exit' formiko && cron -f
         image: voko-formiko
         name: formiko
         resources: {}
         volumeMounts:
-        - mountPath: /
+        - mountPath: /formiko-agordo-cron
           name: formiko-agordo-cron
-        - mountPath: /home/formiko/etc/redaktoservo-agordo
+        - mountPath: /home/formiko/etc/
           name: formiko-agordo-redaktoservo
         - mountPath: /home/formiko/revo
           name: formiko-revo
@@ -38,6 +38,15 @@ spec:
           name: formiko-log
         - mountPath: /var/mail
           name: mail
+        - mountPath: /secrets/voko-sesio
+          name: voko-sesio
+          readOnly: true
+        - mountPath: /secrets/voko-araneo
+          name: voko-araneo
+          readOnly: true
+        - mountPath: /secrets/voko-formiko
+          name: voko-formiko
+          readOnly: true
       restartPolicy: Always
       volumes:
       - configMap:
@@ -48,6 +57,21 @@ spec:
           defaultMode: 292
           name: formiko-agordo-redaktoservo
         name: formiko-agordo-redaktoservo
+      - name: voko-formiko
+        secret:
+          secretName: voko-formiko
+      - name: voko-sesio
+        secret:
+          secretName: voko-sesio
+          items:
+          - key: ftp_password    
+            path: ftp_password      
+      - name: voko-araneo
+        secret:
+          secretName: voko-araneo
+          items:
+          - key: cgi_password          
+            path: cgi_password      
       - name: formiko-revo
         persistentVolumeClaim:
           claimName: formiko-revo

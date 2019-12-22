@@ -4,7 +4,7 @@ kind: ConfigMap
 # ĉar tiele oni povas vidi la staton kaj fari la administradon pere de Kuberneto
 # kaj ne devas rigardi profunde en la docker-ujon...?
 metadata:
-  name: formiko-agordo-cron
+  name: formiko-agordo-redaktoservo
 data:
   voko-formiko.agordo-redaktoservo: |
     poshtoservilo=tomocero
