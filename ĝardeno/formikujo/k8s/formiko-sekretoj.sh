@@ -18,6 +18,6 @@ metadata:
   name: voko-formiko
 type: Opaque
 data:
-  ssh_key: ${ssh_key}
+  voko-formiko.ssh_key: ${ssh_key}
 EOF
 

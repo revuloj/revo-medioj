@@ -27,9 +27,10 @@ spec:
         resources: {}
         volumeMounts:
         - mountPath: /formiko-agordo-cron
-          name: formiko-agordo-cron
+          subPath: formiko-agordo-cron
+          name: formiko-agordo-cron-vol
         - mountPath: /home/formiko/etc/
-          name: formiko-agordo-redaktoservo
+          name: formiko-agordo-redaktoservo-vol
         - mountPath: /home/formiko/revo
           name: formiko-revo
         - mountPath: /home/formiko/tmp
@@ -38,40 +39,37 @@ spec:
           name: formiko-log
         - mountPath: /var/mail
           name: mail
-        - mountPath: /secrets/voko-sesio
-          name: voko-sesio
-          readOnly: true
-        - mountPath: /secrets/voko-araneo
-          name: voko-araneo
-          readOnly: true
-        - mountPath: /secrets/voko-formiko
-          name: voko-formiko
+        - mountPath: /secrets/
+          name: secrets-vol
           readOnly: true
       restartPolicy: Always
-      volumes:
+
+      volumes:        
       - configMap:
           defaultMode: 420
           name: formiko-agordo-cron
-        name: formiko-agordo-cron
+        name: formiko-agordo-cron-vol
       - configMap:
           defaultMode: 292
           name: formiko-agordo-redaktoservo
-        name: formiko-agordo-redaktoservo
-      - name: voko-formiko
-        secret:
-          secretName: voko-formiko
-      - name: voko-sesio
-        secret:
-          secretName: voko-sesio
-          items:
-          - key: ftp_password    
-            path: ftp_password      
-      - name: voko-araneo
-        secret:
-          secretName: voko-araneo
-          items:
-          - key: cgi_password          
-            path: cgi_password      
+        name: formiko-agordo-redaktoservo-vol
+
+      - name: secrets-vol
+        projected:
+          sources:      
+          - secret:
+              name: voko-formiko
+          - secret:
+              name: voko-sesio
+              items:
+              - key: voko-sesio.ftp_password    
+                path: voko-sesio.ftp_password      
+          - secret:
+              name: voko-araneo
+              items:
+              - key: voko-araneo.cgi_password          
+                path: voko-araneo.cgi_password   
+
       - name: formiko-revo
         persistentVolumeClaim:
           claimName: formiko-revo

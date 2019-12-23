@@ -12,5 +12,5 @@ metadata:
   name: voko-araneo
 type: Opaque
 data:
-  cgi_password: ${cgi_password}
+  voko-araneo.cgi_password: ${cgi_password}
 EOF

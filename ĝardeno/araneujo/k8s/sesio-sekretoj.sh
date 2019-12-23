@@ -11,5 +11,5 @@ metadata:
   name: voko-sesio
 type: Opaque
 data:
-  ftp_password: ${ftp_password}
+  voko-sesio.ftp_password: ${ftp_password}
 EOF
