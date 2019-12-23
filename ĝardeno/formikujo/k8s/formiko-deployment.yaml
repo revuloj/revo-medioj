@@ -20,17 +20,12 @@ spec:
       - args:
         - bash
         - -c
-        - su -c 'ssh -i /secrets/voko-formiko/ssh_key -o StrictHostKeyChecking=no
+        - su -c 'ssh -i /secrets/voko-formiko.ssh_key -o StrictHostKeyChecking=no
           -o PasswordAuthentication=no afido@afido exit' formiko && cron -f
         image: voko-formiko
         name: formiko
         resources: {}
         volumeMounts:
-        - mountPath: /formiko-agordo-cron
-          subPath: formiko-agordo-cron
-          name: formiko-agordo-cron-vol
-        - mountPath: /home/formiko/etc/
-          name: formiko-agordo-redaktoservo-vol
         - mountPath: /home/formiko/revo
           name: formiko-revo
         - mountPath: /home/formiko/tmp
@@ -42,18 +37,18 @@ spec:
         - mountPath: /secrets/
           name: secrets-vol
           readOnly: true
+        - mountPath: /config/
+          name: formiko-agordo-vol
       restartPolicy: Always
 
       volumes:        
-      - configMap:
-          defaultMode: 420
-          name: formiko-agordo-cron
-        name: formiko-agordo-cron-vol
-      - configMap:
-          defaultMode: 292
-          name: formiko-agordo-redaktoservo
-        name: formiko-agordo-redaktoservo-vol
-
+      - name: formiko-agordo-vol
+        projected:
+          sources:      
+          - configMap:
+              name: formiko-agordo-cron
+          - configMap:
+              name: formiko-agordo-redaktoservo          
       - name: secrets-vol
         projected:
           sources:      

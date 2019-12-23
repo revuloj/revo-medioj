@@ -27,10 +27,11 @@ services:
       && cron -f"
     configs:
       - source: voko-formiko.agordo-cron
+        target: /config/voko-formiko.agordo-cron
         #uid: '1001'
         mode: 0644
       - source: voko-formiko.agordo-redaktoservo
-        target: /home/formiko/etc/redaktoservo-agordo
+        target: /config/voko-formiko.agordo-redaktoservo
         mode: 0444
     #healthcheck:
     #  test: ["CMD", "health_check_cron.sh"]
