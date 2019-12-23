@@ -3,6 +3,13 @@ kind: ConfigMap
 # verŝajne estas pli bone uzi CronJob de Kuberneto ol cron-demonon ene de docker,
 # ĉar tiele oni povas vidi la staton kaj fari la administradon pere de Kuberneto
 # kaj ne devas rigardi profunde en la docker-ujon...?
+
+# Krome tiel ni povos rezigni pri ssh inter formiko, afido kaj vaneso.
+# Sed ni bezonas ankoraŭ solvon tiuokaze, kiel sinkronigi la tri.
+# Unu ebleco estus raligi redaktoservo.sh kiel kubectl-skripton kune kun Jobs, sed tiam
+# ni bzonus cron de la gastiga sistemo...
+#
+# https://stackoverflow.com/questions/52321742/kubernetes-can-jobs-be-chained-together-as-steps-in-a-workflow
 metadata:
   name: formiko-agordo-cron
 data:
