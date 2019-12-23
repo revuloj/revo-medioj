@@ -4,7 +4,7 @@ metadata:
   creationTimestamp: null
   labels:
     cmp: afido
-  name: afido-mail
+  name: afido-afido
 spec:
   accessModes:
   - ReadWriteOnce

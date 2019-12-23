@@ -31,7 +31,7 @@ spec:
         - mountPath: /home/afido/dict/revo-fonto
           name: afido-git
         - mountPath: /var/afido
-          name: afido
+          name: afido-afido
         - mountPath: /var/mail
           name: mail
       restartPolicy: Always
@@ -45,9 +45,9 @@ spec:
       - name: afido-git
         persistentVolumeClaim:
           claimName: afido-git
-      - name: afido
+      - name: afido-afido
         persistentVolumeClaim:
-          claimName: afido
+          claimName: afido-afido
       - name: mail
         persistentVolumeClaim:
           claimName: mail
