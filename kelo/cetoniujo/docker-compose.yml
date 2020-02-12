@@ -7,6 +7,9 @@ services:
       context: .
       dockerfile: Dockerfile
     # restart: always
+    # ni devos atendi, ĝis cetonio-db akiris la datumbazon,
+    # jen estas informoj, kiel prokrasti la lanĉon: https://docs.docker.com/compose/startup-order/
+
     depends_on:
       - cikado
       - akrido
