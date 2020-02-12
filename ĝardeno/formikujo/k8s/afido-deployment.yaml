@@ -1,0 +1,54 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    cmp: afido
+  name: afido
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      cmp: afido  
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        cmp: afido
+    spec:
+      containers:
+      - env:
+        - name: CVSROOT
+          value: /home/afido/dict/cvsroot
+        image: voko-afido
+        name: afido
+        resources: {}
+        volumeMounts:
+        - mountPath: /home/afido/dict/cvsroot
+          name: afido-cvs
+        - mountPath: /home/afido/dict/xml
+          name: afido-xml
+        - mountPath: /home/afido/dict/revo-fonto
+          name: afido-git
+        - mountPath: /var/afido
+          name: afido-afido
+        - mountPath: /var/mail
+          name: mail
+      restartPolicy: Always
+      volumes:
+      - name: afido-cvs
+        persistentVolumeClaim:
+          claimName: afido-cvs
+      - name: afido-xml
+        persistentVolumeClaim:
+          claimName: afido-xml
+      - name: afido-git
+        persistentVolumeClaim:
+          claimName: afido-git
+      - name: afido-afido
+        persistentVolumeClaim:
+          claimName: afido-afido
+      - name: mail
+        persistentVolumeClaim:
+          claimName: mail
+status: {}

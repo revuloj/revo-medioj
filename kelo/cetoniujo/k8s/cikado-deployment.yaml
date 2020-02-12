@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    cmp: cikado
+  name: cikado
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      cmp: cikado  
+  strategy: {}
+  template:
+    metadata:
+      labels:
+        cmp: cikado
+    spec:
+      containers:
+      - image: voko-cikado
+        name: cikado
+        resources: {}
+      restartPolicy: Always
+status: {}

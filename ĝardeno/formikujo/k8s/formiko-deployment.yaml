@@ -1,0 +1,80 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: formiko
+  name: formiko
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: formiko  
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: formiko
+    spec:
+      containers:
+      - args:
+        - bash
+        - -c
+        - su -c 'ssh -i /secrets/voko-formiko.ssh_key -o StrictHostKeyChecking=no
+          -o PasswordAuthentication=no afido@afido exit' formiko && cron -f
+        image: voko-formiko
+        name: formiko
+        resources: {}
+        volumeMounts:
+        - mountPath: /home/formiko/revo
+          name: formiko-revo
+        - mountPath: /home/formiko/tmp
+          name: formiko-tmp
+        - mountPath: /home/formiko/log
+          name: formiko-log
+        - mountPath: /var/mail
+          name: mail
+        - mountPath: /secrets/
+          name: secrets-vol
+          readOnly: true
+        - mountPath: /config/
+          name: formiko-agordo-vol
+      restartPolicy: Always
+
+      volumes:        
+      - name: formiko-agordo-vol
+        projected:
+          sources:      
+          - configMap:
+              name: formiko-agordo-cron
+          - configMap:
+              name: formiko-agordo-redaktoservo          
+      - name: secrets-vol
+        projected:
+          sources:      
+          - secret:
+              name: voko-formiko
+          - secret:
+              name: voko-sesio
+              items:
+              - key: voko-sesio.ftp_password    
+                path: voko-sesio.ftp_password      
+          - secret:
+              name: voko-araneo
+              items:
+              - key: voko-araneo.cgi_password          
+                path: voko-araneo.cgi_password   
+
+      - name: formiko-revo
+        persistentVolumeClaim:
+          claimName: formiko-revo
+      - name: formiko-tmp
+        persistentVolumeClaim:
+          claimName: formiko-tmp
+      - name: formiko-log
+        persistentVolumeClaim:
+          claimName: formiko-log
+      - name: mail
+        persistentVolumeClaim:
+          claimName: mail
+status: {}

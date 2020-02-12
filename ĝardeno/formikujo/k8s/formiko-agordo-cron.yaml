@@ -1,0 +1,36 @@
+apiVersion: v1
+kind: ConfigMap
+# verŝajne estas pli bone uzi CronJob de Kuberneto ol cron-demonon ene de docker,
+# ĉar tiele oni povas vidi la staton kaj fari la administradon pere de Kuberneto
+# kaj ne devas rigardi profunde en la docker-ujon...?
+
+# Krome tiel ni povos rezigni pri ssh inter formiko, afido kaj vaneso.
+# Sed ni bezonas ankoraŭ solvon tiuokaze, kiel sinkronigi la tri.
+# Unu ebleco estus raligi redaktoservo.sh kiel kubectl-skripton kune kun Jobs, sed tiam
+# ni bzonus cron de la gastiga sistemo...
+#
+# https://stackoverflow.com/questions/52321742/kubernetes-can-jobs-be-chained-together-as-steps-in-a-workflow
+metadata:
+  name: formiko-agordo-cron
+data:
+  voko-formiko.agordo-cron: |
+    # ŝanĝu tion al via retpoŝtadreso:
+    MAILTO=vi@esperanto.eo
+    SHELL=/bin/bash
+    HOME=/home/revo
+    #VOKO=/home/revo/voko
+    #LOG=$HOME/revolog
+    
+    # refaru vortaron komplete kun indeksoj ĉiutage je 22:10
+    10 22 * * * source $HOME/.bashrc; $VOKO/bin/redaktoservo.sh > /dev/null
+    
+    # traktu nur artikolojn ĉiuhore de 3:10 ĝis 21:10
+    10 3-21 * * * source $HOME/.bashrc; $VOKO/bin/redaktoservo.sh -a > /dev/null
+    
+    # resumon kreu kaj sendu ĉiutage je 15:50
+    50 15 * * * source $HOME/.bashrc; $VOKO/bin/redaktoservo.sh -r
+    
+    # purigu ĉiun 28a de monato je 1:50
+    50 1 28 * * source $HOME/.bashrc; $VOKO/bin/redaktoservo.sh -p
+    
+    #ant -f /home/revo/voko/ant/medio.xml med-cfg

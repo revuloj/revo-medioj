@@ -1,0 +1,18 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: cetonio
+  annotations:
+    ingress.kubernetes.io/ssl-redirect: "false"
+spec:
+  rules:
+  - http:
+      paths:
+      - path: /akrido
+        backend:
+          serviceName: akrido
+          servicePort: 8081
+      - path: /cikado
+        backend:
+          serviceName: cikado
+          servicePort: 8082

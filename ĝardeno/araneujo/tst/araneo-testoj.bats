@@ -21,6 +21,7 @@
 }
 
 @test "Kontroli, ĉu la artikolo 'test' estas redaktebla per vokomail.pl" {
+  skip
   load test-preparo
   url="http://${araneo_host}:${pnum}/cgi-bin/vokomail.pl?art=test"
   html=$(curl -Ls ${url})
@@ -32,6 +33,7 @@
 }
 
 @test "Provi sendi redakton por la artikolo 'test' al vokomail.pl" {
+  skip
   load test-preparo
 
   local -r testfrom=$(docker exec -u1074 ${abelo_id} head -1 /run/secrets/voko.redaktantoj) 

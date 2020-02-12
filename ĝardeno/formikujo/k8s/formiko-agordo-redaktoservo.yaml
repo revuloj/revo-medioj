@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: formiko-agordo-redaktoservo
+data:
+  voko-formiko.agordo-redaktoservo: |
+    poshtoservilo=tomocero
+    loka-poshto-dosiero=/var/mail/tomocero
+    #revo-tempo.url=http://araneo/cgi-bin/admin/time.pl
+    revo-tempo.url=http://retavortaro.de/cgi-bin/admin/time.pl
+    servoprotokolo=/home/formiko/log/redaktoservo.log

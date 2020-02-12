@@ -4,6 +4,8 @@
 # https://github.com/sstephenson/bats/issues/136
 # https://github.com/sstephenson/bats/issues/10
 
+# https://docs.docker.com/engine/swarm/ingress/
+
 @test "Agordo de redaktoservo" {
   load test-preparo
   run docker exec -u1001 -it ${formiko_id} bash -c "cd \${REVO}; ant -f \${VOKO}/ant/redaktoservo.xml srv-agordo"
@@ -18,19 +20,23 @@
   [ "$status" -eq 0 ]
 }
 
-@test "Ŝloso kaj malŝloso de la servo per ant -f" {
-  skip
+@test "Agordo de spegulo" {
   load test-preparo
-  run docker exec -u1001 -it ${formiko_id} bash -c "cd \${REVO}; ant -f \${VOKO}/ant/redaktoservo.xml srv-shlosu srv-malshlosu"
-  # ĉu ni aldone kontrolu, ĉu la dosiero /home/formiko/tmp/inx_tmp/redaktoservo-laboranta-do-shlosita ekzistas kaj poste foriĝas...?
+  run docker exec -u1001 -it ${formiko_id} bash -c "cd \${REVO}; ant -f \${VOKO}/ant/spegulo.xml revo-agordo"
+
+  # srv.poshtoservilo=tomocero
   echo "${output}"
-  success=$(echo "${output}" | grep BUILD)
-  [[ "${success##* }" == "SUCCESSFUL"* ]]
+  ftp_user=$(echo "${output}" | grep revo.servilo.user)
+  #echo "$poshtilo"
+  #echo "[${poshtilo##*=}]"
+  [ ! "$output" = "" ]
+  [[ "${ftp_user##*=}" == "sesio"* ]]
   [ "$status" -eq 0 ]
 }
 
+
 @test "Ŝloso de la servo per la skripto formiko" {
-  skip
+  #skip
   load test-preparo
   run docker exec -u1001 -it ${formiko_id} formiko srv-shlosu
   echo "${output}"
@@ -41,7 +47,7 @@
 
 
 @test "Malŝloso de la servo per la skripto formiko" {
-  skip
+  #skip
   load test-preparo
   run docker exec -u1001 -it ${formiko_id} formiko srv-malshlosu
   # ĉu ni aldone kontrolu, ĉu la dosiero /home/formiko/tmp/inx_tmp/redaktoservo-laboranta-do-shlosita ekzistas kaj poste foriĝas...?
@@ -57,7 +63,7 @@
 ## docker exec -u1001 -it ${formiko_id} formiko inx-helpo
 
 @test "Testo de la komunikado inter formiko -> afido per ssh..." {
-  skip
+  #skip
   load test-preparo
 #  run docker exec -u1001 -it  ${formiko_id} ssh -i /run/secrets/voko-formiko.ssh_key -o StrictHostKeyChecking=no \
 #     -o PasswordAuthentication=no afido@afido ls /usr/local/bin/processmail.pl
@@ -68,7 +74,7 @@
 }
 
 @test "Forsendo de retpoŝto kun ŝanĝetita XML de test.xml" {
-  skip
+  #skip
   load test-preparo  
   local -r testmail_addr=$(docker exec -u1074 ${tomocero_id} cat /run/secrets/voko-tomocero.relayaddress) 
   local -r testfrom=$(docker exec -u1074 ${formiko_id} head -1 /run/secrets/voko.redaktantoj) 
@@ -79,7 +85,7 @@
 }
 
 @test "Iom da atendo kaj poste provu legi la antaŭe senditan poŝtaĵon kun test.xml" {
-  skip
+  #skip
   load test-preparo
   sleep 20
   run docker exec -u1074 ${tomocero_id} fetchmail
@@ -91,7 +97,7 @@
 
 
 @test "Trakto de retpoŝto kun test.xml per processmail.pl" {
-  skip
+  #skip
   load test-preparo
 
   # necesas manipulita processmail.pl por akcepti mesaĝon de $testmail_addr
@@ -118,7 +124,7 @@
 }
 
 @test "Refaro de artikoloj (test.xml). Povas daŭri longe unuafoje pro kompleta refaro de artikoloj en revo/art/." {
-  skip
+  #skip
   load test-preparo
   run docker exec -u1001 -it ${formiko_id} formiko -Duser-mail-file-exists=yes srv-refari-nur-artikolojn
   echo "${output}"
@@ -129,26 +135,7 @@
   [ "$status" -eq 0 ]
 }
 
-@test "Refaro de artikoloj laŭ listo en dosiero." {
-  skip
-  load test-preparo
-  local -r test_lst=$(pwd)/test.lst
-  printf "test.xml\nabel.xml\ncxeval.xml\n" > ${test_lst}
-  echo "${output}"
-  docker cp ${test_lst} ${formiko_id}:/test.lst 
-  run docker exec -u1001 -it ${formiko_id} formiko -Dart-listo=/test.lst art-listo
-  echo "${output}"
-  rm test.lst
-  artikolo=$(echo "${output}" | grep '\[xslt\] Processing')
-  success=$(echo "${output}" | grep BUILD)
-  [[ "${artikolo}" == *"test.xml"* ]]
-  [[ "${artikolo}" == *"abel.xml"* ]]
-  [[ "${artikolo}" == *"cxeval.xml"* ]]
-  [[ "${success##* }" == "SUCCESSFUL"* ]]
-  [ "$status" -eq 0 ]
-}
-
-@test "Refaro de artikoloj laŭ listo en dosiero kun enpakado." {
+@test "Refaro de artikoloj laŭ listo en dosiero kun enpakado..." {
   #skip
   load test-preparo
   local -r test_lst=$(pwd)/test.lst
@@ -163,19 +150,7 @@
   [[ "${artikolo}" == *"test.xml"* ]]
   [[ "${artikolo}" == *"abel.xml"* ]]
   [[ "${artikolo}" == *"cxeval.xml"* ]]
-  [[ "${success##* }" == "SCCESSFUL"* ]]
+  [[ "${success##* }" == "SUCCESSFUL"* ]]
   [ "$status" -eq 0 ]
 }
 
-
-## testu tion: sendu kaj ricevu retpoŝton kun ŝanĝita XML-dosiero tra tomocero (vokita per ssh)
-## kaj voko redaktoservo-skripton en reĝimo -a (nur artikoloj), tio
-## versiigu la ŝanĝon per afido (vokita tra ssh ... processmail.pl)
-## refaru la koncernan artikolon
-
-
-## testu nun simile refaron de la tuta vortaro
-## ne necesas resendi retpoŝton, sed poste kontroli la ŝanĝon en la indekso...
-
-## ĉu necesas malfari la ŝangon...? - nur se ni intencas uzi testadon ankaŭ en la vera medio, kion
-## ni evitu eble lasante tiun teston en la ĝardeno.

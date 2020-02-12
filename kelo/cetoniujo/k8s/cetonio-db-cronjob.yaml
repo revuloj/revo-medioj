@@ -1,0 +1,25 @@
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  labels:
+    cmp: cetonio-db
+  name: cetonio-db
+spec:
+  schedule: "45 4 * * 6"
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+          - image: voko-cetonio
+            name: cetonio-db
+            args:
+            - ./download-inx-db.sh
+            volumeMounts:
+            - mountPath: /home/cetonio/sql
+              name: sql
+          restartPolicy: OnFailure
+          volumes:
+          - name: sql
+            persistentVolumeClaim:
+              claimName: sql
