@@ -7,10 +7,14 @@ services:
       context: .
       dockerfile: Dockerfile
     # restart: always
+    # ni devos atendi, ĝis cetonio-db akiris la datumbazon,
+    # jen estas informoj, kiel prokrasti la lanĉon: https://docs.docker.com/compose/startup-order/
+
     depends_on:
       - cikado
       - akrido
       - grilo
+        #command: bash -c 'cd pro && swipl -s redaktilo-servo.pl -g redaktilo_servo:daemon -t halt -p agordo=etc -- --workers=10 --port=8080 --no-fork'
     ports:
       # ĉe IPv6 por havi la retpordon ne nur ĉe 0.0.0.0:8080, sed ankaŭ localhost:8080
       # uzu provizore:
@@ -24,6 +28,8 @@ services:
       # farenda: dividu agordon nesekretan kaj sekretan kaj uzu configs + secrets
       - source: redaktilo.cfg
         target: /home/cetonio/etc/redaktilo.cfg
+      - source: auth_cfg
+        target: /home/cetonio/etc/auth_cfg
       - source: redaktantoj
         target: /home/cetonio/etc/redaktantoj
     volumes:
@@ -122,6 +128,8 @@ secrets:
   redaktantoj:
     #external: true
     file: ${HOME}/etc/redaktantoj
+  auth_cfg:
+    file: ${HOME}/etc/auth_cfg
 
 volumes:
   sql:
