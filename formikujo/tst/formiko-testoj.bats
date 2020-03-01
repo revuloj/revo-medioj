@@ -149,7 +149,7 @@
 }
 
 @test "Refaro de artikoloj laŭ listo en dosiero kun enpakado." {
-  #skip
+  skip
   load test-preparo
   local -r test_lst=$(pwd)/test.lst
   printf "test.xml\nabel.xml\ncxeval.xml\n" > ${test_lst}
@@ -163,9 +163,80 @@
   [[ "${artikolo}" == *"test.xml"* ]]
   [[ "${artikolo}" == *"abel.xml"* ]]
   [[ "${artikolo}" == *"cxeval.xml"* ]]
-  [[ "${success##* }" == "SCCESSFUL"* ]]
+  [[ "${success##* }" == "SUCCESSFUL"* ]]
   [ "$status" -eq 0 ]
 }
+
+@test "Faro de Sqlite-datumbazo. (daŭras longe...)" {
+  skip
+  load test-preparo
+  docker exec -u1001 -it ${formiko_id} bash -c "rm tmp/inx_tmp/sql/*"
+  docker exec -u1001 -it ${formiko_id} bash -c "rm tmp/inx_tmp/indekso.xml"
+  run docker exec -u1001 -it ${formiko_id} formiko inx-eltiro
+  echo "${output}"
+  success=$(echo "${output}" | grep BUILD)
+  [[ "${success##* }" == "SUCCESSFUL"* ]]
+  run docker exec -u1001 -it ${formiko_id} formiko sql-tuto
+  echo "${output}"
+  success=$(echo "${output}" | grep BUILD)
+  [[ "${success##* }" == "SUCCESSFUL"* ]]
+  # kontrolu, ĉu tmp/inx_tmp/sql/revo-inx.db ekzistas nun...
+  run docker exec -u1001 -it ${formiko_id} ls -l tmp/inx_tmp/sql
+  echo "${output}"
+  [[ "${output}" == *"revo-inx.db"* ]]
+  # kontrolu, ĉu tgz/revosql{-inx}_20*.zip ekzistas nun...
+  run docker exec -u1001 -it ${formiko_id} ls -l tgz
+  echo "${output}"
+  [[ "${output}" == *"revosql-inx_20"*".zip"* ]]
+  [[ "${output}" == *"revosql_20"*".zip"* ]]
+  [ "$status" -eq 0 ]
+}
+
+@test "Preparu medion de la vortaro." {
+  #skip
+  load test-preparo
+  run docker exec -u1001 -it ${formiko_id} formiko med-kadro
+  echo "${output}"
+  success=$(echo "${output}" | grep BUILD)
+  [[ "${success##* }" == "SUCCESSFUL"* ]]
+  [ "$status" -eq 0 ]
+}
+
+@test "Konvertu artikolojn de XML al HTML. (daŭras longe...)" {
+  skip
+  load test-preparo
+  run docker exec -u1001 -it ${formiko_id} formiko inx-eltiro
+  echo "${output}"
+  success=$(echo "${output}" | grep BUILD)
+  [[ "${success##* }" == "SUCCESSFUL"* ]]
+  run docker exec -u1001 -it ${formiko_id} formiko art-tuto
+  echo "${output}"
+  success=$(echo "${output}" | grep BUILD)
+  [[ "${success##* }" == "SUCCESSFUL"* ]]
+  [ "$status" -eq 0 ]
+}
+
+@test "Kreu indeksojn de la vortaro. (daŭras longe...)" {
+  #skip
+  load test-preparo
+  docker exec -u1001 -it ${formiko_id} bash -c "rm tmp/inx_tmp/*.xml"
+  run docker exec -u1001 -it ${formiko_id} formiko inx-tuto
+  echo "${output}"
+  success=$(echo "${output}" | grep BUILD)
+  [[ "${success##* }" == "SUCCESSFUL"* ]]
+  [ "$status" -eq 0 ]
+}
+
+@test "Kreu tezaŭron de la vortaro. (daŭras longe...)" {
+  #skip
+  load test-preparo
+  run docker exec -u1001 -it ${formiko_id} formiko tez-tuto
+  echo "${output}"
+  success=$(echo "${output}" | grep BUILD)
+  [[ "${success##* }" == "SUCCESSFUL"* ]]
+  [ "$status" -eq 0 ]
+}
+
 
 
 ## testu tion: sendu kaj ricevu retpoŝton kun ŝanĝita XML-dosiero tra tomocero (vokita per ssh)

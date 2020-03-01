@@ -1,11 +1,6 @@
 # revo-medioj
 La agordoj por la servoj de Reta Vortaro
 
-Ni uzas tri mediojn:
-- kelo: tio estas loka medio por la programado, kiu funkcias sur unu komputilo (loka "docker swarm"),
-  sen bezono de veraj   poŝtfako, ret-atestiloj, retkontoj por redaktado
-- ĝardeno: tio estas medio por testi ĉion kune kun veraj retpoŝtfakoj, retserviloj k.s. sed izolite de la veraj servoj
-- mondo: tio estas la medio kie okazas la vera redaktado de Reta Vortaro
 
 Superrigardo pri Revujo:
 ![Revujo - superrigardo](https://github.com/revuloj/revo-medioj/blob/master/Revujo-superrigardo.png "Revujo - superrigardo")
@@ -30,5 +25,8 @@ Estas tri retaplikaĵoj, kiuj kune formas la Revujon:
   - vaneso - fakte du vanesoj, unu sendas ŝanĝojn de artikolversioj al la retservo kaj alia ŝanĝojn de la retpaĝoj kreitaj de formiko
   - tomocero - retpoŝtservo, kiu kolektas retpoŝtojn por forsendo kaj komunikas kun poŝtservo de la provizanto
   
-  
-  
+Momente montriĝis ne jam bezonata, sed poste ni eble uzos tri mediojn:
+- kelo: tio estas loka medio por la programado, kiu funkcias sur unu komputilo (loka "docker swarm"),
+  sen bezono de veraj   poŝtfako, ret-atestiloj, retkontoj por redaktado
+- ĝardeno: tio estas medio por testi ĉion kune kun veraj retpoŝtfakoj, retserviloj k.s. sed izolite de la veraj servoj
+- mondo: tio estas la medio kie okazas la vera redaktado de Reta Vortaro
