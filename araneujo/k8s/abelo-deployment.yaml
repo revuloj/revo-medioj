@@ -16,17 +16,32 @@ spec:
         cmp: abelo
     spec:
       containers:
-      - env:
+      - name: abelo
+        image: voko-abelo
+        env:
         - name: MYSQL_DATABASE
           value: usr_web277_1
         - name: MYSQL_PASSWORD_FILE
-          value: /run/secrets/voko-abelo.mysql_password
+          value: /secrets/voko-abelo.mysql_password
         - name: MYSQL_ROOT_PASSWORD_FILE
-          value: /run/secrets/voko-abelo.mysql_root_password
+          value: /secrets/voko-abelo.mysql_root_password
         - name: MYSQL_USER
           value: web277
-        image: voko-abelo
-        name: abelo
+        volumeMounts:
+        - mountPath: /secrets/
+          name: secrets-vol
+          readOnly: true
         resources: {}
       restartPolicy: Always
+      volumes:        
+      - name: secrets-vol
+        projected:
+          sources:      
+          - secret:
+              name: voko-abelo
+#              items:
+#              - key: voko-abelo.mysql_root_password    
+#                path: voko-abelo.mysql_root_password      
+#              - key: voko-abelo.mysql_password    
+#                path: voko-abelo.mysql_password      
 status: {}
