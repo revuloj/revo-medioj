@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: araneo
+  name: araneo
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: araneo  
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: araneo
+    spec:
+      containers:
+      - env:
+        - name: EMAIL_SENDER_TRANSPORT
+          value: SMTPS
+        - name: EMAIL_SENDER_TRANSPORT_host
+          value: tomocero
+        - name: EMAIL_SENDER_TRANSPORT_sasl_password
+          value: sekreta
+        - name: EMAIL_SENDER_TRANSPORT_sasl_username
+          value: tomocero@tomocero
+        - name: EMAIL_SENDER_TRANSPORT_ssl
+          value: ssl
+        image: voko-araneo
+        name: araneo
+        ports:
+        - containerPort: 80
+        resources: {}
+        volumeMounts:
+        - mountPath: /var/www/web277/html/alveno
+          name: alveno
+      restartPolicy: Always
+      volumes:
+      - name: alveno
+        persistentVolumeClaim:
+          claimName: alveno
+status: {}

@@ -1,0 +1,49 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    cmp: sesio
+  name: sesio
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      cmp: sesio  
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        cmp: sesio
+    spec:
+      containers:
+      - image: voko-sesio
+        name: sesio
+        ports:
+        - containerPort: 21
+        - containerPort: 21200
+        - containerPort: 21201
+        - containerPort: 21202
+        - containerPort: 21203
+        - containerPort: 21204
+        - containerPort: 21205
+        - containerPort: 21206
+        - containerPort: 21207
+        - containerPort: 21208
+        - containerPort: 21209
+        - containerPort: 21210
+        resources: {}
+        volumeMounts:
+        - mountPath: /home/vsftpd/alveno
+          name: alveno
+        - mountPath: /var/log/vsftpd
+          name: sesio-log
+      restartPolicy: Always
+      volumes:
+      - name: alveno
+        persistentVolumeClaim:
+          claimName: alveno
+      - name: sesio-log
+        persistentVolumeClaim:
+          claimName: sesio-log
+status: {}

@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    cmp: abelisto
+  name: abelisto
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      cmp: abelisto  
+  strategy: {}
+  template:
+    metadata:
+      labels:
+        cmp: abelisto
+    spec:
+      containers:
+      - env:
+        - name: ADMINER_DESIGN
+          value: hever
+        image: adminer
+        name: abelisto
+        ports:
+        - containerPort: 8080
+        resources: {}
+      restartPolicy: Always
+status: {}

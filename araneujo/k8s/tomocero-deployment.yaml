@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    cmp: tomocero
+  name: tomocero
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      cmp: tomocero  
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        cmp: tomocero
+    spec:
+      containers:
+      - args:
+        - /usr/lib/postfix/master
+        - -d
+        image: voko-tomocero
+        name: tomocero
+        resources: {}
+        volumeMounts:
+        - mountPath: /var/mail
+          name: mail
+        - mountPath: /var/spool
+          name: spool
+      restartPolicy: Always
+      volumes:
+      - name: mail
+        persistentVolumeClaim:
+          claimName: mail
+      - name: spool
+        persistentVolumeClaim:
+          claimName: spool
+status: {}

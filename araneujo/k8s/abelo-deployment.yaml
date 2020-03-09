@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    cmp: abelo
+  name: abelo
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      cmp: abelo  
+  strategy: {}
+  template:
+    metadata:
+      labels:
+        cmp: abelo
+    spec:
+      containers:
+      - env:
+        - name: MYSQL_DATABASE
+          value: usr_web277_1
+        - name: MYSQL_PASSWORD_FILE
+          value: /run/secrets/voko-abelo.mysql_password
+        - name: MYSQL_ROOT_PASSWORD_FILE
+          value: /run/secrets/voko-abelo.mysql_root_password
+        - name: MYSQL_USER
+          value: web277
+        image: voko-abelo
+        name: abelo
+        resources: {}
+      restartPolicy: Always
+status: {}

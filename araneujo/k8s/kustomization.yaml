@@ -1,0 +1,18 @@
+images:
+  - name: voko-araneo
+    newName: registry.local:5000/voko-araneo
+    newTag: latest
+  - name: voko-abelo
+    newName: registry.local:5000/voko-abelo
+    newTag: latest
+  - name: voko-abelisto
+    newName: registry.local:5000/voko-abelisto
+    newTag: latest
+  - name: voko-sesio
+    newName: registry.local:5000/voko-sesio
+    newTag: latest
+resources:
+  - araneo-deployment.yaml
+  - abelo-deployment.yaml
+  - abelisto-deployment.yaml
+  - sesio-deployment.yaml      
