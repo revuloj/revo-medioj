@@ -193,9 +193,19 @@
 }
 
 @test "Preparu medion de la vortaro." {
-  #skip
+  skip
   load test-preparo
   run docker exec -u1001 -it ${formiko_id} formiko med-kadro
+  echo "${output}"
+  success=$(echo "${output}" | grep BUILD)
+  [[ "${success##* }" == "SUCCESSFUL"* ]]
+  [ "$status" -eq 0 ]
+}
+
+@test "Kontrolu XML per Jing (RelaxNG), (daŭras iom longe...)" {
+  skip
+  load test-preparo
+  run docker exec -u1001 -it ${formiko_id} formiko inx-relax
   echo "${output}"
   success=$(echo "${output}" | grep BUILD)
   [[ "${success##* }" == "SUCCESSFUL"* ]]
@@ -217,7 +227,7 @@
 }
 
 @test "Kreu indeksojn de la vortaro. (daŭras longe...)" {
-  #skip
+  skip
   load test-preparo
   docker exec -u1001 -it ${formiko_id} bash -c "rm tmp/inx_tmp/*.xml"
   run docker exec -u1001 -it ${formiko_id} formiko inx-tuto
@@ -228,7 +238,7 @@
 }
 
 @test "Kreu tezaŭron de la vortaro. (daŭras longe...)" {
-  #skip
+  skip
   load test-preparo
   run docker exec -u1001 -it ${formiko_id} formiko tez-tuto
   echo "${output}"
@@ -236,6 +246,17 @@
   [[ "${success##* }" == "SUCCESSFUL"* ]]
   [ "$status" -eq 0 ]
 }
+
+@test "Rekreu la vortaron paralele (kiel en Github, daŭras longe)." {
+  #skip
+  load test-preparo
+  run docker exec -u1001 -it ${formiko_id} formiko -v -Dsha=HEAD srv-servo-github
+  echo "${output}"
+  success=$(echo "${output}" | grep BUILD)
+  [[ "${success##* }" == "SUCCESSFUL"* ]]
+  [ "$status" -eq 0 ]
+}
+
 
 
 

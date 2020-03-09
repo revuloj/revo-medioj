@@ -37,6 +37,7 @@ if [[ ! ${nw} = "" ]]; then
 fi
 
 docker stack deploy -c docker-compose.yml formikujo
+docker service logs -f formikujo_formiko &
 
 # ĉu sufiĉas aliokaze skribu maŝon, kiu reprovas plurfoje...
 sleep 10
