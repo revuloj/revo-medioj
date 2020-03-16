@@ -37,7 +37,6 @@ if [[ ! ${nw} = "" ]]; then
 fi
 
 docker stack deploy -c docker-compose.yml formikujo
-docker service logs -f formikujo_formiko &
 
 # ĉu sufiĉas aliokaze skribu maŝon, kiu reprovas plurfoje...
 sleep 10
@@ -50,3 +49,7 @@ formiko_id=$(docker ps --filter name=formikujo_formiko -q) && echo "Formiko: ${f
 if [ "${afido_id}" = "" ]; then echo "Afido ne aktiva!" 1>&2; exit 1; fi
 if [ "${tomocero_id}" = "" ]; then echo "Tomocero ne aktiva!" 1>&2; exit 1; fi
 if [ "${formiko_id}" = "" ]; then echo "Formiko ne aktiva!" 1>&2; exit 1; fi
+
+docker service logs formikujo_formiko 
+
+# wait

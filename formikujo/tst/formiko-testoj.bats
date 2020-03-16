@@ -240,6 +240,7 @@
 @test "Kreu tezaŭron de la vortaro. (daŭras longe...)" {
   skip
   load test-preparo
+  docker exec -u1001 -it ${formiko_id} bash -c "rm tmp/inx_tmp/*.xml"
   run docker exec -u1001 -it ${formiko_id} formiko tez-tuto
   echo "${output}"
   success=$(echo "${output}" | grep BUILD)
@@ -247,16 +248,58 @@
   [ "$status" -eq 0 ]
 }
 
-@test "Rekreu la vortaron paralele (kiel en Github, daŭras longe)." {
-  #skip
+@test "Kreu la vortaron (kiel en Github, povas iom daŭri)." {
+  skip
   load test-preparo
-  run docker exec -u1001 -it ${formiko_id} formiko -v -Dsha=HEAD srv-servo-github
+  docker exec -it ${formiko_id} bash -c "rm -rf /home/formiko/tmp/inx_tmp"
+  docker exec -it ${formiko_id} bash -c "rm -rf /home/formiko/revo/art/*"
+  docker exec -it ${formiko_id} bash -c "rm -rf /home/formiko/revo/xml/*"
+  docker exec -it ${formiko_id} bash -c "rm -rf /home/formiko/revo/hst/*"
+  docker exec -it ${formiko_id} bash -c "rm -rf /home/formiko/revo/inx/*"
+  docker exec -it ${formiko_id} bash -c "rm -rf /home/formiko/revo/tez/*"
+  docker exec -it ${formiko_id} bash -c "rm -rf /home/formiko/revo-fonto"
+  docker exec -it ${formiko_id} bash -c "create_test_repo.sh"
+  docker exec -u1001 -it ${formiko_id} bash -c "git clone ./test-repo revo-fonto"
+   
+  run docker exec -u1001 -it ${formiko_id} formiko -Dsha=v1 srv-servo-github
   echo "${output}"
   success=$(echo "${output}" | grep BUILD)
   [[ "${success##* }" == "SUCCESSFUL"* ]]
   [ "$status" -eq 0 ]
 }
 
+@test "Ne kreu la vortaran diferencon, se du eldonoj samas." {
+  #skip
+  load test-preparo
+  docker exec -it ${formiko_id} bash -c "rm -rf /home/formiko/revo.ref"
+  run docker exec -u1001 -it ${formiko_id} formiko -Dsha1=v1 -Dsha2=v1 srv-servo-diferenco-github
+  echo "${output}"
+  result=$(echo "${output}" | grep BUILD)
+  [[ "${result##* }" == "FAILED"* ]]
+  [ "$status" -eq 1 ]
+}
+
+@test "Kreu la vortaron en du eldonoj kaj arĥivu la diferencon (kiel en Github, povas iom daŭri)." {
+  #skip
+  load test-preparo
+
+  docker exec -it ${formiko_id} bash -c "rm -rf /home/formiko/tmp/inx_tmp"
+  docker exec -it ${formiko_id} bash -c "rm -rf /home/formiko/revo/art/*"
+  docker exec -it ${formiko_id} bash -c "rm -rf /home/formiko/revo/xml/*"
+  docker exec -it ${formiko_id} bash -c "rm -rf /home/formiko/revo/hst/*"
+  docker exec -it ${formiko_id} bash -c "rm -rf /home/formiko/revo/inx/*"
+  docker exec -it ${formiko_id} bash -c "rm -rf /home/formiko/revo/tez/*"
+  docker exec -it ${formiko_id} bash -c "rm -rf /home/formiko/revo-fonto"
+  docker exec -it ${formiko_id} bash -c "create_test_repo.sh"
+  docker exec -u1001 -it ${formiko_id} bash -c "git clone ./test-repo revo-fonto"
+
+  docker exec -it ${formiko_id} bash -c "rm -rf /home/formiko/revo.ref"
+  run docker exec -u1001 -it ${formiko_id} formiko -Dsha1=v1 -Dsha2=master srv-servo-diferenco-github
+  echo "${output}"
+  success=$(echo "${output}" | grep BUILD)
+  [[ "${success##* }" == "SUCCESSFUL"* ]]
+  [ "$status" -eq 0 ]
+}
 
 
 
