@@ -4,7 +4,31 @@
 # https://github.com/sstephenson/bats/issues/136
 # https://github.com/sstephenson/bats/issues/10
 
-@test "Agordo de redaktoservo" {
+@test "Sintakso de formiko-skriptoj" {
+  #skip
+  load test-preparo
+  run docker exec -u1001 -it ${formiko_id} bash -c "formiko-testo"
+
+  # srv.poshtoservilo=tomocero
+  echo "${output}"
+  build_failed=$(echo "${output}" | grep "BUILD FAILED" || [[ $? == 1 ]] )
+  [ -z "$build_failed" ]
+  [ "$status" -eq 0 ]
+}
+
+@test "Sintakso de XSL-dosieroj" {
+  skip
+  load test-preparo
+  run docker exec -u1001 -it ${formiko_id} bash -c "\${VOKO}/bin/xsl-testo"
+
+  # srv.poshtoservilo=tomocero
+  echo "${output}"
+  xsl_failed=$(echo "${output}" | grep "Failed" || [[ $? == 1 ]] )
+  [ -z "$xsl_failed" ]
+  [ "$status" -eq 0 ]
+}
+
+@test "Agordo de redaktoservo" {  
   load test-preparo
   run docker exec -u1001 -it ${formiko_id} bash -c "cd \${REVO}; ant -f \${VOKO}/ant/redaktoservo.xml srv-agordo"
 
@@ -269,7 +293,7 @@
 }
 
 @test "Ne kreu la vortaran diferencon, se du eldonoj samas." {
-  #skip
+  skip
   load test-preparo
   docker exec -it ${formiko_id} bash -c "rm -rf /home/formiko/revo.ref"
   run docker exec -u1001 -it ${formiko_id} formiko -Dsha1=v1 -Dsha2=v1 srv-servo-diferenco-github
@@ -294,7 +318,7 @@
   docker exec -u1001 -it ${formiko_id} bash -c "git clone ./test-repo revo-fonto"
 
   docker exec -it ${formiko_id} bash -c "rm -rf /home/formiko/revo.ref"
-  run docker exec -u1001 -it ${formiko_id} formiko -Dsha1=v1 -Dsha2=master srv-servo-diferenco-github
+  run docker exec -u1001 -it ${formiko_id} formiko -v -Dsha1=v1 -Dsha2=master srv-servo-diferenco-github
   echo "${output}"
   success=$(echo "${output}" | grep BUILD)
   [[ "${success##* }" == "SUCCESSFUL"* ]]
