@@ -273,7 +273,7 @@
 }
 
 @test "Kreu la vortaron (kiel en Github, povas iom daŭri)." {
-  skip
+  #skip
   load test-preparo
   docker exec -it ${formiko_id} bash -c "rm -rf /home/formiko/tmp/inx_tmp"
   docker exec -it ${formiko_id} bash -c "rm -rf /home/formiko/revo/art/*"
@@ -285,10 +285,33 @@
   docker exec -it ${formiko_id} bash -c "create_test_repo.sh"
   docker exec -u1001 -it ${formiko_id} bash -c "git clone ./test-repo revo-fonto"
    
-  run docker exec -u1001 -it ${formiko_id} formiko -Dsha=v1 srv-servo-github
+  run docker exec -u1001 -it ${formiko_id} formiko -Dsha=v1 srv-servo-github-medinxtez
+  run docker exec -u1001 -it ${formiko_id} formiko -Dsha=v1 srv-servo-github-art
+  run docker exec -u1001 -it ${formiko_id} formiko -Dsha=v1 srv-servo-github-hst
   echo "${output}"
   success=$(echo "${output}" | grep BUILD)
   [[ "${success##* }" == "SUCCESSFUL"* ]]
+
+  # kontrolu, ĉu 
+  # - tgz/revohtml_20*.zip 
+  # - tgz/revoart_20*.zip 
+  # - tgz/revohst_20*.zip 
+  # ekzistas nun...
+  today=$(date +'%Y-%m-%d')
+  run docker exec -u1001 -it ${formiko_id} ls -l tgz
+  echo "${output}"
+  [[ "${output}" == *"revohtml_${today}.zip"* ]]
+  [[ "${output}" == *"revoart_${today}.zip"* ]]
+  [[ "${output}" == *"revohst_${today}.zip"* ]]
+
+  # kontrolu, ĉu artefakt.html estas en art kaj hst
+  run docker exec -u1001 -it ${formiko_id} unzip -l tgz/revoart_${today}.zip
+  echo "${output}"
+  [[ "${output}" == *"revo/art/artefakt.html"* ]]
+  run docker exec -u1001 -it ${formiko_id} unzip -l tgz/revohst_${today}.zip
+  echo "${output}"
+  [[ "${output}" == *"revo/hst/artefakt.html"* ]]
+
   [ "$status" -eq 0 ]
 }
 
@@ -296,15 +319,17 @@
   skip
   load test-preparo
   docker exec -it ${formiko_id} bash -c "rm -rf /home/formiko/revo.ref"
-  run docker exec -u1001 -it ${formiko_id} formiko -Dsha1=v1 -Dsha2=v1 srv-servo-diferenco-github
+  run docker exec -u1001 -it ${formiko_id} formiko -Dsha1=v1 -Dsha2=v1 srv-servo-github-diurne
   echo "${output}"
   result=$(echo "${output}" | grep BUILD)
+  samas=$(echo "${output}" | grep "eldonoj samas")
+  [[ "${samas}" == *"samas"* ]]
   [[ "${result##* }" == "FAILED"* ]]
   [ "$status" -eq 1 ]
 }
 
 @test "Kreu la vortaron en du eldonoj kaj arĥivu la diferencon (kiel en Github, povas iom daŭri)." {
-  #skip
+  skip
   load test-preparo
 
   docker exec -it ${formiko_id} bash -c "rm -rf /home/formiko/tmp/inx_tmp"
@@ -318,7 +343,7 @@
   docker exec -u1001 -it ${formiko_id} bash -c "git clone ./test-repo revo-fonto"
 
   docker exec -it ${formiko_id} bash -c "rm -rf /home/formiko/revo.ref"
-  run docker exec -u1001 -it ${formiko_id} formiko -v -Dsha1=v1 -Dsha2=master srv-servo-diferenco-github
+  run docker exec -u1001 -it ${formiko_id} formiko -v -Dsha1=v1 -Dsha2=master srv-servo-github-diurne
   echo "${output}"
   success=$(echo "${output}" | grep BUILD)
   [[ "${success##* }" == "SUCCESSFUL"* ]]
