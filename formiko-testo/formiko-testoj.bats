@@ -17,7 +17,7 @@
 }
 
 @test "Sintakso de XSL-dosieroj" {
-  skip
+  #skip
   load test-preparo
   run docker exec -u1001 -it ${formiko_id} bash -c "\${VOKO}/bin/xsl-testo"
 
@@ -29,6 +29,7 @@
 }
 
 @test "Agordo de redaktoservo" {  
+  #skip
   load test-preparo
   run docker exec -u1001 -it ${formiko_id} bash -c "cd \${REVO}; ant -f \${VOKO}/ant/redaktoservo.xml srv-agordo"
 
@@ -43,7 +44,7 @@
 }
 
 @test "Ŝloso kaj malŝloso de la servo per ant -f" {
-  skip
+  #skip
   load test-preparo
   run docker exec -u1001 -it ${formiko_id} bash -c "cd \${REVO}; ant -f \${VOKO}/ant/redaktoservo.xml srv-shlosu srv-malshlosu"
   # ĉu ni aldone kontrolu, ĉu la dosiero /home/formiko/tmp/inx_tmp/redaktoservo-laboranta-do-shlosita ekzistas kaj poste foriĝas...?
@@ -54,7 +55,7 @@
 }
 
 @test "Ŝloso de la servo per la skripto formiko" {
-  skip
+  #skip
   load test-preparo
   run docker exec -u1001 -it ${formiko_id} formiko srv-shlosu
   echo "${output}"
@@ -65,7 +66,7 @@
 
 
 @test "Malŝloso de la servo per la skripto formiko" {
-  skip
+  #skip
   load test-preparo
   run docker exec -u1001 -it ${formiko_id} formiko srv-malshlosu
   # ĉu ni aldone kontrolu, ĉu la dosiero /home/formiko/tmp/inx_tmp/redaktoservo-laboranta-do-shlosita ekzistas kaj poste foriĝas...?
@@ -194,8 +195,8 @@
 @test "Faro de Sqlite-datumbazo. (daŭras longe...)" {
   skip
   load test-preparo
-  docker exec -u1001 -it ${formiko_id} bash -c "rm tmp/inx_tmp/sql/*"
-  docker exec -u1001 -it ${formiko_id} bash -c "rm tmp/inx_tmp/indekso.xml"
+  docker exec -u1001 -it ${formiko_id} bash -c "rm -f tmp/inx_tmp/sql/*"
+  docker exec -u1001 -it ${formiko_id} bash -c "rm -f tmp/inx_tmp/indekso.xml"
   run docker exec -u1001 -it ${formiko_id} formiko inx-eltiro
   echo "${output}"
   success=$(echo "${output}" | grep BUILD)
@@ -217,7 +218,7 @@
 }
 
 @test "Preparu medion de la vortaro." {
-  skip
+  #skip
   load test-preparo
   run docker exec -u1001 -it ${formiko_id} formiko med-kadro
   echo "${output}"
@@ -226,7 +227,7 @@
   [ "$status" -eq 0 ]
 }
 
-@test "Kontrolu XML per Jing (RelaxNG), (daŭras iom longe...)" {
+@test "Kontrolu XML per Jing (RelaxNG), (daŭras iom ...)" {
   skip
   load test-preparo
   run docker exec -u1001 -it ${formiko_id} formiko inx-relax
@@ -236,7 +237,7 @@
   [ "$status" -eq 0 ]
 }
 
-@test "Konvertu artikolojn de XML al HTML. (daŭras longe...)" {
+@test "Konvertu artikolojn de XML al HTML. (daŭras ...)" {
   skip
   load test-preparo
   run docker exec -u1001 -it ${formiko_id} formiko inx-eltiro
@@ -250,10 +251,10 @@
   [ "$status" -eq 0 ]
 }
 
-@test "Kreu indeksojn de la vortaro. (daŭras longe...)" {
+@test "Kreu indeksojn de la vortaro. (daŭras ...)" {
   skip
   load test-preparo
-  docker exec -u1001 -it ${formiko_id} bash -c "rm tmp/inx_tmp/*.xml"
+  docker exec -u1001 -it ${formiko_id} bash -c "rm -f tmp/inx_tmp/*.xml"
   run docker exec -u1001 -it ${formiko_id} formiko inx-tuto
   echo "${output}"
   success=$(echo "${output}" | grep BUILD)
@@ -261,10 +262,10 @@
   [ "$status" -eq 0 ]
 }
 
-@test "Kreu tezaŭron de la vortaro. (daŭras longe...)" {
+@test "Kreu tezaŭron de la vortaro. (daŭras ...)" {
   skip
   load test-preparo
-  docker exec -u1001 -it ${formiko_id} bash -c "rm tmp/inx_tmp/*.xml"
+  docker exec -u1001 -it ${formiko_id} bash -c "rm -f tmp/inx_tmp/*.xml"
   run docker exec -u1001 -it ${formiko_id} formiko tez-tuto
   echo "${output}"
   success=$(echo "${output}" | grep BUILD)
@@ -273,7 +274,7 @@
 }
 
 @test "Kreu la vortaron (kiel en Github, povas iom daŭri)." {
-  #skip
+  skip
   load test-preparo
   docker exec -it ${formiko_id} bash -c "rm -rf /home/formiko/tmp/inx_tmp"
   docker exec -it ${formiko_id} bash -c "rm -rf /home/formiko/revo/art/*"
@@ -281,6 +282,7 @@
   docker exec -it ${formiko_id} bash -c "rm -rf /home/formiko/revo/hst/*"
   docker exec -it ${formiko_id} bash -c "rm -rf /home/formiko/revo/inx/*"
   docker exec -it ${formiko_id} bash -c "rm -rf /home/formiko/revo/tez/*"
+  docker exec -it ${formiko_id} bash -c "rm -rf /home/formiko/tgz/*"
   docker exec -it ${formiko_id} bash -c "rm -rf /home/formiko/revo-fonto"
   docker exec -it ${formiko_id} bash -c "create_test_repo.sh"
   docker exec -u1001 -it ${formiko_id} bash -c "git clone ./test-repo revo-fonto"
@@ -330,23 +332,64 @@
 
 @test "Kreu la vortaron en du eldonoj kaj arĥivu la diferencon (kiel en Github, povas iom daŭri)." {
   skip
-  load test-preparo
+  load test-preparo-repo
 
-  docker exec -it ${formiko_id} bash -c "rm -rf /home/formiko/tmp/inx_tmp"
-  docker exec -it ${formiko_id} bash -c "rm -rf /home/formiko/revo/art/*"
-  docker exec -it ${formiko_id} bash -c "rm -rf /home/formiko/revo/xml/*"
-  docker exec -it ${formiko_id} bash -c "rm -rf /home/formiko/revo/hst/*"
-  docker exec -it ${formiko_id} bash -c "rm -rf /home/formiko/revo/inx/*"
-  docker exec -it ${formiko_id} bash -c "rm -rf /home/formiko/revo/tez/*"
-  docker exec -it ${formiko_id} bash -c "rm -rf /home/formiko/revo-fonto"
-  docker exec -it ${formiko_id} bash -c "create_test_repo.sh"
-  docker exec -u1001 -it ${formiko_id} bash -c "git clone ./test-repo revo-fonto"
+#  docker exec -it ${formiko_id} bash -c "rm -rf /home/formiko/tmp/inx_tmp"
+#  docker exec -it ${formiko_id} bash -c "rm -rf /home/formiko/revo/art/*"
+#  docker exec -it ${formiko_id} bash -c "rm -rf /home/formiko/revo/xml/*"
+#  docker exec -it ${formiko_id} bash -c "rm -rf /home/formiko/revo/hst/*"
+#  docker exec -it ${formiko_id} bash -c "rm -rf /home/formiko/revo/inx/*"
+#  docker exec -it ${formiko_id} bash -c "rm -rf /home/formiko/revo/tez/*"
+#  docker exec -it ${formiko_id} bash -c "rm -rf /home/formiko/tgz/*"
+#  docker exec -it ${formiko_id} bash -c "rm -rf /home/formiko/revo-fonto"
+#  docker exec -it ${formiko_id} bash -c "create_test_repo.sh"
+#  docker exec -u1001 -it ${formiko_id} bash -c "git clone ./test-repo revo-fonto"
 
   docker exec -it ${formiko_id} bash -c "rm -rf /home/formiko/revo.ref"
-  run docker exec -u1001 -it ${formiko_id} formiko -v -Dsha1=v1 -Dsha2=master srv-servo-github-diurne
+  run docker exec -u1001 -it ${formiko_id} formiko -Dsha1=v1 -Dsha2=master srv-servo-github-diurne
   echo "${output}"
   success=$(echo "${output}" | grep BUILD)
   [[ "${success##* }" == "SUCCESSFUL"* ]]
+  [ "$status" -eq 0 ]
+}
+
+@test "Aktualigu artikolojn kaj historion (kiel hore en Github)." {
+  #skip
+  load test-preparo-repo
+#  docker exec -it ${formiko_id} bash -c "rm -rf /home/formiko/tmp/inx_tmp"
+#  docker exec -it ${formiko_id} bash -c "rm -rf /home/formiko/revo/art/*"
+#  docker exec -it ${formiko_id} bash -c "rm -rf /home/formiko/revo/xml/*"
+#  docker exec -it ${formiko_id} bash -c "rm -rf /home/formiko/revo/hst/*"
+#  docker exec -it ${formiko_id} bash -c "rm -rf /home/formiko/revo/inx/*"
+#  docker exec -it ${formiko_id} bash -c "rm -rf /home/formiko/revo/tez/*"
+#  docker exec -it ${formiko_id} bash -c "rm -rf /home/formiko/tgz/*"
+#  docker exec -it ${formiko_id} bash -c "rm -rf /home/formiko/revo-fonto"
+#  docker exec -it ${formiko_id} bash -c "create_test_repo.sh"
+#  docker exec -u1001 -it ${formiko_id} bash -c "git clone ./test-repo revo-fonto"
+   
+  run docker exec -u1001 -it ${formiko_id} formiko -Dsha1=v1 -Dsha2=v4 srv-servo-github-hore
+  echo "${output}"
+  local -r success=$(echo "${output}" | grep BUILD)
+  [[ "${success##* }" == "SUCCESSFUL"* ]]
+
+# aldonita en v2: revo/modif.xml 
+# forigita en v4: revo/artefakt.xml 
+
+  tgz=$(docker exec -u1001 -it ${formiko_id} ls tgz/ | tr '\r' ' ')
+  tgz=${tgz//[$'\t\r\n ']}
+  content=$(docker exec -u1001 -it ${formiko_id} tar -tvzf tgz/${tgz})
+  echo "${content}"
+
+  [[ "${content}" == *"revo/art/modif.html"* ]]
+  [[ "${content}" == *"revo/hst/modif.html"* ]]
+  [[ "${content}" == *"bv_forigu_tiujn.lst"* ]]
+
+  forig=$(docker exec -u1001 -it ${formiko_id} cat tmp/inx_tmp/bv_forigu_tiujn.lst)
+  echo "${forig}"
+  [[ "${forig}" == *"revo/art/artefakt.html"* ]]
+  [[ "${forig}" == *"revo/hst/artefakt.html"* ]]
+  [[ "${forig}" == *"revo/xml/artefakt.xml"* ]]
+
   [ "$status" -eq 0 ]
 }
 

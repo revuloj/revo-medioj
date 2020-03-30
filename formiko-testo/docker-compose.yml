@@ -1,0 +1,288 @@
+version: '3.7'
+
+services:
+  formiko:
+    image: voko-formiko
+    build: https://github.com/revuloj/voko-formiko.git
+      # restart: always
+#    environment:
+#      - GIT_REPO_REVO=https://github.com/revuloj/revo-fonto-testo.git
+    networks:
+      - reto
+    volumes:
+#      - type: bind
+#        source: ./revo
+#        target: /home/formiko/revo
+      - formiko-tmp:/home/formiko/tmp
+      - formiko-log:/home/formiko/log
+#      - mail:/var/mail
+    secrets:
+#      - voko-formiko.ssh_key
+      - voko.redaktantoj
+      - voko-sesio.ftp_password
+      - voko-araneo.cgi_password
+    # necesas unufoje akcepti la ssh-servo-ŝlosilon de afido
+    # KOREKTU: ofte afido ankoraŭ ne estas aktiva, iel ni devos atendi ĝis afido reagas kaj funkcias la komando!
+#    command: >
+#      bash -c 
+#      "su -c 'ssh -i /run/secrets/voko-formiko.ssh_key -o StrictHostKeyChecking=no -o PasswordAuthentication=no afido@afido exit' formiko
+#      && cron -f"
+    configs:
+      - source: voko-formiko.agordo-cron
+        target: /config/voko-formiko.agordo-cron
+        #uid: '1001'
+        mode: 0644
+      - source: voko-formiko.agordo-redaktoservo
+        target: /config/voko-formiko.agordo-redaktoservo
+        mode: 0444
+    #healthcheck:
+    #  test: ["CMD", "health_check_cron.sh"]
+    #  interval: 5m
+    #  timeout: 3s
+
+  araneo:
+    image: voko-araneo
+    build: https://github.com/revuloj/voko-araneo.git
+    # restart: always
+    ports:
+      - 8088:80
+    networks:
+      - reto
+    depends_on:
+     - abelo
+    volumes:
+     - alveno:/var/www/web277/html/alveno
+    secrets:
+      - voko-abelo.mysql_password
+      # uzata por eksporto de lastaj ŝanĝoj:
+      - voko-abelo.mysql_root_password
+      - voko-araneo.cgi_password
+    environment:
+      EMAIL_SENDER_TRANSPORT: SMTPS
+      EMAIL_SENDER_TRANSPORT_ssl: ssl
+      # momente la sekvontoj valoroj estas en sekretoj:
+      # voko-afido.smtp_server 
+      # voko-afido.smtp_user 
+      # voko-afido.smtp_password resp. voko-tomocero.saslpassword
+      # ni prefere uzu pli ĝeneralajn sekretoj voko.smtp_server ktp.
+      # kaj kreu la mediovariablojn ekz. en entry-point.sh...
+      EMAIL_SENDER_TRANSPORT_host: tomocero
+      EMAIL_SENDER_TRANSPORT_sasl_username: tomocero@tomocero
+      EMAIL_SENDER_TRANSPORT_sasl_password: sekreta
+  # saluto de abelisto al abelo:
+  # servilo-nomo estas la nomo de abelo (docker ps)
+  # uzanto-nomo estas "root"
+  # db-nomo estas la skemo (usr_web277_1)
+  # pasvorto: vd. malsupre (MYSQL_ROOT_PASSWORD)
+#  abelisto:
+#    image: adminer
+#    #restart: always
+#    environment:
+#      ADMINER_DESIGN: hever
+#    ports:
+#      - 8089:8080  
+#    depends_on:
+#      - abelo
+
+  abelo:
+    image: voko-abelo
+    build: https://github.com/revuloj/voko-abelo.git
+    # command: --default-authentication-plugin=mysql_native_password
+    # restart: always
+    #expose:
+    #  - 3306
+    networks:
+      - reto
+    secrets:
+      - voko-abelo.mysql_root_password
+      - voko-abelo.mysql_password
+      - voko.redaktantoj
+    environment:
+      # FARENDA: necesas aldoni tiujn informojn ankaŭ en la dosiero revodb.pm
+      MYSQL_ROOT_PASSWORD_FILE: /run/secrets/voko-abelo.mysql_root_password
+      MYSQL_PASSWORD_FILE: /run/secrets/voko-abelo.mysql_password
+      MYSQL_DATABASE: usr_web277_1
+      MYSQL_USER: web277
+      # MYSQL_ROOT_PASSWORD: sekreto28343
+
+  sesio:
+    image: voko-sesio
+    build: https://github.com/revuloj/voko-sesio.git
+    # restart: always
+    networks:
+      - reto
+    volumes:
+      - alveno:/home/vsftpd/alveno
+      - sesio-log:/var/log/vsftpd
+    ports:
+      - 0.0.0.0:21:21
+      - 21200-21210:21200-21210
+    secrets:
+      - voko-sesio.ftp_password    
+
+
+#  afido:
+#    image: voko-afido
+#    build: https://github.com/revuloj/voko-afido.git
+#    # command: processmail.pl
+#    networks:
+#      - ghardeno
+#    volumes:
+#      - type: bind
+#        source: ./cvsroot
+#        target: /home/afido/dict/cvsroot
+#      - type: bind
+#        source: ./revo/xml
+#        target: /home/afido/dict/xml        
+#      - type: bind
+#        source: ./revo-fonto
+#        target: /home/afido/dict/revo-fonto        
+##      - xml:/home/afido/dict/xml # la artikoloj
+##      - cvsroot:/home/afido/dict/cvsroot # $CVSROOT
+#      - afido:/var/afido # tmp, log
+#      - mail:/var/mail
+#    environment:
+#      - CVSROOT=/home/afido/dict/cvsroot
+#    secrets:
+#      - voko.redaktantoj
+#      - voko-afido.ssh_key.pub
+#      - voko-afido.github_key
+#      - voko-afido.smtp_server
+#      - voko-afido.smtp_user
+#      - voko-afido.smtp_password
+#      #- voko-tomocero.saslpassword
+#
+#  tomocero:
+#    image: voko-tomocero
+#    build: https://github.com/revuloj/voko-tomocero.git
+#    command: /usr/lib/postfix/master -d
+#    volumes:
+#      # eble ni eksterigu ankaŭ /var/spool/postfix resp. tutan /var/spool
+#      - mail:/var/mail
+#      - spool:/var/spool
+#    secrets:
+#      - voko-tomocero.pop3_server
+#      - voko-tomocero.pop3_user
+#      - voko-tomocero.pop3_password
+#      - voko-tomocero.myhostname
+#      - voko-tomocero.saslpassword
+#      - voko-tomocero.relayhost
+#      - voko-tomocero.relayaddress
+#      - voko-tomocero.relaypassword
+#    #expose: 25, 465
+##
+##  vaneso-cvs:
+##    image: voko-vaneso
+##    build: https://github.com/revuloj/voko-vaneso.git
+##    command: mirror.pl cvs
+##    volumes:
+##      - cvsroot:/home/vaneso/cvsroot # $CVSROOT
+##      - mirrordat:/home/vaneso/mirrordat
+##      - vaneso-log:/home/vaneso/log
+##
+##  vaneso-revo:
+##    image: voko-vaneso
+##    build: https://github.com/revuloj/voko-vaneso.git
+##    command: mirror.pl revo
+##    volumes:
+##        - type: bind
+##        source: ./revo
+##        target: /home/vaneso/revo
+##      - mirrordat:/home/vaneso/mirrordat
+##      - vaneso-log:/home/vaneso/log
+##
+
+# kreu sekretojn ekzemple tiel, kondiĉe ke vi uzas propran poŝtfakon
+# redaktoservo@provizanto.org por ricevi kaj forsendi artikolojn
+#   echo "mail.provizanto.org" | docker secret create voko-afido.pop3_server -
+#   echo "redaktoservo@provizanto.org" | docker secret create voko-afido.pop3_user -
+#   echo "MiaTr3SekretaP4svorto" | docker secret create voko-afido.pop3_password -
+#   
+#   echo "smtp.provizanto.org" | docker secret create voko-afido.smtp_server -
+#   echo "redaktoservo@provizanto.org" | docker secret create voko-afido.smtp_user -
+#   echo "MiaTr3SekretaP4svorto" | docker secret create voko-afido.smtp_password -
+# Uzante la procesumon voko-tomocero por forsendo de retpoŝtoj vi anstataŭe donu por smtp
+# la sekvan agordon. La avantaĝo estas, ke tomocero transsendas la retpoŝtojn en serioj
+# kaj tiel ne por ĉiu unuopa retpoŝto okazas rekonekto, kion kelkaj provizantoj
+# malhelpas per kelkminuta deviga paŭzo.
+#   echo "voko-tomocero" | docker secret create voko-afido.smtp_server -
+#   echo "" | docker secret create voko-afido.smtp_user -
+#   echo "" | docker secret create voko-afido.smtp_password -
+
+secrets:
+#  voko-tomocero.pop3_server:
+#    external: true
+#  voko-tomocero.pop3_user:
+#    external: true
+#  voko-tomocero.pop3_password:
+#    external: true
+#  voko-tomocero.myhostname:
+#    external: true
+#  voko-tomocero.saslpassword:
+#    external: true
+#  voko-tomocero.relayhost:
+#    external: true
+#  voko-tomocero.relayaddress:
+#    external: true
+#  voko-tomocero.relaypassword:
+#    external: true
+#
+#  voko-formiko.ssh_key:
+#    external: true
+#
+#  voko-afido.ssh_key.pub:
+#    external: true
+#  voko-afido.github_key:
+#    external: true
+#  voko-afido.smtp_server:
+#    external: true
+#  voko-afido.smtp_user:
+#    external: true
+  # uzante tomoceron por sendo, sama kiel sasl-password
+#  voko-afido.smtp_password:
+#    external: true
+
+  voko-sesio.ftp_password:
+    external: true
+  voko-araneo.cgi_password:
+    external: true
+
+  voko.redaktantoj:
+    #external: true
+    file: ${HOME}/etc/redaktantoj
+
+  voko-abelo.mysql_root_password:
+    external: true
+  voko-abelo.mysql_password:
+    external: true
+
+
+    
+configs:
+  # alternative uzu "file: ..."
+  # por rekte lasi la agordon sur la docker-gastiganto
+  voko-formiko.agordo-cron:
+    external: true
+  voko-formiko.agordo-redaktoservo:
+    external: true
+
+volumes:
+#  mail:
+#  spool:
+#  mirrordat:
+#  vaneso-log:
+#  afido:
+#  formiko-revo:
+  formiko-tmp:
+  formiko-log:
+  alveno:
+  sesio-log:
+
+#  xml:
+#  cvsroot:
+#    external: true
+  
+networks:
+  reto:
+#    external: true
+
