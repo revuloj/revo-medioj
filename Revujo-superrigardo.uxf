@@ -4,7 +4,7 @@
     <id>UMLPackage</id>
     <coordinates>
       <x>560</x>
-      <y>320</y>
+      <y>336</y>
       <w>344</w>
       <h>96</h>
     </coordinates>
@@ -12,6 +12,7 @@
 --
 bg=orange
 halign=left
+valign=top
 +cetonio
 +grilo
 +akrido
@@ -97,31 +98,31 @@ retpoŝto-provizanto</panel_attributes>
     <id>Relation</id>
     <coordinates>
       <x>232</x>
-      <y>288</y>
+      <y>296</y>
       <w>352</w>
-      <h>256</h>
+      <h>248</h>
     </coordinates>
     <panel_attributes>lt=&lt;.
 r1=smtp (465)
 &lt; konfirmoj
 
 </panel_attributes>
-    <additional_attributes>10.0;280.0;310.0;280.0;420.0;10.0</additional_attributes>
+    <additional_attributes>10.0;270.0;310.0;270.0;420.0;10.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
       <x>232</x>
-      <y>368</y>
+      <y>384</y>
       <w>344</w>
-      <h>200</h>
+      <h>184</h>
     </coordinates>
     <panel_attributes>lt=&lt;.
 r1=smtp (465)
 &lt; redakto 
 
 </panel_attributes>
-    <additional_attributes>10.0;210.0;330.0;210.0;410.0;10.0</additional_attributes>
+    <additional_attributes>10.0;190.0;330.0;190.0;410.0;10.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
@@ -142,16 +143,16 @@ redaktoj &gt;
     <id>Relation</id>
     <coordinates>
       <x>232</x>
-      <y>288</y>
+      <y>296</y>
       <w>328</w>
-      <h>232</h>
+      <h>224</h>
     </coordinates>
     <panel_attributes>lt=&lt;.
 r1=pop3 (993)
 redaktoj &gt;
 
 </panel_attributes>
-    <additional_attributes>10.0;250.0;290.0;250.0;390.0;10.0</additional_attributes>
+    <additional_attributes>10.0;240.0;290.0;240.0;390.0;10.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
@@ -199,13 +200,13 @@ r1=ftp/scp
     <id>Relation</id>
     <coordinates>
       <x>872</x>
-      <y>256</y>
+      <y>280</y>
       <w>80</w>
-      <h>96</h>
+      <h>88</h>
     </coordinates>
     <panel_attributes>lt=()-
 https (443)</panel_attributes>
-    <additional_attributes>10.0;10.0;10.0;100.0</additional_attributes>
+    <additional_attributes>10.0;10.0;10.0;90.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
@@ -213,13 +214,13 @@ https (443)</panel_attributes>
       <x>872</x>
       <y>80</y>
       <w>88</w>
-      <h>192</h>
+      <h>216</h>
     </coordinates>
     <panel_attributes>lt=&lt;.
 per Cetonio
 
 </panel_attributes>
-    <additional_attributes>10.0;220.0;10.0;10.0</additional_attributes>
+    <additional_attributes>10.0;250.0;10.0;10.0</additional_attributes>
   </element>
   <element>
     <id>UMLGeneric</id>
@@ -237,15 +238,15 @@ Vikipedio / Vikimedio</panel_attributes>
     <id>Relation</id>
     <coordinates>
       <x>624</x>
-      <y>408</y>
+      <y>424</y>
       <w>80</w>
-      <h>80</h>
+      <h>64</h>
     </coordinates>
     <panel_attributes>lt=&lt;.
 r1=https (443)
 
 </panel_attributes>
-    <additional_attributes>10.0;80.0;10.0;10.0</additional_attributes>
+    <additional_attributes>10.0;60.0;10.0;10.0</additional_attributes>
   </element>
   <element>
     <id>UMLGeneric</id>
@@ -263,15 +264,15 @@ Anaso (DuckDuckGo)</panel_attributes>
     <id>Relation</id>
     <coordinates>
       <x>784</x>
-      <y>408</y>
+      <y>424</y>
       <w>80</w>
-      <h>80</h>
+      <h>64</h>
     </coordinates>
     <panel_attributes>lt=&lt;.
 r1=https (443)
 
 </panel_attributes>
-    <additional_attributes>10.0;80.0;10.0;10.0</additional_attributes>
+    <additional_attributes>10.0;60.0;10.0;10.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
@@ -279,12 +280,12 @@ r1=https (443)
       <x>352</x>
       <y>120</y>
       <w>504</w>
-      <h>232</h>
+      <h>248</h>
     </coordinates>
     <panel_attributes>lt=&lt;.
-datumbazo, artikolo &gt;
+artikolo &gt;
 </panel_attributes>
-    <additional_attributes>10.0;20.0;610.0;20.0;610.0;270.0</additional_attributes>
+    <additional_attributes>10.0;20.0;610.0;20.0;610.0;290.0</additional_attributes>
   </element>
   <element>
     <id>UMLPackage</id>
@@ -298,6 +299,7 @@ datumbazo, artikolo &gt;
 --
 bg=orange
 halign=left
+valign=top
 +araneo
 +abelo
 +abelisto
@@ -334,7 +336,7 @@ revo</panel_attributes>
     <id>UMLPackage</id>
     <coordinates>
       <x>520</x>
-      <y>176</y>
+      <y>184</y>
       <w>256</w>
       <h>120</h>
     </coordinates>
@@ -342,11 +344,10 @@ revo</panel_attributes>
 --
 bg=orange
 halign=left
+valign=top
 +formiko
 +afido
-+vaneso-cvs
-+vaneso-revo
-+tomocero</panel_attributes>
+</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
@@ -395,12 +396,12 @@ http (80)
       <x>344</x>
       <y>144</y>
       <w>368</w>
-      <h>64</h>
+      <h>72</h>
     </coordinates>
     <panel_attributes>lt=&lt;.
 administraj skriptoj
 </panel_attributes>
-    <additional_attributes>10.0;20.0;440.0;20.0;440.0;60.0</additional_attributes>
+    <additional_attributes>10.0;20.0;440.0;20.0;440.0;70.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
@@ -414,5 +415,128 @@ administraj skriptoj
 r2=per ret-formularo
 </panel_attributes>
     <additional_attributes>10.0;80.0;90.0;20.0;650.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>960</x>
+      <y>160</y>
+      <w>184</w>
+      <h>80</h>
+    </coordinates>
+    <panel_attributes>Transiranta de aparta servilo al Github-agoj, kiuj aktualigas artikolojn en la arĥivo revo-fonto kaj en la publika servilo ĉe reta-vortaro.de
+bg=gray</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>768</x>
+      <y>192</y>
+      <w>208</w>
+      <h>80</h>
+    </coordinates>
+    <panel_attributes>lt=.
+fg=gray</panel_attributes>
+    <additional_attributes>10.0;80.0;240.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>752</x>
+      <y>144</y>
+      <w>88</w>
+      <h>72</h>
+    </coordinates>
+    <panel_attributes>lt=()-
+
+https
+github.com</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;71.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>760</x>
+      <y>136</y>
+      <w>72</w>
+      <h>232</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+db &gt;
+</panel_attributes>
+    <additional_attributes>10.0;20.0;70.0;20.0;70.0;270.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>232</x>
+      <y>344</y>
+      <w>184</w>
+      <h>88</h>
+    </coordinates>
+    <panel_attributes>Ĝis nun la servilo estas ankoraŭ malnova luita Apache+Perl+mySQL-servilo. La procesumoj el Github/revuloj nur imitas ĝin por povi testi ĉion pli facile.
+bg=gray</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>264</x>
+      <y>288</y>
+      <w>48</w>
+      <h>72</h>
+    </coordinates>
+    <panel_attributes>lt=.
+fg=gray</panel_attributes>
+    <additional_attributes>40.0;70.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>312</x>
+      <y>584</y>
+      <w>152</w>
+      <h>72</h>
+    </coordinates>
+    <panel_attributes>Ni volas anstataŭigi sendadon de redaktoj anstataŭ per retpoŝto per Github-gistoj.
+bg=gray</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>384</x>
+      <y>480</y>
+      <w>40</w>
+      <h>120</h>
+    </coordinates>
+    <panel_attributes>lt=.
+fg=gray</panel_attributes>
+    <additional_attributes>10.0;130.0;30.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>952</x>
+      <y>416</y>
+      <w>224</w>
+      <h>80</h>
+    </coordinates>
+    <panel_attributes>Ĝis nun la servilo estas ankoraŭ luita Ubunto-servilo. La procesumoj el Github/revuloj nur imitas ĝin por povi testi kaj prepari funkciadon en la Nubo (docker, k8s).
+bg=gray</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>896</x>
+      <y>392</y>
+      <w>72</w>
+      <h>56</h>
+    </coordinates>
+    <panel_attributes>lt=.
+fg=gray</panel_attributes>
+    <additional_attributes>70.0;50.0;10.0;10.0</additional_attributes>
   </element>
 </diagram>
