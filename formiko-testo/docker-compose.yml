@@ -16,9 +16,14 @@ services:
       - formiko-tmp:/home/formiko/tmp
       - formiko-log:/home/formiko/log
 #      - mail:/var/mail
+    environment:
+      FTP_USER: sesio
+      CGI_SERVER: araneo
+      CGI_USER: araneo
     secrets:
 #      - voko-formiko.ssh_key
       - voko.redaktantoj
+      - voko-sesio.ftp_user
       - voko-sesio.ftp_password
       - voko-araneo.cgi_password
     # necesas unufoje akcepti la ssh-servo-ŝlosilon de afido
@@ -242,6 +247,8 @@ secrets:
 #  voko-afido.smtp_password:
 #    external: true
 
+  voko-sesio.ftp_user:
+    external: true
   voko-sesio.ftp_password:
     external: true
   voko-araneo.cgi_password:

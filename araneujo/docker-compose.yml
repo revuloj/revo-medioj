@@ -8,7 +8,7 @@ services:
     ports:
       - 8088:80
     networks:
-      - ghardeno
+      - reto
     depends_on:
      - abelo
     volumes:
@@ -52,6 +52,8 @@ services:
     # restart: always
     #expose:
     #  - 3306
+    networks:
+      - reto
     secrets:
       - voko-abelo.mysql_root_password
       - voko-abelo.mysql_password
@@ -69,7 +71,7 @@ services:
     build: https://github.com/revuloj/voko-sesio.git
     # restart: always
     networks:
-      - ghardeno
+      - reto
     volumes:
       - alveno:/home/vsftpd/alveno
       - sesio-log:/var/log/vsftpd
@@ -144,6 +146,6 @@ volumes:
   spool:
 
 networks:
-  ghardeno:
-    external: true
+  reto:
+#    external: true
 
