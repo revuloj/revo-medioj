@@ -13,7 +13,8 @@ services:
       #- afido-dict:/home/afido/dict
 #      - mail:/var/mail
     environment:
-      GIT_REPO_REVO: revuloj/revo-fonto-testo
+      #GIT_REPO_REVO: revo-fonto-testo
+      GIT_REPO_REVO: test-repo
     secrets:
 #      - voko-formiko.ssh_key
       - voko.redaktantoj.json
