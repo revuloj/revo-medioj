@@ -35,12 +35,16 @@ echo "# metante novajn sekretojn..."
 echo ${access_token} | docker secret create voko-afido.access_token -
 #cat ${keyfile_pub} | docker secret create voko-afido.ssh_key.pub -
 cat ${keyfile_github} | docker secret create voko-afido.github_key -
+
+# transdonante retpoŝtojn rekte al ekstera retprovizanto.
 #echo "smtp.provizanto.org" | docker secret create voko-afido.smtp_server -
 #echo "redaktoservo@provizanto.org" | docker secret create voko-afido.smtp_user -
 #echo "M14P4$svort0" | docker secret create voko-afido.smtp_password -
-echo "tomocero" | docker secret create voko-afido.smtp_server -
-echo "tomocero@tomocero" | docker secret create voko-afido.smtp_user -
-echo "sekreta" | docker secret create voko-afido.smtp_password -
+
+# uzante lokan procesumon voko-tomocero por transport retpoŝtojn...
+#echo "tomocero" | docker secret create voko-afido.smtp_server -
+#echo "tomocero@tomocero" | docker secret create voko-afido.smtp_user -
+#echo "sekreta" | docker secret create voko-afido.smtp_password -
 
 docker secret ls --filter name=voko-afido. 
 

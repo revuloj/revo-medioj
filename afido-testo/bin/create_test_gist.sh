@@ -1,4 +1,6 @@
 #!/bin/bash
+
+test_redaktanto=$1
  
 basedir=/home/afido
 dict=${basedir}/dict 
@@ -14,7 +16,13 @@ cd ${dict}
 
 sigelilo=$(cat /dev/urandom | tr -dc A-Z-a-z-0-9 | head -c${1:-16})
 
-echo '[{"red_id":"1","red_nomo":"Wolfram Diestel","retadr":["wolfram@steloj.de","diestel@steloj.de"]}]' > ${redj}
+cat <<EOR > ${redj}
+[{
+  "red_id":"1",
+  "red_nomo": "Testa Redaktanto",
+  "retadr":["${test_redaktanto}","${test_redaktanto}"]
+}]
+EOR
 
 red=$(cat ${redj} | jq '.[] | select(.red_id == "1")')
 red_nomo=$(echo ${red} | jq -r '.red_nomo')
@@ -161,10 +169,10 @@ cat << EOX1 > xml/111111.xml
 <!--
 \$Log: cxeval.xml,v \$
 Revision 1.74  2019/07/03 08:10:19  revo
-Aleks Andre: zh: -ind- anstataux ol -klr-
+A A: zh: -ind- anstataux ol -klr-
 
 Revision 1.73  2019/06/20 12:10:14  revo
-Jeromo Vasxe: + kur~o
+J V: + kur~o
 -->
 </vortaro>
 EOX1
@@ -272,10 +280,10 @@ Revision 1.77  2019/06/30 07:47:08  revo
 adaptis URL de Monato
 
 Revision 1.76  2019/04/22 12:10:15  revo
-Warut Bunprasert: aldonis tajan tradukon
+W B: aldonis tajan tradukon
 
 Revision 1.75  2019/03/01 10:10:20  revo
-Wolfram Diestel: pliaj ekz-oj, rim hom Abelo (matematikisto)
+W D: pliaj ekz-oj, rim hom Abelo (matematikisto)
 -->
 </vortaro>
 EOX2

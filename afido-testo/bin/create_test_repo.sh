@@ -4,6 +4,8 @@ rm -rf test-repo
 mkdir test-repo
 cd test-repo
 git init
+#git config receive.denyCurrentBranch warn
+git config receive.denyCurrentBranch updateInstead
 
 mkdir revo
 
