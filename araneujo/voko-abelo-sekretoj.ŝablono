@@ -8,8 +8,8 @@ fi
 
 echo
 echo "# metante novajn sekretojn..."
-mysql_root_password=$(cat /dev/urandom | tr -dc A-Z-a-z-0-9 | head -c${1:-16})
-mysql_password=$(cat /dev/urandom | tr -dc A-Z-a-z-0-9 | head -c${1:-16})
+mysql_root_password=$(cat /dev/urandom | tr -dc A-Z_a-z-0-9 | head -c${1:-16})
+mysql_password=$(cat /dev/urandom | tr -dc A-Z_a-z-0-9 | head -c${1:-16})
 
 echo ${mysql_root_password} | docker secret create voko-abelo.mysql_root_password -
 echo ${mysql_root_password} | docker secret create voko-abelo.mysql_password -

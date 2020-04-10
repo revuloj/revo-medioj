@@ -8,7 +8,7 @@ fi
 
 echo
 echo "# metante novajn sekretojn..."
-cgi_password=$(cat /dev/urandom | tr -dc A-Z-a-z-0-9 | head -c${1:-16})
+cgi_password=$(cat /dev/urandom | tr -dc A-Z_a-z-0-9 | head -c${1:-16})
 echo ${cgi_password} | docker secret create voko-araneo.cgi_password -
 
 docker secret ls --filter name=voko-araneo. 

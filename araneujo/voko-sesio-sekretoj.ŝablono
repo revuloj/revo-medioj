@@ -8,7 +8,7 @@ fi
 
 echo
 echo "# metante novajn sekretojn..."
-ftp_password=$(cat /dev/urandom | tr -dc A-Z-a-z-0-9 | head -c${1:-16})
+ftp_password=$(cat /dev/urandom | tr -dc A-Z_a-z-0-9 | head -c${1:-16})
 ftp_user=sesio
 
 echo ${ftp_password} | docker secret create voko-sesio.ftp_password -
