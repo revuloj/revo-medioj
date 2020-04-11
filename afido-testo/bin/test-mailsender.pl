@@ -41,6 +41,6 @@ unless (mailsender::smtp_send($mailer,$from,$to,$mail_handle)) {
     next;
 }
 
-mailsender::smtp_send($mailer,$top);
+#mailsender::smtp_send($mailer,$top);
 
 mailsender::smtp_quit($mailer);

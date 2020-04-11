@@ -14,7 +14,8 @@ mkdir -p ${dict}/json
 
 cd ${dict}
 
-sigelilo=$(cat /dev/urandom | tr -dc A-Z-a-z-0-9 | head -c${1:-16})
+#sigelilo=$(cat /dev/urandom | tr -dc A-Z-a-z-0-9 | head -c${1:-16})
+sigelilo=$(cat /run/secrets/voko-afido.sigelilo)
 
 cat <<EOR > ${redj}
 [{
@@ -318,8 +319,7 @@ EOG1
 
 cat << EOJ1 > json/111111.json
 {
-"red_id": "1",
-"red_nomo": "${red_nomo}",
+"red_adr": "${red_adr}",
 "sigelo": "${HMAC1}",
 "celo":"test-repo/revo"
 }
@@ -351,8 +351,7 @@ EOG2
 
 cat << EOJ2 > json/2222222.json
 {
-"red_id": "1",
-"red_nomo": "${red_nomo}",
+"red_adr": "${red_adr}",
 "sigelo": "${HMAC2}",
 "celo":"test-repo/revo"
 }

@@ -32,6 +32,7 @@ fi
 @test "Sendu retpoŝton por testi mailsender.pm" {  
   #skip
   load test-preparo
+  docker cp bin/test-mailsender.pl ${afido_id}:/usr/local/bin/
   run docker exec -u1074 -it -e TEST_RETADRESO ${afido_id} bash -c "perl /usr/local/bin/test-mailsender.pl"
 
   echo "${output}"
@@ -71,7 +72,7 @@ fi
   [[ "$output" == *"revo-fonto/revo/cxeval.xml': No such file"* ]]
   [[ "$output" == *"create mode 100644 revo/abel.xml"* ]]
   [[ "$output" == *"master -> master"* ]]
-  [ "$status" -eq 0 ]
+  [ "$status" -eq 1 ]
 }
 
 

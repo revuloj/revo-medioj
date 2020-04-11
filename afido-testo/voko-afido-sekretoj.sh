@@ -9,6 +9,9 @@ access_token=$1
 # tiun ŝlosilon ni uzas por sendi ŝanĝojn al la Git-arĥivo (revo-fonto-testo...)
 keyfile_github=${HOME}/.ssh/id_rsa_revo_test
 
+# por testi sufiĉas arbitra sigelilo, ĉar ni ne havas redaktilon tie ĉi
+sigelilo=$(cat /dev/urandom | tr -dc A-Z_a-z-0-9 | head -c${1:-16})
+
 if [[ -z ${access_token} ]]; then
   echo "Vi devas doni ĵetonon de Github ('personal access token') kiel argumento por krei sekreton."
   exit 1
@@ -35,6 +38,8 @@ echo "# metante novajn sekretojn..."
 echo ${access_token} | docker secret create voko-afido.access_token -
 #cat ${keyfile_pub} | docker secret create voko-afido.ssh_key.pub -
 cat ${keyfile_github} | docker secret create voko-afido.github_key -
+
+echo ${sigelilo} | docker secret create voko-afido.sigelilo -
 
 # transdonante retpoŝtojn rekte al ekstera retprovizanto.
 #echo "smtp.provizanto.org" | docker secret create voko-afido.smtp_server -

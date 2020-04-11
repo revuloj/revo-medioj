@@ -15,7 +15,6 @@ if [ "${afido_id}" = "" ]; then echo "afido ne aktiva!" 1>&2; exit 1; fi
 
 docker cp bin/create_test_repo.sh ${afido_id}:/usr/local/bin/
 docker cp bin/create_test_gist.sh ${afido_id}:/usr/local/bin/
-docker cp bin/test-mailsender.pl ${afido_id}:/usr/local/bin/
 
 docker exec -it -u1074 ${afido_id} bash -c "rm -rf /home/afido/dict/gists"
 docker exec -it -u1074 ${afido_id} bash -c "rm -rf /home/afido/dict/xml"
@@ -25,7 +24,7 @@ docker exec -it -u1074 ${afido_id} bash -c "rm -rf /home/afido/dict/revo-fonto"
 docker exec -it -u1074 ${afido_id} bash -c "rm -rf /home/afido/test-repo"
 
 docker exec -it -u1074 ${afido_id} bash -c "create_test_repo.sh"
-docker exec -it -u1074 ${afido_id} bash -c "create_test_gist.sh ${TEST_REDAKTANTO}"
+docker exec -it -u1074 ${afido_id} bash -c "create_test_gist.sh ${TEST_RETADRESO}"
 
 
 
