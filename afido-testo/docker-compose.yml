@@ -18,9 +18,13 @@ services:
     secrets:
 #      - voko-formiko.ssh_key
       - voko.redaktantoj.json
-      - voko-afido.github_key
+        # SSH deploy key por puŝi ŝangojn al git-arĥivo
+      #- voko-afido.github_key
+        # "Github personal access token" por uzi Github REST-Api, t.e. legi kaj skribi ĉe gists.github.com
       - voko-afido.access_token
+        # Sigelilo estas uzata por sigeli redaktojn uzante HMAC
       - voko-afido.sigelilo
+        # Agordo de poŝtservilo por sendi raportojn al redaktantoj
       - voko-afido.smtp_server
       - voko-afido.smtp_user
       - voko-afido.smtp_password
@@ -107,8 +111,8 @@ secrets:
 #    external: true
   voko-afido.access_token:
     external: true
-  voko-afido.github_key:
-    external: true
+  #voko-afido.github_key:
+  #  external: true
   voko-afido.sigelilo:
     external: true
 
