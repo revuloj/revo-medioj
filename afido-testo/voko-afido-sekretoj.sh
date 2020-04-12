@@ -10,7 +10,11 @@ access_token=$1
 keyfile_github=${HOME}/.ssh/id_rsa_revo_test
 
 # por testi sufiĉas arbitra sigelilo, ĉar ni ne havas redaktilon tie ĉi
-sigelilo=$(cat /dev/urandom | tr -dc A-Z_a-z-0-9 | head -c${1:-16})
+if [[ -z ${SIGELILO} ]]; then 
+  sigelilo=$(cat /dev/urandom | tr -dc A-Z_a-z-0-9 | head -c${1:-16})
+else
+  sigelilo=${SIGELILO}
+fi
 
 if [[ -z ${access_token} ]]; then
   echo "Vi devas doni ĵetonon de Github ('personal access token') kiel argumento por krei sekreton."
