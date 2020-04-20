@@ -3,6 +3,7 @@
 test_redaktanto=$1
  
 basedir=/home/afido
+#basedir=.
 dict=${basedir}/dict 
 redj=${basedir}/etc/redaktantoj.json 
 
@@ -17,6 +18,23 @@ cd ${dict}
 #sigelilo=$(cat /dev/urandom | tr -dc A-Z-a-z-0-9 | head -c${1:-16})
 sigelilo=$(cat /run/secrets/voko-afido.sigelilo)
 
+
+HMAC_red_xml () {
+  local red_adr=$1
+  local xml=$2
+  local hmac=$((echo ${red_adr} && cat ${xml}) | openssl dgst -sha256 -hmac "${sigelilo}");
+  echo ${hmac#*= }
+}
+
+SHA1_red7 () {
+  local red_adr=$1
+  local sha=$(echo -n ${red_adr} | openssl dgst -sha1);
+  sha=${sha#*= }
+  #local sha=$(perl -MDigest::SHA=sha1_hex -e "print sha1_hex(\"${red_adr}\")")
+  echo ${sha:0:7}
+}
+
+
 cat <<EOR > ${redj}
 [{
   "red_id":"1",
@@ -28,6 +46,7 @@ EOR
 red=$(cat ${redj} | jq '.[] | select(.red_id == "1")')
 red_nomo=$(echo ${red} | jq -r '.red_nomo')
 red_adr=$(echo ${red} | jq -r '.retadr[0]')
+red7=$(SHA1_red7 "$red_adr")
 
 cat << EOX1 > xml/111111.xml
 <?xml version="1.0"?>
@@ -290,13 +309,13 @@ W D: pliaj ekz-oj, rim hom Abelo (matematikisto)
 EOX2
 
 # elkalkulu HMAC
-HMAC1=$((echo ${red_adr} && cat xml/111111.xml) | openssl dgst -sha256 -hmac "${sigelilo}"); HMAC1=${HMAC1#*= }
-HMAC2=$((echo ${red_adr} && cat xml/2222222.xml) | openssl dgst -sha256 -hmac "${sigelilo}"); HMAC2=${HMAC2#*= }
+HMAC1=$(HMAC_red_xml ${red_adr} xml/111111.xml)
+HMAC2=$(HMAC_red_xml ${red_adr} xml/2222222.xml)
 
 cat << EOG1 > gists/111111
 {
   "id": "111111",
-  "description": "redakto: ĉevalo",
+  "description": "${red7}:redakto:testo kun ĉevalo",
   "updated_at": "2020-04-06T13:06:42Z",
   "files": {
     "cxeval.xml": {
@@ -306,11 +325,11 @@ cat << EOG1 > gists/111111
       "raw_url": "https://example.com/reta-vortaro/111111/cxeval.xml",
       "size": 1716
     },
-    "info.json": {
-      "filename": "info.json",
+    "cxeval.json": {
+      "filename": "cxeval.json",
       "type": "application/json",
       "language": "JSON",
-      "raw_url": "https://example.com/reta-vortaro/111111/info.json",
+      "raw_url": "https://example.com/reta-vortaro/111111/cxeval.json",
       "size": 103
     }
   }
@@ -319,7 +338,6 @@ EOG1
 
 cat << EOJ1 > json/111111.json
 {
-"red_adr": "${red_adr}",
 "sigelo": "${HMAC1}",
 "celo":"test-repo/revo"
 }
@@ -328,7 +346,7 @@ EOJ1
 cat << EOG2 > gists/2222222
 {
   "id": "2222222",
-  "description": "aldono: abel",
+  "description": "${red7}:aldono: abel",
   "updated_at": "2020-04-06T19:00:56Z",
   "files": {
     "abel.xml": {
@@ -338,11 +356,11 @@ cat << EOG2 > gists/2222222
       "raw_url": "https://example.com/reta-vortaro/2222222/abel.xml",
       "size": 1735
     },
-    "info.json": {
-      "filename": "info.json",
+    "abel.json": {
+      "filename": "abel.json",
       "type": "application/json",
       "language": "JSON",
-      "raw_url": "https://example.com/reta-vortaro/2222222/info.json",
+      "raw_url": "https://example.com/reta-vortaro/2222222/abel.json",
       "size": 103
     }
   }
@@ -351,7 +369,6 @@ EOG2
 
 cat << EOJ2 > json/2222222.json
 {
-"red_adr": "${red_adr}",
 "sigelo": "${HMAC2}",
 "celo":"test-repo/revo"
 }

@@ -10,7 +10,7 @@ if [[ -z "$TEST_RETADRESO" ]]; then
 fi 
 
 @test "Ĉu mailsender.conf ekzistas" {
-  skip
+  #skip
   load test-preparo
   # elsuto test-repo (adresita per GIT_REPO_REVO)
   run docker exec -u1074 -it ${afido_id} ls /etc/mailsender.conf
@@ -21,7 +21,7 @@ fi
 }
 
 @test "Ĉu Perl-moduloj estas instalitaj ĝuste?" {
-  skip
+  #skip
   load test-preparo
   # elsuto test-repo (adresita per GIT_REPO_REVO)
   run docker exec -u1074 -it ${afido_id} bash -c "perl -MMIME::Entity -MAuthen::SASL::Perl -MIO::Socket::SSL -e1"
@@ -68,7 +68,7 @@ fi
 
 
 @test "Malpaku la arĥivon al revo-fonto" {  
-  skip
+  #skip
 
   # tio preparas test-repo kaj gistojn
   load test-preparo-repo
@@ -94,11 +94,69 @@ fi
 
   run docker exec -u1074 -it ${afido_id} bash -c "perl /usr/local/bin/processgist.pl"
   echo "${output}"
-
-  [[ "$output" == *"revo-fonto/revo/cxeval.xml': No such file"* ]]
+  [[ "$output" == *"id:111111"* ]]
+  [[ "$output" == *"id:2222222"* ]]
+  #[[ "$output" == *"revo-fonto/revo/cxeval.xml': No such file"* ]]
+  [[ "$output" == *"vi redaktis (cxeval)"* ]]
+  #[[ "$output" == *"sigelo por gisto"*"ne pruviĝis valida"* ]]
   [[ "$output" == *"create mode 100644 revo/abel.xml"* ]]
   [[ "$output" == *"master -> master"* ]]
-  [ "$status" -eq 1 ]
+  [[ "$output" == *"ŝovas /home/afido/dict/tmp/mailsend al /home/afido/dict/log/mail_sent"* ]]
+  [ "$status" -eq 0 ]
 }
+
+@test "Kreu giston ĉe gists.github.com" {  
+  skip
+
+  # tio preparas test-repo kaj gistojn
+  load test-preparo-repo
+  docker exec -u1074 -it ${afido_id} git-clone-repo.sh
+
+  # elsuto test-repo (adresita per GIT_REPO_REVO)
+  local -r REVO_TOKEN=$(docker exec -u1074 -it ${afido_id} cat /run/secrets/voko-afido.access_token)
+  local -r SIGELILO=$(docker exec -u1074 -it ${afido_id} cat /run/secrets/voko-afido.sigelilo)
+  run docker exec -u1074 -it ${afido_id}  bash -c \
+    "REVO_TOKEN='$REVO_TOKEN' SIGELILO='$SIGELILO' RETADRESO='testanto@example.com' \
+    kreu_giston.sh dict/revo-fonto/revo/artefakt.xml"
+
+  #run docker exec -u1074 -it ${afido_id}  bash -c \
+  #  "REVO_TOKEN='${REVO_TOKEN}' printenv"
+
+  #run docker exec -u1074 -it ${afido_id}  bash -c \
+  #  "echo $REVO_TOKEN"
+
+  echo "${output}"
+  [[ "$output" == *"xyx"* ]]
+  [ "$status" -eq 0 ]
+}
+
+@test "Prenu gistojn de gists.github.com" {  
+  skip
+
+  # tio preparas test-repo kaj gistojn
+  load test-preparo
+  # elsuto test-repo (adresita per GIT_REPO_REVO)
+  run docker exec -u1074 -it ${afido_id} bash -c \
+    'REVO_TOKEN=$(cat /run/secrets/voko-afido.access_token) prenu_gistojn.sh'
+
+  echo "${output}"
+  [[ "$output" == *"gisto \"cxeval.xml\" -> dict/gists"* ]]
+  [ "$status" -eq 0 ]
+}
+
+
+@test "Aktualigu giston ĉe gists.github.com" {  
+  skip
+
+  # tio preparas test-repo kaj gistojn
+  load test-preparo
+  # elsuto test-repo (adresita per GIT_REPO_REVO)
+  run docker exec -u1074 -it ${afido_id} aktualigu_gistojn.sh
+
+  echo "${output}"
+  [[ "$output" == *"xxx"* ]]
+  [ "$status" -eq 0 ]
+}
+
 
 

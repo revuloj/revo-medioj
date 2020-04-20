@@ -331,7 +331,7 @@
 }
 
 @test "Kreu la vortaron en du eldonoj kaj arĥivu la diferencon (kiel en Github, povas iom daŭri)." {
-  skip
+  #skip
   load test-preparo-repo
 
 #  docker exec -it ${formiko_id} bash -c "rm -rf /home/formiko/tmp/inx_tmp"
@@ -354,7 +354,7 @@
 }
 
 @test "Aktualigu artikolojn kaj historion (kiel hore en Github)." {
-  #skip
+  skip
   load test-preparo-repo
 #  docker exec -it ${formiko_id} bash -c "rm -rf /home/formiko/tmp/inx_tmp"
 #  docker exec -it ${formiko_id} bash -c "rm -rf /home/formiko/revo/art/*"
