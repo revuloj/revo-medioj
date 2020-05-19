@@ -19,6 +19,7 @@ docker exec -it ${formiko_id} bash -c "rm -rf /home/formiko/revo/xml"
 docker exec -it ${formiko_id} bash -c "rm -rf /home/formiko/revo/tez"
 docker exec -it ${formiko_id} bash -c "rm -rf /home/formiko/tgz/*"
 docker exec -it ${formiko_id} bash -c "rm -rf /home/formiko/revo-fonto"
+docker cp create_test_repo.sh ${formiko_id}:/usr/local/bin/
 docker exec -it ${formiko_id} bash -c "create_test_repo.sh"
 docker exec -u1001 -it ${formiko_id} bash -c "git clone ./test-repo revo-fonto"
 
