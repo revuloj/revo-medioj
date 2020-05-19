@@ -5,7 +5,7 @@
 # https://github.com/sstephenson/bats/issues/10
 
 @test "Sintakso de formiko-skriptoj" {
-  #skip
+  skip
   load test-preparo
   run docker exec -u1001 -it ${formiko_id} bash -c "formiko-testo"
 
@@ -17,7 +17,7 @@
 }
 
 @test "Sintakso de XSL-dosieroj" {
-  #skip
+  skip
   load test-preparo
   run docker exec -u1001 -it ${formiko_id} bash -c "\${VOKO}/bin/xsl-testo"
 
@@ -31,7 +31,7 @@
 @test "Agordo de redaktoservo" {  
   #skip
   load test-preparo
-  run docker exec -u1001 -it ${formiko_id} bash -c "cd \${REVO}; ant -f \${VOKO}/ant/redaktoservo.xml srv-agordo"
+  run docker exec -u1001 -it ${formiko_id} bash -c "cd \${REVO}; ant -f \${VOKO}/ant/redaktoservo-docker.xml srv-agordo"
 
   # srv.poshtoservilo=tomocero
   echo "${output}"
@@ -44,7 +44,7 @@
 }
 
 @test "Ŝloso kaj malŝloso de la servo per ant -f" {
-  #skip
+  skip
   load test-preparo
   run docker exec -u1001 -it ${formiko_id} bash -c "cd \${REVO}; ant -f \${VOKO}/ant/redaktoservo.xml srv-shlosu srv-malshlosu"
   # ĉu ni aldone kontrolu, ĉu la dosiero /home/formiko/tmp/inx_tmp/redaktoservo-laboranta-do-shlosita ekzistas kaj poste foriĝas...?
@@ -55,7 +55,7 @@
 }
 
 @test "Ŝloso de la servo per la skripto formiko" {
-  #skip
+  skip
   load test-preparo
   run docker exec -u1001 -it ${formiko_id} formiko srv-shlosu
   echo "${output}"
@@ -66,7 +66,7 @@
 
 
 @test "Malŝloso de la servo per la skripto formiko" {
-  #skip
+  skip
   load test-preparo
   run docker exec -u1001 -it ${formiko_id} formiko srv-malshlosu
   # ĉu ni aldone kontrolu, ĉu la dosiero /home/formiko/tmp/inx_tmp/redaktoservo-laboranta-do-shlosita ekzistas kaj poste foriĝas...?
@@ -217,10 +217,10 @@
   [ "$status" -eq 0 ]
 }
 
-@test "Preparu medion de la vortaro." {
+@test "Preparu klas-liston en medio de la vortaro." {
   #skip
   load test-preparo
-  run docker exec -u1001 -it ${formiko_id} formiko med-kadro
+  run docker exec -u1001 -it ${formiko_id} formiko med-kls
   echo "${output}"
   success=$(echo "${output}" | grep BUILD)
   [[ "${success##* }" == "SUCCESSFUL"* ]]
@@ -228,8 +228,12 @@
 }
 
 @test "Kontrolu XML per Jing (RelaxNG), (daŭras iom ...)" {
-  skip
-  load test-preparo
+  #skip
+  load test-preparo-repo
+  run docker exec -u1001 -it ${formiko_id} formiko -Dsha=v2 art-git-co
+  echo "${output}"
+  success=$(echo "${output}" | grep BUILD)
+  [[ "${success##* }" == "SUCCESSFUL"* ]]
   run docker exec -u1001 -it ${formiko_id} formiko inx-relax
   echo "${output}"
   success=$(echo "${output}" | grep BUILD)
@@ -275,17 +279,17 @@
 
 @test "Kreu la vortaron (kiel en Github, povas iom daŭri)." {
   skip
-  load test-preparo
-  docker exec -it ${formiko_id} bash -c "rm -rf /home/formiko/tmp/inx_tmp"
-  docker exec -it ${formiko_id} bash -c "rm -rf /home/formiko/revo/art/*"
-  docker exec -it ${formiko_id} bash -c "rm -rf /home/formiko/revo/xml/*"
-  docker exec -it ${formiko_id} bash -c "rm -rf /home/formiko/revo/hst/*"
-  docker exec -it ${formiko_id} bash -c "rm -rf /home/formiko/revo/inx/*"
-  docker exec -it ${formiko_id} bash -c "rm -rf /home/formiko/revo/tez/*"
-  docker exec -it ${formiko_id} bash -c "rm -rf /home/formiko/tgz/*"
-  docker exec -it ${formiko_id} bash -c "rm -rf /home/formiko/revo-fonto"
-  docker exec -it ${formiko_id} bash -c "create_test_repo.sh"
-  docker exec -u1001 -it ${formiko_id} bash -c "git clone ./test-repo revo-fonto"
+  load test-preparo-repo
+#  docker exec -it ${formiko_id} bash -c "rm -rf /home/formiko/tmp/inx_tmp"
+#  docker exec -it ${formiko_id} bash -c "rm -rf /home/formiko/revo/art/*"
+#  docker exec -it ${formiko_id} bash -c "rm -rf /home/formiko/revo/xml/*"
+#  docker exec -it ${formiko_id} bash -c "rm -rf /home/formiko/revo/hst/*"
+#  docker exec -it ${formiko_id} bash -c "rm -rf /home/formiko/revo/inx/*"
+#  docker exec -it ${formiko_id} bash -c "rm -rf /home/formiko/revo/tez/*"
+#  docker exec -it ${formiko_id} bash -c "rm -rf /home/formiko/tgz/*"
+#  docker exec -it ${formiko_id} bash -c "rm -rf /home/formiko/revo-fonto"
+#  docker exec -it ${formiko_id} bash -c "create_test_repo.sh"
+#  docker exec -u1001 -it ${formiko_id} bash -c "git clone ./test-repo revo-fonto"
    
   run docker exec -u1001 -it ${formiko_id} formiko -Dsha=v1 srv-servo-github-medinxtez
   run docker exec -u1001 -it ${formiko_id} formiko -Dsha=v1 srv-servo-github-art
