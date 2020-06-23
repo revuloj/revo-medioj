@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: /usr/local/bin/kompose convert
+    kompose.version: 1.19.0 (f63a961c)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: araneo
+  name: araneo
+spec:
+  replicas: 1
+  selector: 
+    matchLabels:
+      io.kompose.service: araneo
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      annotations:
+        kompose.cmd: /usr/local/bin/kompose convert
+        kompose.version: 1.19.0 (f63a961c)
+      creationTimestamp: null
+      labels:
+        io.kompose.service: araneo
+    spec:
+      containers:
+      - image: registry.local:5000/voko-araneo
+        name: araneo
+        ports:
+        - containerPort: 80
+        resources: {}
+        volumeMounts:
+        - mountPath: /var/www/web277/html/alveno
+          name: alveno
+      restartPolicy: Always
+      volumes:
+      - name: alveno
+        persistentVolumeClaim:
+          claimName: alveno
+status: {}

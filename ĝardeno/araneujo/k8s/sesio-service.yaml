@@ -1,0 +1,52 @@
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    kompose.cmd: /usr/local/bin/kompose convert
+    kompose.version: 1.19.0 (f63a961c)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: sesio
+  name: sesio
+spec:
+  ports:
+  - name: "21"
+    port: 21
+    targetPort: 21
+  - name: "21200"
+    port: 21200
+    targetPort: 21200
+  - name: "21201"
+    port: 21201
+    targetPort: 21201
+  - name: "21202"
+    port: 21202
+    targetPort: 21202
+  - name: "21203"
+    port: 21203
+    targetPort: 21203
+  - name: "21204"
+    port: 21204
+    targetPort: 21204
+  - name: "21205"
+    port: 21205
+    targetPort: 21205
+  - name: "21206"
+    port: 21206
+    targetPort: 21206
+  - name: "21207"
+    port: 21207
+    targetPort: 21207
+  - name: "21208"
+    port: 21208
+    targetPort: 21208
+  - name: "21209"
+    port: 21209
+    targetPort: 21209
+  - name: "21210"
+    port: 21210
+    targetPort: 21210
+  selector:
+    io.kompose.service: sesio
+status:
+  loadBalancer: {}

@@ -17,6 +17,7 @@ spec:
     spec:
       containers:
       - image: voko-cikado
+        imagePullPolicy: IfNotPresent       
         name: cikado
         resources: {}
       restartPolicy: Always

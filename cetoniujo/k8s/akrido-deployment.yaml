@@ -17,6 +17,7 @@ spec:
     spec:
       containers:
       - image: voko-akrido
+        imagePullPolicy: IfNotPresent
         name: akrido
         resources: {}
       restartPolicy: Always

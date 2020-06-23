@@ -17,6 +17,7 @@ spec:
     spec:
       containers:
       - image: voko-grilo
+        imagePullPolicy: IfNotPresent
         name: grilo
         resources: {}
       restartPolicy: Always

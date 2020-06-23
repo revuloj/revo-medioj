@@ -1,27 +1,31 @@
-apiVersion: apps/v1
+apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
+  annotations:
+    kompose.cmd: /usr/local/bin/kompose convert
+    kompose.version: 1.19.0 (f63a961c)
+  creationTimestamp: null
   labels:
-    cmp: tomocero
+    io.kompose.service: tomocero
   name: tomocero
 spec:
   replicas: 1
-  selector:
-    matchLabels:
-      cmp: tomocero  
   strategy:
     type: Recreate
   template:
     metadata:
+      annotations:
+        kompose.cmd: /usr/local/bin/kompose convert
+        kompose.version: 1.19.0 (f63a961c)
+      creationTimestamp: null
       labels:
-        cmp: tomocero
+        io.kompose.service: tomocero
     spec:
       containers:
       - args:
         - /usr/lib/postfix/master
         - -d
         image: voko-tomocero
-        imagePullPolicy: IfNotPresent       
         name: tomocero
         resources: {}
         volumeMounts:
