@@ -14,10 +14,12 @@ spec:
     metadata:
       labels:
         cmp: abelo
+        version: v1
     spec:
       containers:
       - name: abelo
         image: voko-abelo
+        imagePullPolicy: IfNotPresent    
         env:
         - name: MYSQL_DATABASE
           value: usr_web277_1

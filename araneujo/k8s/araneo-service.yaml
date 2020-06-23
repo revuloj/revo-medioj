@@ -6,7 +6,7 @@ metadata:
   name: araneo
 spec:
   ports:
-  - name: "8088"
+  - name: "http"
     port: 8088
     targetPort: 80
   selector:

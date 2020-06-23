@@ -1,0 +1,20 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: araneo-http
+spec:
+  hosts:
+  - "araneo.example.com"
+  gateways:
+  - araneo-gateway
+  http:
+  - match:
+    - uri:
+        prefix: /araneo
+    - uri:
+        prefix: /revo
+    route:
+    - destination:
+        port:
+          number: 80
+        host: araneo

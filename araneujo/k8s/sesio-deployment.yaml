@@ -18,6 +18,7 @@ spec:
     spec:
       containers:
       - image: voko-sesio
+        imagePullPolicy: IfNotPresent    
         name: sesio
         ports:
         - containerPort: 21

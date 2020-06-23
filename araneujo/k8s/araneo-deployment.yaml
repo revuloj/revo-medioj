@@ -2,19 +2,26 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
+    app.kubernetes.io/name: araneujo
+    app.kubernetes.io/instance: xps
+    app.kubernetes.io/version: "v1"
+    app.kubernetes.io/component: araneo
+    app.kubernetes.io/part-of: revo
     app: araneo
+    version: v1
   name: araneo
 spec:
-  replicas: 1
+  replicas: 3
   selector:
     matchLabels:
-      app: araneo  
+      app: araneo
   strategy:
     type: Recreate
   template:
     metadata:
       labels:
         app: araneo
+        version: v1
     spec:
       containers:
       - env:
@@ -29,6 +36,7 @@ spec:
         - name: EMAIL_SENDER_TRANSPORT_ssl
           value: ssl
         image: voko-araneo
+        imagePullPolicy: IfNotPresent    
         name: araneo
         ports:
         - containerPort: 80
