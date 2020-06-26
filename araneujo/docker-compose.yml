@@ -61,12 +61,10 @@ services:
       - voko-abelo.mysql_password
       - voko.redaktantoj
     environment:
-      # FARENDA: necesas aldoni tiujn informojn ankaŭ en la dosiero revodb.pm
       MYSQL_ROOT_PASSWORD_FILE: /run/secrets/voko-abelo.mysql_root_password
       MYSQL_PASSWORD_FILE: /run/secrets/voko-abelo.mysql_password
       MYSQL_DATABASE: usr_web277_1
       MYSQL_USER: web277
-      # MYSQL_ROOT_PASSWORD: sekreto28343
 
   sesio:
     image: voko-sesio
