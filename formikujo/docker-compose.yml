@@ -5,8 +5,8 @@ services:
     image: voko-formiko
     build: https://github.com/revuloj/voko-formiko.git
       # restart: always
-#    environment:
-#      - GIT_REPO_REVO=https://github.com/revuloj/revo-fonto-testo.git
+    environment:
+      - GIT_REPO_REVO=https://github.com/revuloj/revo-fonto.git
     networks:
       - ghardeno
     volumes:

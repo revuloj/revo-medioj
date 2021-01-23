@@ -52,11 +52,7 @@ EOF1
 cat << EOE > cfg/enhavo.xml
 <?xml version="1.0"?>
 <!DOCTYPE enhavo SYSTEM "../dtd/vokoenh.dtd">
-
 <enhavo nomo="Reta Vortaro" nometo="ReVo" piktogramo="revo.ico">
-
-  <!-- titolpagho -->
-
   <bonveno>
     <sercho tipo="revo" ref="http://reta-vortaro.de/revo/cfg/sercxo2.xml" titolo="Revoser&ccirc;o"/>
     <sercho tipo="google" ref="http://reta-vortaro.de/revo/cfg/sercxo.xml" titolo="Revoser&ccirc;o per Google"/>
@@ -67,28 +63,23 @@ cat << EOE > cfg/enhavo.xml
   </bonveno>
   <pagho titolo="ktp." dosiero="_ktp.html">
     <sekcio titolo="por uzantoj">
-      <ero ref="../dok/mallongigoj.html" titolo="Vortaraj mallongigoj"/>
-      
+      <ero ref="../dok/mallongigoj.html" titolo="Vortaraj mallongigoj"/>      
       <ero ref="../dok/bibliogr.html" titolo="Bibliografio la&ubreve; mallongigoj" 
 	style="margin-top: 0.4em; margin-bottom: 0"/>
-
       <STAT titolo="Statistiko" style="margin-top: 0.4em; margin-bottom: 0"/>
       <ero ref="../dok/copying.txt" titolo="Permeso de uzado" kadro="_new"/>
     </sekcio>
-
     <sekcio titolo="por redaktantoj">
        <ero ref="novaj.html" titolo="Novaj artikoloj"/>
        <ero ref="shanghoj.html" titolo="&Scirc;an&gcirc;itaj artikoloj"/>
        <ero ref="eraroj.html" titolo="Strukturaj eraroj"/>
     </sekcio>
   </pagho>
-
 </enhavo>
 EOE
 
 cat << EOB > cfg/bibliogr.xml
 <!DOCTYPE bibliografio [
-
 <!ELEMENT bibliografio (vrk)*>
 <!ELEMENT vrk (url?,aut*,trd?,tit?,ald?,eld*)>
 <!ATTLIST vrk mll ID #REQUIRED
@@ -106,18 +97,10 @@ cat << EOB > cfg/bibliogr.xml
 <!ELEMENT lok (#PCDATA)>
 <!ELEMENT dat (#PCDATA)>
 <!ELEMENT nro (#PCDATA)>
-
 <!ENTITY % signoj SYSTEM "../dtd/vokosgn.dtd">
 %signoj;
-
-<!ENTITY url_mjb "http://pagesperso-orange.fr/kursoj1/revo">
-<!ENTITY url_wd "http://www.steloj.de/esperanto">
-<!ENTITY url_ade "http://www.akademio-de-esperanto.org">
-
 ]>
- 
-<bibliografio>
-  
+<bibliografio>  
   <vrk mll="9OA" tip="vortaro">
     <url>http://www.akademio-de-esperanto.org/decidoj/9oa.html</url>
     <aut>Akademio de Esperanto</aut>
@@ -132,6 +115,8 @@ git config --global user.name "Ja Neniu"
 git add bld revo cfg
 git commit -m"v1"
 git tag "v1"
+
+sed -i "s|\.\./dok/mallongigoj.html|http://retavortaro.de/revo/dok/mallongigoj.html|" cfg/enhavo.xml
 
 cat << EOF2 > revo/modif.xml
 <?xml version="1.0"?>
@@ -165,7 +150,7 @@ cat << EOF2 > revo/modif.xml
 </vortaro>
 EOF2
 
-git add revo
+git add revo cfg
 git commit -m"v2"
 git tag "v2"
 
