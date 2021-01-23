@@ -3,7 +3,7 @@
   <element>
     <id>UMLPackage</id>
     <coordinates>
-      <x>560</x>
+      <x>600</x>
       <y>336</y>
       <w>344</w>
       <h>96</h>
@@ -23,8 +23,8 @@ valign=top
   <element>
     <id>UMLActor</id>
     <coordinates>
-      <x>328</x>
-      <y>32</y>
+      <x>288</x>
+      <y>16</y>
       <w>48</w>
       <h>80</h>
     </coordinates>
@@ -34,8 +34,8 @@ valign=top
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>200</x>
-      <y>72</y>
+      <x>160</x>
+      <y>56</y>
       <w>24</w>
       <h>72</h>
     </coordinates>
@@ -47,8 +47,8 @@ valign=top
   <element>
     <id>UMLActor</id>
     <coordinates>
-      <x>160</x>
-      <y>40</y>
+      <x>120</x>
+      <y>24</y>
       <w>96</w>
       <h>80</h>
     </coordinates>
@@ -58,8 +58,8 @@ valign=top
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>200</x>
-      <y>128</y>
+      <x>160</x>
+      <y>112</y>
       <w>96</w>
       <h>80</h>
     </coordinates>
@@ -72,8 +72,8 @@ tra ssh-tunelo</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>344</x>
-      <y>64</y>
+      <x>304</x>
+      <y>48</y>
       <w>24</w>
       <h>80</h>
     </coordinates>
@@ -85,8 +85,8 @@ tra ssh-tunelo</panel_attributes>
   <element>
     <id>UMLGeneric</id>
     <coordinates>
-      <x>80</x>
-      <y>472</y>
+      <x>40</x>
+      <y>456</y>
       <w>160</w>
       <h>88</h>
     </coordinates>
@@ -97,38 +97,38 @@ retpoŝto-provizanto</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>232</x>
-      <y>296</y>
+      <x>192</x>
+      <y>288</y>
       <w>352</w>
-      <h>248</h>
+      <h>240</h>
     </coordinates>
     <panel_attributes>lt=&lt;.
 r1=smtp (465)
 &lt; konfirmoj
 
 </panel_attributes>
-    <additional_attributes>10.0;270.0;310.0;270.0;420.0;10.0</additional_attributes>
+    <additional_attributes>10.0;260.0;310.0;260.0;420.0;10.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>232</x>
-      <y>384</y>
-      <w>344</w>
-      <h>184</h>
+      <x>776</x>
+      <y>280</y>
+      <w>80</w>
+      <h>88</h>
     </coordinates>
     <panel_attributes>lt=&lt;.
-r1=smtp (465)
-&lt; redakto 
+r1=https
+&lt; redaktoj 
 
 </panel_attributes>
-    <additional_attributes>10.0;190.0;330.0;190.0;410.0;10.0</additional_attributes>
+    <additional_attributes>10.0;10.0;10.0;90.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>96</x>
-      <y>288</y>
+      <x>56</x>
+      <y>272</y>
       <w>80</w>
       <h>200</h>
     </coordinates>
@@ -142,54 +142,38 @@ redaktoj &gt;
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>232</x>
-      <y>296</y>
+      <x>192</x>
+      <y>288</y>
       <w>328</w>
-      <h>224</h>
+      <h>216</h>
     </coordinates>
     <panel_attributes>lt=&lt;.
 r1=pop3 (993)
 redaktoj &gt;
 
 </panel_attributes>
-    <additional_attributes>10.0;240.0;290.0;240.0;390.0;10.0</additional_attributes>
+    <additional_attributes>10.0;230.0;290.0;230.0;390.0;10.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>376</x>
-      <y>224</y>
-      <w>304</w>
-      <h>64</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;.
-r1=ftp/scp
-&lt; ŝanĝoj                   _
-
-
-</panel_attributes>
-    <additional_attributes>10.0;20.0;360.0;20.0</additional_attributes>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>376</x>
-      <y>264</y>
-      <w>304</w>
+      <x>320</x>
+      <y>248</y>
+      <w>184</w>
       <h>48</h>
     </coordinates>
     <panel_attributes>lt=&lt;.
 r1=ftp/scp
-&lt; ŝanĝoj                   _
+&lt; ŝanĝoj
 
 </panel_attributes>
-    <additional_attributes>10.0;20.0;360.0;20.0</additional_attributes>
+    <additional_attributes>10.0;20.0;210.0;20.0</additional_attributes>
   </element>
   <element>
     <id>UMLActor</id>
     <coordinates>
-      <x>840</x>
-      <y>32</y>
+      <x>880</x>
+      <y>24</y>
       <w>80</w>
       <h>80</h>
     </coordinates>
@@ -199,20 +183,20 @@ r1=ftp/scp
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>872</x>
-      <y>280</y>
+      <x>912</x>
+      <y>272</y>
       <w>80</w>
-      <h>88</h>
+      <h>96</h>
     </coordinates>
     <panel_attributes>lt=()-
 https (443)</panel_attributes>
-    <additional_attributes>10.0;10.0;10.0;90.0</additional_attributes>
+    <additional_attributes>10.0;10.0;10.0;100.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>872</x>
-      <y>80</y>
+      <x>912</x>
+      <y>72</y>
       <w>88</w>
       <h>216</h>
     </coordinates>
@@ -225,7 +209,7 @@ per Cetonio
   <element>
     <id>UMLGeneric</id>
     <coordinates>
-      <x>560</x>
+      <x>600</x>
       <y>472</y>
       <w>176</w>
       <h>88</h>
@@ -237,7 +221,7 @@ Vikipedio / Vikimedio</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>624</x>
+      <x>664</x>
       <y>424</y>
       <w>80</w>
       <h>64</h>
@@ -251,7 +235,7 @@ r1=https (443)
   <element>
     <id>UMLGeneric</id>
     <coordinates>
-      <x>744</x>
+      <x>784</x>
       <y>472</y>
       <w>160</w>
       <h>88</h>
@@ -263,7 +247,7 @@ Anaso (DuckDuckGo)</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>784</x>
+      <x>824</x>
       <y>424</y>
       <w>80</w>
       <h>64</h>
@@ -277,22 +261,22 @@ r1=https (443)
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>352</x>
-      <y>120</y>
-      <w>504</w>
-      <h>248</h>
+      <x>312</x>
+      <y>104</y>
+      <w>584</w>
+      <h>264</h>
     </coordinates>
     <panel_attributes>lt=&lt;.
 artikolo &gt;
 </panel_attributes>
-    <additional_attributes>10.0;20.0;610.0;20.0;610.0;290.0</additional_attributes>
+    <additional_attributes>10.0;20.0;710.0;30.0;710.0;310.0</additional_attributes>
   </element>
   <element>
     <id>UMLPackage</id>
     <coordinates>
-      <x>72</x>
-      <y>176</y>
-      <w>320</w>
+      <x>32</x>
+      <y>160</y>
+      <w>296</w>
       <h>120</h>
     </coordinates>
     <panel_attributes>Araneujo
@@ -309,38 +293,14 @@ valign=top
     <additional_attributes/>
   </element>
   <element>
-    <id>UMLGeneric</id>
-    <coordinates>
-      <x>296</x>
-      <y>208</y>
-      <w>88</w>
-      <h>40</h>
-    </coordinates>
-    <panel_attributes>&lt;&lt;dosierujo&gt;&gt;
-cvsroot</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>UMLGeneric</id>
-    <coordinates>
-      <x>296</x>
-      <y>248</y>
-      <w>88</w>
-      <h>40</h>
-    </coordinates>
-    <panel_attributes>&lt;&lt;dosierujo&gt;&gt;
-revo</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
     <id>UMLPackage</id>
     <coordinates>
-      <x>520</x>
-      <y>184</y>
-      <w>256</w>
-      <h>120</h>
+      <x>480</x>
+      <y>168</y>
+      <w>352</w>
+      <h>128</h>
     </coordinates>
-    <panel_attributes>Formikujo
+    <panel_attributes>Formikujo (Github)
 --
 bg=orange
 halign=left
@@ -351,34 +311,10 @@ valign=top
     <additional_attributes/>
   </element>
   <element>
-    <id>UMLGeneric</id>
-    <coordinates>
-      <x>664</x>
-      <y>208</y>
-      <w>88</w>
-      <h>40</h>
-    </coordinates>
-    <panel_attributes>&lt;&lt;dosierujo&gt;&gt;
-cvsroot</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>UMLGeneric</id>
-    <coordinates>
-      <x>664</x>
-      <y>248</y>
-      <w>88</w>
-      <h>40</h>
-    </coordinates>
-    <panel_attributes>&lt;&lt;dosierujo&gt;&gt;
-revo</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
     <id>Relation</id>
     <coordinates>
-      <x>344</x>
-      <y>128</y>
+      <x>304</x>
+      <y>112</y>
       <w>72</w>
       <h>80</h>
     </coordinates>
@@ -393,34 +329,34 @@ http (80)
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>344</x>
-      <y>144</y>
-      <w>368</w>
-      <h>72</h>
+      <x>304</x>
+      <y>128</y>
+      <w>312</w>
+      <h>104</h>
     </coordinates>
     <panel_attributes>lt=&lt;.
 administraj skriptoj
 </panel_attributes>
-    <additional_attributes>10.0;20.0;440.0;20.0;440.0;70.0</additional_attributes>
+    <additional_attributes>10.0;20.0;360.0;20.0;366.0;110.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>352</x>
-      <y>64</y>
-      <w>536</w>
+      <x>312</x>
+      <y>48</y>
+      <w>616</w>
       <h>80</h>
     </coordinates>
     <panel_attributes>lt=&lt;.
 r2=per ret-formularo
 </panel_attributes>
-    <additional_attributes>10.0;80.0;90.0;20.0;650.0;20.0</additional_attributes>
+    <additional_attributes>10.0;80.0;90.0;20.0;750.0;20.0</additional_attributes>
   </element>
   <element>
     <id>UMLNote</id>
     <coordinates>
-      <x>960</x>
-      <y>160</y>
+      <x>1040</x>
+      <y>168</y>
       <w>184</w>
       <h>80</h>
     </coordinates>
@@ -431,47 +367,33 @@ bg=gray</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>768</x>
-      <y>192</y>
-      <w>208</w>
-      <h>80</h>
+      <x>824</x>
+      <y>200</y>
+      <w>232</w>
+      <h>56</h>
     </coordinates>
     <panel_attributes>lt=.
 fg=gray</panel_attributes>
-    <additional_attributes>10.0;80.0;240.0;10.0</additional_attributes>
+    <additional_attributes>10.0;50.0;270.0;10.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>752</x>
-      <y>144</y>
-      <w>88</w>
-      <h>72</h>
-    </coordinates>
-    <panel_attributes>lt=()-
-
-https
-github.com</panel_attributes>
-    <additional_attributes>10.0;10.0;10.0;71.0</additional_attributes>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>760</x>
-      <y>136</y>
-      <w>72</w>
-      <h>232</h>
+      <x>696</x>
+      <y>120</y>
+      <w>176</w>
+      <h>248</h>
     </coordinates>
     <panel_attributes>lt=&lt;.
 db &gt;
 </panel_attributes>
-    <additional_attributes>10.0;20.0;70.0;20.0;70.0;270.0</additional_attributes>
+    <additional_attributes>10.0;20.0;200.0;20.0;200.0;290.0</additional_attributes>
   </element>
   <element>
     <id>UMLNote</id>
     <coordinates>
-      <x>232</x>
-      <y>344</y>
+      <x>192</x>
+      <y>328</y>
       <w>184</w>
       <h>88</h>
     </coordinates>
@@ -482,8 +404,8 @@ bg=gray</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>264</x>
-      <y>288</y>
+      <x>224</x>
+      <y>272</y>
       <w>48</w>
       <h>72</h>
     </coordinates>
@@ -494,31 +416,7 @@ fg=gray</panel_attributes>
   <element>
     <id>UMLNote</id>
     <coordinates>
-      <x>312</x>
-      <y>584</y>
-      <w>152</w>
-      <h>72</h>
-    </coordinates>
-    <panel_attributes>Ni volas anstataŭigi sendadon de redaktoj anstataŭ per retpoŝto per Github-gistoj.
-bg=gray</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>384</x>
-      <y>480</y>
-      <w>40</w>
-      <h>120</h>
-    </coordinates>
-    <panel_attributes>lt=.
-fg=gray</panel_attributes>
-    <additional_attributes>10.0;130.0;30.0;10.0</additional_attributes>
-  </element>
-  <element>
-    <id>UMLNote</id>
-    <coordinates>
-      <x>952</x>
+      <x>992</x>
       <y>416</y>
       <w>224</w>
       <h>80</h>
@@ -530,7 +428,7 @@ bg=gray</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>896</x>
+      <x>936</x>
       <y>392</y>
       <w>72</w>
       <h>56</h>
@@ -538,5 +436,78 @@ bg=gray</panel_attributes>
     <panel_attributes>lt=.
 fg=gray</panel_attributes>
     <additional_attributes>70.0;50.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLPackage</id>
+    <coordinates>
+      <x>104</x>
+      <y>712</y>
+      <w>392</w>
+      <h>112</h>
+    </coordinates>
+    <panel_attributes>Github
+--
+halign=left
+valign=top
++revuloj</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLGeneric</id>
+    <coordinates>
+      <x>488</x>
+      <y>216</y>
+      <w>152</w>
+      <h>72</h>
+    </coordinates>
+    <panel_attributes>symbol=component
+revuloj/revo-fonto
+--
++ nokta-aktualigo
++ akceptu-redaktojn
++ eldono-de-la-tago</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>688</x>
+      <y>128</y>
+      <w>104</w>
+      <h>72</h>
+    </coordinates>
+    <panel_attributes>lt=()-
+https
+api.github.com</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;71.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>616</x>
+      <y>128</y>
+      <w>88</w>
+      <h>104</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+r1=https
+
+</panel_attributes>
+    <additional_attributes>90.0;20.0;10.0;20.0;10.0;110.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLGeneric</id>
+    <coordinates>
+      <x>672</x>
+      <y>216</y>
+      <w>152</w>
+      <h>72</h>
+    </coordinates>
+    <panel_attributes>symbol=component
+gist.github.com/
+reta-vortaro
+
+</panel_attributes>
+    <additional_attributes/>
   </element>
 </diagram>
