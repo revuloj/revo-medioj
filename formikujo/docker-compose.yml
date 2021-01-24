@@ -21,6 +21,13 @@ services:
       - voko.redaktantoj
       - voko-sesio.ftp_password
       - voko-araneo.cgi_password
+      # provizore por la nova servilo ni bezonas duan agordon
+      - voko-sesio.ftp_server2
+      - voko-sesio.ftp_user2
+      - voko-sesio.ftp_password2
+      - voko-araneo.cgi_server2
+      - voko-araneo.cgi_user2
+      - voko-araneo.cgi_password2
     # necesas unufoje akcepti la ssh-servo-ŝlosilon de afido
     # KOREKTU: ofte afido ankoraŭ ne estas aktiva, iel ni devos atendi ĝis afido reagas kaj funkcias la komando!
     command: >
@@ -161,10 +168,26 @@ secrets:
   voko-afido.smtp_password:
     external: true
 
-  voko-sesio.ftp_password:
-    external: true
   voko-araneo.cgi_password:
     external: true
+
+  voko-araneo.cgi_server2:
+    external: true
+  voko-araneo.cgi_user2:
+    external: true
+  voko-araneo.cgi_password2:
+    external: true
+
+  voko-sesio.ftp_password:
+    external: true
+
+  voko-sesio.ftp_server2:
+    external: true
+  voko-sesio.ftp_user2:
+    external: true
+  voko-sesio.ftp_password2:
+    external: true
+
 
   voko.redaktantoj:
     #external: true

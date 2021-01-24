@@ -1,5 +1,7 @@
 #!/bin/bash
 
+#set -x
+
 secrets=$(docker secret ls --filter name=voko-sesio. -q)
 if [ ! -z "${secrets}" ]; then
     echo "# forigante malnovajn sekretojn voko-sesio.* ..."
@@ -13,6 +15,12 @@ ftp_user=sesio
 
 echo ${ftp_password} | docker secret create voko-sesio.ftp_password -
 echo ${ftp_user} | docker secret create voko-sesio.ftp_user -
+
+if [[ ! -z "${FTP_SERVER2}" ]]; then
+    echo ${FTP_SERVER2} | docker secret create voko-sesio.ftp_server2 -
+    echo ${FTP_PASSWD2} | docker secret create voko-sesio.ftp_password2 -
+    echo ${FTP_USER2} | docker secret create voko-sesio.ftp_user2 -
+fi
 
 docker secret ls --filter name=voko-sesio. 
 

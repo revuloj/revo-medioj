@@ -1,7 +1,7 @@
 #!/bin/bash
 
 secrets=$(docker secret ls --filter name=voko-araneo. -q)
-if [ ! -z ${secrets} ]; then
+if [ ! -z "${secrets}" ]; then
     echo "# forigante malnovajn sekretojn voko-araneo.* ..."
     docker secret rm ${secrets}
 fi
@@ -10,6 +10,12 @@ echo
 echo "# metante novajn sekretojn..."
 cgi_password=$(cat /dev/urandom | tr -dc A-Z_a-z-0-9 | head -c${1:-16})
 echo ${cgi_password} | docker secret create voko-araneo.cgi_password -
+
+if [[ ! -z "$CGI_SERVER2" ]]; then
+    echo ${CGI_SERVER2} | docker secret create voko-araneo.cgi_server2 -
+    echo ${CGI_PASSWD2} | docker secret create voko-araneo.cgi_password2 -
+    echo ${CGI_USER2} | docker secret create voko-araneo.cgi_user2 -
+fi
 
 docker secret ls --filter name=voko-araneo. 
 
