@@ -20,7 +20,7 @@ REVO_TARGET=revo
 #rsync -v -r -c -z --delete --stats ...
 # -v = verbose, -r = subdosierujoj, -z = komprimite, -c = nur kies kontrolsumoj diferencas
 # -n montru, kio okazus, sed ne efektive sinkronigu!
-rsync -v -r -c -z --stats revo/xml revo/art revo/inx revo/hst revo/tez ${REVO_TARGET}:www/revo
+rsync -v -r -c -z --stats revo/xml revo/art revo/inx revo/bld revo/hst revo/tez ${REVO_TARGET}:www/revo
 
 
 
