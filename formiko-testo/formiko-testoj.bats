@@ -5,7 +5,7 @@
 # https://github.com/sstephenson/bats/issues/10
 
 @test "Sintakso de formiko-skriptoj" {
-  skip
+  #skip
   load test-preparo
   run docker exec -u1001 -it ${formiko_id} bash -c "formiko-testo"
 
@@ -17,7 +17,7 @@
 }
 
 @test "Sintakso de XSL-dosieroj" {
-  skip
+  #skip
   load test-preparo
   run docker exec -u1001 -it ${formiko_id} bash -c "\${VOKO}/bin/xsl-testo"
 
@@ -242,7 +242,7 @@
 }
 
 @test "Konvertu artikolojn de XML al HTML. (daŭras ...)" {
-  skip
+  #skip
   load test-preparo
   run docker exec -u1001 -it ${formiko_id} formiko inx-eltiro
   echo "${output}"
@@ -256,7 +256,7 @@
 }
 
 @test "Kreu indeksojn de la vortaro. (daŭras ...)" {
-  skip
+  #skip
   load test-preparo
   docker exec -u1001 -it ${formiko_id} bash -c "rm -f tmp/inx_tmp/*.xml"
   run docker exec -u1001 -it ${formiko_id} formiko inx-tuto
@@ -267,7 +267,7 @@
 }
 
 @test "Kreu tezaŭron de la vortaro. (daŭras ...)" {
-  skip
+  #skip
   load test-preparo
   docker exec -u1001 -it ${formiko_id} bash -c "rm -f tmp/inx_tmp/*.xml"
   run docker exec -u1001 -it ${formiko_id} formiko tez-tuto
@@ -278,7 +278,7 @@
 }
 
 @test "Kreu la vortaron (kiel en Github, povas iom daŭri)." {
-  skip
+  #skip
   load test-preparo-repo
 #  docker exec -it ${formiko_id} bash -c "rm -rf /home/formiko/tmp/inx_tmp"
 #  docker exec -it ${formiko_id} bash -c "rm -rf /home/formiko/revo/art/*"
@@ -335,7 +335,7 @@
 }
 
 @test "Kreu la vortaron en du eldonoj kaj arĥivu la diferencon (kiel en Github, povas iom daŭri)." {
-  #skip
+  skip
   load test-preparo-repo
 
 #  docker exec -it ${formiko_id} bash -c "rm -rf /home/formiko/tmp/inx_tmp"

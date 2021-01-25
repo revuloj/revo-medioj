@@ -89,9 +89,8 @@
   tst_dir=$(dirname $BATS_TEST_FILENAME)
 
   ## curl status codes: https://curl.haxx.se/libcurl/c/libcurl-errors.html
-  html=$(curl -Ls --ignore-content-length -X POST -F "button=konservu" -F "art=test" -F "sxangxo=testo per araneo-testoj.bats" ${url})
-  # \
-  #  -F "redaktanto=${testfrom_addr}" -F "xmlTxt=<${tst_dir}/revo/xml/test.xml" ${url})
+  html=$(curl -Ls --ignore-content-length -X POST -F "command=konservo" -F "art=test" -F "sxangxo=testo per araneo-testoj.bats" \
+              -F "redaktanto=${testfrom_addr}" -F "xmlTxt=<${tst_dir}/revo/xml/test.xml" ${url})
   body=$(echo ${html} | grep -oz '<body.*body>' | tr '\000' '\n')
 
   # tio eliĝas nur se ne okazas problemoj...
