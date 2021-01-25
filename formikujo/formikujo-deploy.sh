@@ -1,10 +1,10 @@
 #!/bin/bash
 #set -x
 
-if [ ! -e cvsroot ]; then
-  echo "Mankas la loka dosierujo cvsroot/ !"
-  exit 1
-fi
+#if [ ! -e cvsroot ]; then
+#  echo "Mankas la loka dosierujo cvsroot/ !"
+#  exit 1
+#fi
 
 if [ ! -e revo ]; then
   echo "Mankas la loka dosierujo revo/ !"
