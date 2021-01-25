@@ -5,8 +5,8 @@ services:
     image: voko-formiko
     build: https://github.com/revuloj/voko-formiko.git
       # restart: always
-#    environment:
-#      - GIT_REPO_REVO=https://github.com/revuloj/revo-fonto-testo.git
+    environment:
+      - GIT_REPO_REVO=https://github.com/revuloj/revo-fonto.git
     networks:
       - ghardeno
     volumes:
@@ -47,17 +47,15 @@ services:
     networks:
       - ghardeno
     volumes:
-      - type: bind
-        source: ./cvsroot
-        target: /home/afido/dict/cvsroot
+#      - type: bind
+#        source: ./cvsroot
+#        target: /home/afido/dict/cvsroot
       - type: bind
         source: ./revo/xml
         target: /home/afido/dict/xml        
-      - type: bind
-        source: ./revo-fonto
-        target: /home/afido/dict/revo-fonto        
-#      - xml:/home/afido/dict/xml # la artikoloj
-#      - cvsroot:/home/afido/dict/cvsroot # $CVSROOT
+#      - type: bind
+#        source: ./revo-fonto
+#        target: /home/afido/dict/revo-fonto        
       - afido:/var/afido # tmp, log
       - mail:/var/mail
     environment:
@@ -71,46 +69,46 @@ services:
       - voko-afido.smtp_password
       #- voko-tomocero.saslpassword
 
-  tomocero:
-    image: voko-tomocero
-    build: https://github.com/revuloj/voko-tomocero.git
-    command: /usr/lib/postfix/master -d
-    volumes:
-      # eble ni eksterigu ankaŭ /var/spool/postfix resp. tutan /var/spool
-      - mail:/var/mail
-      - spool:/var/spool
-    secrets:
-      - voko-tomocero.pop3_server
-      - voko-tomocero.pop3_user
-      - voko-tomocero.pop3_password
-      - voko-tomocero.myhostname
-      - voko-tomocero.saslpassword
-      - voko-tomocero.relayhost
-      - voko-tomocero.relayaddress
-      - voko-tomocero.relaypassword
-    #expose: 25, 465
-##
-##  vaneso-cvs:
-##    image: voko-vaneso
-##    build: https://github.com/revuloj/voko-vaneso.git
-##    command: mirror.pl cvs
-##    volumes:
-##      - cvsroot:/home/vaneso/cvsroot # $CVSROOT
-##      - mirrordat:/home/vaneso/mirrordat
-##      - vaneso-log:/home/vaneso/log
-##
-##  vaneso-revo:
-##    image: voko-vaneso
-##    build: https://github.com/revuloj/voko-vaneso.git
-##    command: mirror.pl revo
-##    volumes:
-##        - type: bind
-##        source: ./revo
-##        target: /home/vaneso/revo
-##      - mirrordat:/home/vaneso/mirrordat
-##      - vaneso-log:/home/vaneso/log
-##
-
+##   tomocero:
+##     image: voko-tomocero
+##     build: https://github.com/revuloj/voko-tomocero.git
+##     command: /usr/lib/postfix/master -d
+##     volumes:
+##       # eble ni eksterigu ankaŭ /var/spool/postfix resp. tutan /var/spool
+##       - mail:/var/mail
+##       - spool:/var/spool
+##     secrets:
+##       - voko-tomocero.pop3_server
+##       - voko-tomocero.pop3_user
+##       - voko-tomocero.pop3_password
+##       - voko-tomocero.myhostname
+##       - voko-tomocero.saslpassword
+##       - voko-tomocero.relayhost
+##       - voko-tomocero.relayaddress
+##       - voko-tomocero.relaypassword
+##     #expose: 25, 465
+## ##
+## ##  vaneso-cvs:
+## ##    image: voko-vaneso
+## ##    build: https://github.com/revuloj/voko-vaneso.git
+## ##    command: mirror.pl cvs
+## ##    volumes:
+## ##      - cvsroot:/home/vaneso/cvsroot # $CVSROOT
+## ##      - mirrordat:/home/vaneso/mirrordat
+## ##      - vaneso-log:/home/vaneso/log
+## ##
+## ##  vaneso-revo:
+## ##    image: voko-vaneso
+## ##    build: https://github.com/revuloj/voko-vaneso.git
+## ##    command: mirror.pl revo
+## ##    volumes:
+## ##        - type: bind
+## ##        source: ./revo
+## ##        target: /home/vaneso/revo
+## ##      - mirrordat:/home/vaneso/mirrordat
+## ##      - vaneso-log:/home/vaneso/log
+## ##
+## 
 # kreu sekretojn ekzemple tiel, kondiĉe ke vi uzas propran poŝtfakon
 # redaktoservo@provizanto.org por ricevi kaj forsendi artikolojn
 #   echo "mail.provizanto.org" | docker secret create voko-afido.pop3_server -
