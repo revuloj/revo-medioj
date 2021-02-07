@@ -12,7 +12,7 @@ services:
     depends_on:
      - abelo
     volumes:
-     - alveno:/var/www/web277/html/alveno
+     - alveno:/hp/af/ag/ri//www/alveno
     secrets:
       - voko-abelo.mysql_password
       # uzata por eksporto de lastaj ŝanĝoj:
@@ -63,8 +63,8 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD_FILE: /run/secrets/voko-abelo.mysql_root_password
       MYSQL_PASSWORD_FILE: /run/secrets/voko-abelo.mysql_password
-      MYSQL_DATABASE: usr_web277_1
-      MYSQL_USER: web277
+      MYSQL_DATABASE: db314802x3159000
+      MYSQL_USER: s314802_3159000
 
   sesio:
     image: voko-sesio
