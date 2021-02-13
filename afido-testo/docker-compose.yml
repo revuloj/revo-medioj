@@ -36,36 +36,21 @@ services:
 #      "su -c 'ssh -i /run/secrets/voko-formiko.ssh_key -o StrictHostKeyChecking=no -o PasswordAuthentication=no afido@afido exit' formiko
 #      && cron -f"
 
-#  afido:
-#    image: voko-afido
-#    build: https://github.com/revuloj/voko-afido.git
-#    # command: processmail.pl
-#    networks:
-#      - ghardeno
-#    volumes:
-#      - type: bind
-#        source: ./cvsroot
-#        target: /home/afido/dict/cvsroot
-#      - type: bind
-#        source: ./revo/xml
-#        target: /home/afido/dict/xml        
-#      - type: bind
-#        source: ./revo-fonto
-#        target: /home/afido/dict/revo-fonto        
-##      - xml:/home/afido/dict/xml # la artikoloj
-##      - cvsroot:/home/afido/dict/cvsroot # $CVSROOT
-#      - afido:/var/afido # tmp, log
-#      - mail:/var/mail
-#    environment:
-#      - CVSROOT=/home/afido/dict/cvsroot
-#    secrets:
-#      - voko.redaktantoj
-#      - voko-afido.ssh_key.pub
-#      - voko-afido.github_key
-#      - voko-afido.smtp_server
-#      - voko-afido.smtp_user
-#      - voko-afido.smtp_password
-#      #- voko-tomocero.saslpassword
+  abelo:
+    image: voko-abelo
+    build: https://github.com/revuloj/voko-abelo.git
+    # command: --default-authentication-plugin=mysql_native_password
+    # restart: always
+    #expose:
+    #  - 3306
+    networks:
+      - reto
+    environment:
+      MYSQL_ROOT_PASSWORD: sekreta
+      MYSQL_PASSWORD: sekreta
+      MYSQL_DATABASE: db314802x3159000
+      MYSQL_USER: s314802_3159000
+
 #
 #  tomocero:
 #    image: voko-tomocero
