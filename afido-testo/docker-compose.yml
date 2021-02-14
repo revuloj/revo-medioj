@@ -15,6 +15,8 @@ services:
     environment:
       #GIT_REPO_REVO: revo-fonto-testo
       GIT_REPO_REVO: test-repo
+      REVO_HOST: araneo
+      CGI_USER: steloj
     secrets:
 #      - voko-formiko.ssh_key
       - voko.redaktantoj.json
@@ -28,6 +30,8 @@ services:
       - voko-afido.smtp_server
       - voko-afido.smtp_user
       - voko-afido.smtp_password
+      - voko-araneo.cgi_password
+
 
     # necesas unufoje akcepti la ssh-servo-ŝlosilon de afido
     # KOREKTU: ofte afido ankoraŭ ne estas aktiva, iel ni devos atendi ĝis afido reagas kaj funkcias la komando!
@@ -45,11 +49,45 @@ services:
     #  - 3306
     networks:
       - reto
+    secrets:
+      - voko-abelo.mysql_root_password
+      - voko-abelo.mysql_password
+      #- voko.redaktantoj
     environment:
-      MYSQL_ROOT_PASSWORD: sekreta
-      MYSQL_PASSWORD: sekreta
+      MYSQL_ROOT_PASSWORD_FILE: /run/secrets/voko-abelo.mysql_root_password
+      MYSQL_PASSWORD_FILE: /run/secrets/voko-abelo.mysql_password
       MYSQL_DATABASE: db314802x3159000
       MYSQL_USER: s314802_3159000
+
+  araneo:
+    image: voko-araneo
+    build: https://github.com/revuloj/voko-araneo.git
+    # restart: always
+    ports:
+      - 8088:80
+    networks:
+      - reto
+    depends_on:
+      - abelo
+    volumes:
+      - alveno:/hp/af/ag/ri//www/alveno
+    secrets:
+      - voko-abelo.mysql_password
+      # uzata por eksporto de lastaj ŝanĝoj:
+      - voko-abelo.mysql_root_password
+      - voko-araneo.cgi_password
+    #environment:
+    #  EMAIL_SENDER_TRANSPORT: SMTPS
+    #  EMAIL_SENDER_TRANSPORT_ssl: ssl
+      # momente la sekvontoj valoroj estas en sekretoj:
+      # voko-afido.smtp_server 
+      # voko-afido.smtp_user 
+      # voko-afido.smtp_password resp. voko-tomocero.saslpassword
+      # ni prefere uzu pli ĝeneralajn sekretoj voko.smtp_server ktp.
+      # kaj kreu la mediovariablojn ekz. en entry-point.sh...
+      #EMAIL_SENDER_TRANSPORT_host: tomocero
+      #EMAIL_SENDER_TRANSPORT_sasl_username: tomocero@tomocero
+      #EMAIL_SENDER_TRANSPORT_sasl_password: sekreta
 
 #
 #  tomocero:
@@ -88,6 +126,16 @@ secrets:
 #    external: true
 #  voko-tomocero.relaypassword:
 #    external: true
+
+  voko-abelo.mysql_root_password:
+    external: true
+  voko-abelo.mysql_password:
+    external: true
+
+  voko-araneo.cgi_password:
+    external: true
+#  voko-araneo.cgi_user:
+#    external: true        
 #
 #  voko-formiko.ssh_key:
 #    external: true
@@ -113,7 +161,9 @@ secrets:
     #external: true
     file: ${HOME}/etc/redaktantoj.json
 
-#volumes:
+volumes:
+  alveno:
+
 #  mail:
 #  spool:
 #  afido:

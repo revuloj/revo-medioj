@@ -2,14 +2,14 @@
 
 db=db314802x3159000
 usr=s314802_3159000
-pwd=sekreta
+pwd=$(cat /run/secrets/voko-abelo.mysql_password)
 tmp=subm_tmp.sql
 
 cat <<EOQ > ${tmp}
 DELETE FROM submeto;
 
 INSERT INTO submeto(sub_email,sub_cmd,sub_state,sub_desc,sub_fname,sub_content) 
-VALUES ('${test_redaktanto}','redakto','nov','testa ŝanĝo de cxval','cxeval',
+VALUES ('${TEST_RETADRESO}','redakto','nov','testa ŝanĝo;\nde \'cxeval\'','cxeval',
 '<?xml version="1.0"?>
 <!DOCTYPE vortaro SYSTEM "../dtd/vokoxml.dtd">
 <vortaro>
@@ -158,7 +158,7 @@ J V: + kur~o
 </vortaro>');
 
 INSERT INTO submeto(sub_email,sub_cmd,sub_state,sub_desc,sub_fname,sub_content) 
-VALUES ('${test_redaktanto}','redakto','nov','testa ŝanĝo de abel','abel',
+VALUES ('${TEST_RETADRESO}','redakto','nov','testa ŝanĝo;\r\tde \"abel\"','abel',
 '<?xml version="1.0"?>
 <!DOCTYPE vortaro SYSTEM "../dtd/vokoxml.dtd">
 <vortaro>

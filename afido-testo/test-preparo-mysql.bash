@@ -9,7 +9,7 @@ abelo_id=$(docker ps --filter name=${stack}_abelo -q) && echo "abelo: ${abelo_id
 if [ "${abelo_id}" = "" ]; then echo "abelo ne aktiva!" 1>&2; exit 1; fi
 
 docker cp $(pwd)/bin/create_test_submetoj.sh ${abelo_id}:/
-docker exec -it ${abelo_id} bash -c "/create_test_submetoj.sh"
+docker exec -it ${abelo_id} bash -c "TEST_RETADRESO=${TEST_RETADRESO} /create_test_submetoj.sh"
 
 
 

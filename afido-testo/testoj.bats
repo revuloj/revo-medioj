@@ -81,7 +81,7 @@ fi
 }
 
 @test "Traktu gistojn" {  
-  #skip
+  skip
   load test-preparo-repo
 
   run docker exec -u1074 -it ${afido_id} git-clone-repo.sh
