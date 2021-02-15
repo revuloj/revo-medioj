@@ -9,7 +9,7 @@ cat <<EOQ > ${tmp}
 DELETE FROM submeto;
 
 INSERT INTO submeto(sub_email,sub_cmd,sub_state,sub_desc,sub_fname,sub_content) 
-VALUES ('${TEST_RETADRESO}','redakto','nov','testa ŝanĝo;\nde \'cxeval\'','cxeval',
+VALUES ('${TEST_RETADRESO}','aldono','nov','testa aldono;\nde \'cxeval\'','cxeval',
 '<?xml version="1.0"?>
 <!DOCTYPE vortaro SYSTEM "../dtd/vokoxml.dtd">
 <vortaro>
@@ -158,11 +158,43 @@ J V: + kur~o
 </vortaro>');
 
 INSERT INTO submeto(sub_email,sub_cmd,sub_state,sub_desc,sub_fname,sub_content) 
+VALUES ('${TEST_RETADRESO}','redakto','nov','testa ŝanĝo;\r\tde \"modif\"','modif',
+'<?xml version="1.0"?>
+<!DOCTYPE vortaro SYSTEM "../dtd/vokoxml.dtd">
+
+<vortaro>
+<art mrk="\$Id: modif.xml,v 1.1 2021/06/30 07:47:08 revo Exp \$">
+<kap>
+  <ofc>3</ofc>
+  <rad>modif</rad>/i
+</kap>
+<drv mrk="modif.0i">
+  <kap><tld/>i</kap>
+  <gra><vspec>tr</vspec></gra>
+  <snc>
+    <dif>
+      Parte &scirc;an&gcirc;i ion ne tu&scirc;ante la esencon:
+      <ekz>
+        <tld/>i la formon de;
+      </ekz>
+      <ekz>
+        <tld/>i projekton, le&gcirc;on, aran&gcirc;on.
+      </ekz>
+    </dif>
+  </snc>
+</drv>
+</art>
+<!--
+\$Log\$
+-->
+</vortaro>');
+
+INSERT INTO submeto(sub_email,sub_cmd,sub_state,sub_desc,sub_fname,sub_content) 
 VALUES ('${TEST_RETADRESO}','redakto','nov','testa ŝanĝo;\r\tde \"abel\"','abel',
 '<?xml version="1.0"?>
 <!DOCTYPE vortaro SYSTEM "../dtd/vokoxml.dtd">
 <vortaro>
-<art mrk="\$Id: abel.xml,v 1.77 2019/06/30 07:47:08 revo Exp \$">
+<art mrk="\$Id\$">
 <kap>
   <ofc>*</ofc><rad>abel</rad>/o
 </kap>
