@@ -31,11 +31,12 @@ if [ ! -e ${keyfile_github} ]; then
     exit 1
 fi
 
-secrets=$(docker secret ls --filter name=voko-afido. -q)
-if [ ! -z "${secrets}" ]; then
-    echo "# forigante malnovajn sekretojn voko-afido.* ..."
-    docker secret rm ${secrets}
-fi
+# se ni uzas afido.cfg ni ne forigu ties sekrtojn!
+#secrets=$(docker secret ls --filter name=voko-afido. -q)
+#if [ ! -z "${secrets}" ]; then
+#    echo "# forigante malnovajn sekretojn voko-afido.* ..."
+#    docker secret rm ${secrets}
+#fi
 
 echo
 echo "# metante novajn sekretojn..."
@@ -46,6 +47,7 @@ cat ${keyfile_github} | docker secret create voko-afido.github_key -
 echo ${sigelilo} | docker secret create voko-afido.sigelilo -
 
 # transdonante retpoŝtojn rekte al ekstera retprovizanto.
+# (~/etc/afido.cfg)
 #echo "smtp.provizanto.org" | docker secret create voko-afido.smtp_server -
 #echo "redaktoservo@provizanto.org" | docker secret create voko-afido.smtp_user -
 #echo "M14P4$svort0" | docker secret create voko-afido.smtp_password -

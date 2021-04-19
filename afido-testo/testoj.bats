@@ -67,7 +67,7 @@ fi
 }
 
 
-@test "Malpaku la arĥivon al revo-fonto" {  
+@test "Malpaku la git-arĥivon al revo-fonto" {  
   #skip
 
   # tio preparas test-repo kaj gistojn
@@ -81,7 +81,7 @@ fi
 }
 
 @test "Traktu gistojn" {  
-  #skip
+  skip
   load test-preparo-repo
 
   run docker exec -u1074 -it ${afido_id} git-clone-repo.sh
@@ -158,5 +158,30 @@ fi
   [ "$status" -eq 0 ]
 }
 
+@test "Traktu submetojn" {  
+  #skip
+  load test-preparo-repo
+  load test-preparo-mysql
+
+  run docker exec -u1074 -it ${afido_id} git-clone-repo.sh
+  echo "${output}"
+  [[ "$output" == *"done."* ]]
+
+  run docker exec -u1074 -it ${afido_id} ls etc/redaktantoj.json
+  echo "${output}"
+  [[ "$output" == *"redaktantoj.json"* ]]
+
+  run docker exec -u1074 -it ${afido_id} bash -c "perl /usr/local/bin/processsubm.pl"
+  echo "${output}"
+  [[ "$output" == *"id:111111"* ]]
+  [[ "$output" == *"id:2222222"* ]]
+  #[[ "$output" == *"revo-fonto/revo/cxeval.xml': No such file"* ]]
+  [[ "$output" == *"vi redaktis (cxeval)"* ]]
+  #[[ "$output" == *"sigelo por gisto"*"ne pruviĝis valida"* ]]
+  [[ "$output" == *"create mode 100644 revo/abel.xml"* ]]
+  [[ "$output" == *"master -> master"* ]]
+  [[ "$output" == *"ŝovas /home/afido/dict/tmp/mailsend al /home/afido/dict/log/mail_sent"* ]]
+  [ "$status" -eq 0 ]
+}
 
 
