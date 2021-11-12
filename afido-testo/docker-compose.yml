@@ -59,6 +59,18 @@ services:
       MYSQL_DATABASE: db314802x3159000
       MYSQL_USER: s314802_3159000
 
+  abelisto:
+    image: adminer
+    #restart: always
+    environment:
+      ADMINER_DESIGN: hever
+    networks:
+      - reto
+    ports:
+      - 8089:8080  
+    depends_on:
+      - abelo
+
   araneo:
     image: voko-araneo
     build: https://github.com/revuloj/voko-araneo.git
