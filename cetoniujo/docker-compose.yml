@@ -24,6 +24,11 @@ services:
       # anakŭ vi povas aldoni en la gastiganto /etc/hosts
       #   127.0.0.1  example.com
       - 8080:8080
+    environment:
+      # vi povas doni retpoŝtadreson de unuopa registrita redaktanto (vi)
+      # se vi volas redakti nur loke sola. Donu mediovariablon antaŭ
+      # lanĉi REDAKTANTO_RETPOSHTO='via@retadreso.org' ./cetoniujo-deploy.sh
+      - REDAKTANTO_RETPOSHTO
     secrets:
       # farenda: dividu agordon nesekretan kaj sekretan kaj uzu configs + secrets
       - source: redaktilo.cfg
@@ -50,13 +55,13 @@ services:
     build: 
       context: .
       dockerfile: Dockerfile
-    command: ./download-inx-db.sh
+    command: ./bin/instalo.sh update-db
     deploy:
       # aktualigu la datumbazon ĉiutage (kvankam en Revo ĝi momente estas malpli ofte renovigita)
       restart_policy:
         delay: 24h
     secrets:
-      # farenda: dividu agordon nesekretan kaj sekretan kaj uzu configs + secrets
+      # FARENDA: dividu agordon nesekretan kaj sekretan kaj uzu configs + secrets
       - source: redaktilo.cfg
         target: /home/cetonio/etc/redaktilo.cfg
     volumes:
