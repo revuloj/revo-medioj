@@ -30,7 +30,7 @@ nw=$(docker network ls --filter name=formikujo_default -q)
 #if [[ ( ! ${nw} = "" && ${formiko_id} = "" ) ]]; then
 if [[ ! ${nw} = "" ]]; then
   echo "formikujo_default: $nw"
-  echo "Ankoraŭ ekzistas reto 'formikujo_default.'"
+  echo "Ankoraŭ ekzistas reto 'formikujo_default'."
   echo "Post 'docker stack rm formikujo' necesos iom atendi"
   echo "ĝis la reto foriĝas. Bv. reprovi poste."
   exit 1
