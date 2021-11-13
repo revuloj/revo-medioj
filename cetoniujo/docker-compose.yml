@@ -32,12 +32,12 @@ services:
     secrets:
       # farenda: dividu agordon nesekretan kaj sekretan kaj uzu configs + secrets
       - voko-cetonio.sekret-agordo
-      - source: redaktilo.cfg
-        target: /home/cetonio/etc/redaktilo.cfg
-      - source: auth_cfg
-        target: /home/cetonio/etc/auth_cfg
-      - source: redaktantoj
-        target: /home/cetonio/etc/redaktantoj
+      #- source: redaktilo.cfg
+      #  target: /home/cetonio/etc/redaktilo.cfg
+      #- source: auth_cfg
+      #  target: /home/cetonio/etc/auth_cfg
+      #- source: redaktantoj
+      #  target: /home/cetonio/etc/redaktantoj
     volumes:
       # ŝanĝita: ni nun uzas secrets anstatŭ bind 
       #- type: bind
@@ -61,10 +61,10 @@ services:
       # aktualigu la datumbazon ĉiutage (kvankam en Revo ĝi momente estas malpli ofte renovigita)
       restart_policy:
         delay: 24h
-    secrets:
+    #secrets:
       # FARENDA: dividu agordon nesekretan kaj sekretan kaj uzu configs + secrets
-      - source: redaktilo.cfg
-        target: /home/cetonio/etc/redaktilo.cfg
+      #- source: redaktilo.cfg
+      #  target: /home/cetonio/etc/redaktilo.cfg
     volumes:
       # en ~/etc/ estu dosieroj redaktilo.cfg
       # La skemon vi povas trovi en Voko-Iloj.
@@ -124,20 +124,20 @@ services:
 secrets:
   voko-cetonio.sekret-agordo:
     external: true
-  redaktilo.cfg:
-    # adaptu redaktilo.cfg laŭ viaj bezonoj kaj 
-    # a) registru per
-    #   docker secret create ./redaktilo.cfg
-    # uzante external: true
-    # aŭ 
-    # b) kopiu al ${HOME}/etc/redaktilo.cfg
-    #external: true
-    file: ${HOME}/etc/redaktilo.cfg
-  redaktantoj:
-    #external: true
-    file: ${HOME}/etc/redaktantoj
-  auth_cfg:
-    file: ${HOME}/etc/auth_cfg
+  #redaktilo.cfg:
+  #  # adaptu redaktilo.cfg laŭ viaj bezonoj kaj 
+  #  # a) registru per
+  #  #   docker secret create ./redaktilo.cfg
+  #  # uzante external: true
+  #  # aŭ 
+  #  # b) kopiu al ${HOME}/etc/redaktilo.cfg
+  #  #external: true
+  #  file: ${HOME}/etc/redaktilo.cfg
+  #redaktantoj:
+  #  #external: true
+  #  file: ${HOME}/etc/redaktantoj
+  #auth_cfg:
+  #  file: ${HOME}/etc/auth_cfg
 
 volumes:
   sql:
