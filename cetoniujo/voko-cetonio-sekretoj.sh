@@ -1,0 +1,29 @@
+#!/bin/bash
+
+# transdonu dosieron kun Prolog-difinoj pri sekretoj 
+# (OAuth Client-ID/Client secret, poŝtuzanto+pasvorto, ajax-sekreto)
+# kiel unuan argumenton
+SKR_FILE=$1
+
+if [ "${SKR_FILE}" == "" ]; then
+    echo "Vi ne transdonis sekreto-dosieron!"
+    exit 1
+fi
+
+if [ ! -e ${SKR_FILE} ]; then
+    echo "Ne ekzistantas la sekreto-dosiero ${SKR_FILE}!"
+    exit 1
+fi
+
+echo "# forigante malnovajn sekretojn voko-cetonio.* ..."
+secrets=$(docker secret ls --filter name=voko-cetonio. -q)
+
+# PLIBONIGU: se ne jam ekzistas la sekreto ni reicevas (ignoreblan) eraron
+docker secret rm ${secrets}
+
+echo
+echo "# metante novajn sekretojn..."
+cat ${SKR_FILE} | docker secret create voko-cetonio.sekret-agordo -
+
+docker secret ls --filter name=voko-cetonio. 
+

@@ -31,6 +31,7 @@ services:
       - REDAKTANTO_RETPOSHTO
     secrets:
       # farenda: dividu agordon nesekretan kaj sekretan kaj uzu configs + secrets
+      - voko-cetonio.sekret-agordo
       - source: redaktilo.cfg
         target: /home/cetonio/etc/redaktilo.cfg
       - source: auth_cfg
@@ -121,6 +122,8 @@ services:
 # Via Nomo <via@retadre.so> <via@dua.retadre.so>
 
 secrets:
+  voko-cetonio.sekret-agordo:
+    external: true
   redaktilo.cfg:
     # adaptu redaktilo.cfg laŭ viaj bezonoj kaj 
     # a) registru per
