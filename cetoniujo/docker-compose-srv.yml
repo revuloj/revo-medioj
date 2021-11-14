@@ -1,11 +1,13 @@
-version: '3.7'
+version: '3.3'
+
+# uzata kun komando docker-compose sur la servilo
+# Ĉar ĝi estas virtuala servilo, pro aparta limigo ĉe nia retprovizanto
+# funkcias nek k3d nek docker stack tie...
 
 services:
   cetonio:
     image: ghcr.io/revuloj/voko-cetonio/voko-cetonio:latest
-    build: 
-      context: .
-      dockerfile: Dockerfile
+    build: https://github.com/revuloj/voko-cetonio.git
     # restart: always
     # ni devos atendi, ĝis cetonio-db akiris la datumbazon,
     # jen estas informoj, kiel prokrasti la lanĉon: https://docs.docker.com/compose/startup-order/
@@ -53,9 +55,7 @@ services:
 
   cetonio-db:
     image: ghcr.io/revuloj/voko-cetonio/voko-cetonio:latest
-    build: 
-      context: .
-      dockerfile: Dockerfile
+    build: https://github.com/revuloj/voko-cetonio.git
     command: ./bin/instalo.sh update-db
     deploy:
       # aktualigu la datumbazon ĉiutage (kvankam en Revo ĝi momente estas malpli ofte renovigita)
