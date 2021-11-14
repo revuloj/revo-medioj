@@ -2,7 +2,7 @@ version: '3.7'
 
 services:
   cetonio:
-    image: ghcr.io/revuloj/voko-akrido/voko-cetonio:latest
+    image: ghcr.io/revuloj/voko-cetonio/voko-cetonio:latest
     build: 
       context: .
       dockerfile: Dockerfile
@@ -52,7 +52,7 @@ services:
         #  nocopy: true
 
   cetonio-db:
-    image: ghcr.io/revuloj/voko-akrido/voko-cetonio:latest
+    image: ghcr.io/revuloj/voko-cetonio/voko-cetonio:latest
     build: 
       context: .
       dockerfile: Dockerfile
@@ -82,7 +82,7 @@ services:
 
   # servo por citaĵo-serĉo
   cikado:
-    image: ghcr.io/revuloj/voko-akrido/voko-cikado:latest
+    image: ghcr.io/revuloj/voko-cikado/voko-cikado:latest
     build: https://github.com/revuloj/voko-cikado.git
     #restart: always
     #expose:
@@ -98,7 +98,7 @@ services:
 
   # servo por sintakskontrolo per RelaxNG (Jing)
   grilo:
-    image: ghcr.io/revuloj/voko-akrido/voko-grilo:latest
+    image: ghcr.io/revuloj/voko-grilo/voko-grilo:latest
     build: https://github.com/revuloj/voko-grilo.git
     # restart: always
     #expose:
