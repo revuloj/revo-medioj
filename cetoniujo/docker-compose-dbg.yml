@@ -1,17 +1,15 @@
-version: '3.7'
+version: '3.3'
 
 services:
   cetonio:
-    image: voko/cetonio
-    build: 
-      context: .
-      dockerfile: Dockerfile
+    image: voko-cetonio
+    build: https://github.com/revuloj/voko-cetonio.git
     # restart: always
-    depends_on:
-      - cikado
-      - akrido
-      - grilo
-    command: swipl -s pro/redaktilo_test.pl -g test 
+    #depends_on:
+    #  - cikado
+    #  - akrido
+    #  - grilo
+    #command: swipl -s pro/redaktilo_test.pl -g test 
     ports:
       # ĉe IPv6 por havi la retpordon ne nur ĉe 0.0.0.0:8080, sed ankaŭ localhost:8080
       # uzu provizore:
@@ -21,6 +19,14 @@ services:
       # anakŭ vi povas aldoni en la gastiganto /etc/hosts
       #   127.0.0.1  example.com
       - 8080:8080
+    #secrets:
+    #  - voko-cetonio.sekret-agordo
+    environment:
+      # vi povas doni retpoŝtadreson de unuopa registrita redaktanto (vi)
+      # se vi volas redakti nur loke sola. Donu mediovariablon antaŭ
+      # lanĉi REDAKTANTO_RETPOSHTO='via@retadreso.org' ./cetoniujo-deploy.sh
+      - REDAKTANTO_RETPOSHTO
+
     volumes:
       # en ~/etc/ estu dosieroj redaktilo.cfg kaj redaktantoj
       # 1) la unuan oni povas kopii de cfg/redaktilo.cfg kaj agordi
@@ -33,8 +39,8 @@ services:
       # La skemon vi povas trovi en Voko-Iloj. La dosiero estos
       # kopiita al sql/redaktantoj.db ĉe lanĉo de Cetonio    
       - type: bind
-        source: $HOME/etc
-        target: /home/cetonio/etc
+        source: $HOME/etc/redaktilo.skr
+        target: /run/secrets/voko-cetonio.sekret-agordo
         read_only: true
       - type: volume
         source: sql
@@ -45,7 +51,7 @@ services:
 
   # servo por citaĵo-serĉo
   cikado:
-    image: voko/cikado
+    image: ghcr.io/revuloj/voko-cikado/voko-cikado:latest
     build: https://github.com/revuloj/voko-cikado.git
     #restart: always
     #expose:
@@ -53,7 +59,7 @@ services:
 
   # servo por vortanalizo
   akrido:
-    image: voko/akrido
+    image: ghcr.io/revuloj/voko-akrido/voko-akrido:latest
     build: https://github.com/revuloj/voko-akrido.git
     # restart: always
     #expose:
@@ -61,16 +67,20 @@ services:
 
   # servo por sintakskontrolo per RelaxNG (Jing)
   grilo:
-    image: voko/grilo
+    image: ghcr.io/revuloj/voko-grilo/voko-grilo:latest
     build: https://github.com/revuloj/voko-grilo.git
     # restart: always
     #expose:
     #  - 8787
-
+#
 #  retpoŝtservilo, necesas nur se pluraj uzantoj uzas la redaktilon samtempe
 #  heliko:
 #    image: voko/heliko
 #    build: ./heliko
+
+#secrets:
+#  voko-cetonio.sekret-agordo:
+#    external: true
 
 volumes:
   sql:
