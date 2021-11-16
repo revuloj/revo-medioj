@@ -2,7 +2,7 @@ version: '3.3'
 
 services:
   cetonio:
-    image: voko-cetonio
+    image: ghcr.io/revuloj/voko-cetonio/voko-cetonio:latest
     build: https://github.com/revuloj/voko-cetonio.git
     # restart: always
     #depends_on:
