@@ -32,7 +32,6 @@ services:
       # lanĉi REDAKTANTO_RETPOSHTO='via@retadreso.org' ./cetoniujo-deploy.sh
       - REDAKTANTO_RETPOSHTO
     secrets:
-      # farenda: dividu agordon nesekretan kaj sekretan kaj uzu configs + secrets
       - voko-cetonio.sekret-agordo
       #- source: redaktilo.cfg
       #  target: /home/cetonio/etc/redaktilo.cfg
