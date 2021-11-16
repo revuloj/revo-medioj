@@ -42,6 +42,10 @@ services:
         source: $HOME/etc/redaktilo.skr
         target: /run/secrets/voko-cetonio.sekret-agordo
         read_only: true
+      - type: bind
+        source: $HOME/etc/redaktilo.url
+        target: /home/cetonio/redaktilo.url
+        read_only: true        
       - type: volume
         source: sql
         target: /home/cetonio/sql
