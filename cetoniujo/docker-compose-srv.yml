@@ -26,11 +26,11 @@ services:
       # anakŭ vi povas aldoni en la gastiganto /etc/hosts
       #   127.0.0.1  example.com
       - 8080:8080
-    environment:
+    #environment:
       # vi povas doni retpoŝtadreson de unuopa registrita redaktanto (vi)
       # se vi volas redakti nur loke sola. Donu mediovariablon antaŭ
       # lanĉi REDAKTANTO_RETPOSHTO='via@retadreso.org' ./cetoniujo-deploy.sh
-      - REDAKTANTO_RETPOSHTO
+      #- REDAKTANTO_RETPOSHTO
     volumes:
       # ŝanĝita: ni nun uzas secrets anstatŭ bind 
       #- type: bind
@@ -43,7 +43,7 @@ services:
         read_only: true
       - type: bind
         source: $HOME/etc/redaktilo.url
-        target: /home/cetonio/redaktilo.url
+        target: /home/cetonio/etc/redaktilo.url
         read_only: true
       - type: volume
         source: sql
