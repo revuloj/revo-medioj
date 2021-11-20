@@ -29,6 +29,10 @@ services:
       # se vi volas redakti nur loke sola. Donu mediovariablon antaŭ
       # lanĉi REDAKTANTO_RETPOSHTO='via@retadreso.org' ./cetoniujo-deploy.sh
       - REDAKTANTO_RETPOSHTO
+      # por ensaluto k.a. la redaktilo bezonas scii la URL-on
+      # elekstera, ekz-e https:://revaj.steloj.de/redaktilo
+      # aŭ http://example.com:8080/, http://localhost:8080/redaktilo-test
+      - REDAKTILO_URL
     secrets:
       # farenda: dividu agordon nesekretan kaj sekretan kaj uzu configs + secrets
       - voko-cetonio.sekret-agordo
