@@ -15,6 +15,8 @@ services:
       - akrido
       - grilo
         #command: bash -c 'cd pro && swipl -s redaktilo-servo.pl -g redaktilo_servo:daemon -t halt -p agordo=etc -- --workers=10 --port=8080 --no-fork'
+    networks:
+      - creto
     ports:
       # ĉe IPv6 por havi la retpordon ne nur ĉe 0.0.0.0:8080, sed ankaŭ localhost:8080
       # uzu provizore:
@@ -33,6 +35,8 @@ services:
       # elekstera, ekz-e https:://revaj.steloj.de/redaktilo
       # aŭ http://example.com:8080/, http://localhost:8080/redaktilo-test
       - REDAKTILO_URL
+      # kien ni submetu redaktojn (revo-fonto aŭ revo-fonto-testo)
+      - GITHUB_REPO
     secrets:
       # farenda: dividu agordon nesekretan kaj sekretan kaj uzu configs + secrets
       - voko-cetonio.sekret-agordo
@@ -60,6 +64,8 @@ services:
     build: 
       context: .
       dockerfile: Dockerfile
+    networks:
+      - creto
     command: ./bin/instalo.sh update-db
     deploy:
       # aktualigu la datumbazon ĉiutage (kvankam en Revo ĝi momente estas malpli ofte renovigita)
@@ -88,6 +94,8 @@ services:
   cikado:
     image: voko-cikado
     build: https://github.com/revuloj/voko-cikado.git
+    networks:
+      - creto
     #restart: always
     #expose:
     #  - 8082      
@@ -96,6 +104,8 @@ services:
   akrido:
     image: voko-akrido
     build: https://github.com/revuloj/voko-akrido.git
+    networks:
+      - creto
     # restart: always
     #expose:
     #  - 8081
@@ -104,6 +114,8 @@ services:
   grilo:
     image: voko-grilo
     build: https://github.com/revuloj/voko-grilo.git
+    networks:
+      - creto
     # restart: always
     #expose:
     #  - 8787
@@ -146,7 +158,9 @@ secrets:
 volumes:
   sql:
 
-
+networks:
+  creto:
+#    external: true
   
 
 
