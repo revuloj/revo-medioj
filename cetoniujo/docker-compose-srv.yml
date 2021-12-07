@@ -83,7 +83,7 @@ services:
 
   # servo por citaĵo-serĉo
   cikado:
-    image: ghcr.io/revuloj/voko-cikado/voko-cikado:v2c
+    image: ghcr.io/revuloj/voko-cikado/voko-cikado:2c
     build: https://github.com/revuloj/voko-cikado.git
     #restart: always
     #expose:
@@ -91,7 +91,7 @@ services:
 
   # servo por vortanalizo
   akrido:
-    image: ghcr.io/revuloj/voko-akrido/voko-akrido:v2c
+    image: ghcr.io/revuloj/voko-akrido/voko-akrido:2c
     build: https://github.com/revuloj/voko-akrido.git
     # restart: always
     #expose:
@@ -99,7 +99,7 @@ services:
 
   # servo por sintakskontrolo per RelaxNG (Jing)
   grilo:
-    image: ghcr.io/revuloj/voko-grilo/voko-grilo:v2c
+    image: ghcr.io/revuloj/voko-grilo/voko-grilo:2c
     build: https://github.com/revuloj/voko-grilo.git
     # restart: always
     #expose:
