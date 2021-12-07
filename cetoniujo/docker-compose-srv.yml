@@ -1,12 +1,14 @@
 version: '3.3'
 
-# uzata kun komando docker-compose sur la servilo
+# Uzata kun komando docker-compose sur la servilo
 # Ĉar ĝi estas virtuala servilo, pro aparta limigo ĉe nia retprovizanto
-# funkcias nek k3d nek docker stack tie...
+# funkcias nek k3d nek docker stack tie...:
+#
+# docker-compose -f docker-compose-srv.yml up
 
 services:
   cetonio:
-    image: ghcr.io/revuloj/voko-cetonio/voko-cetonio:latest
+    image: ghcr.io/revuloj/voko-cetonio/voko-cetonio:v2c
     build: https://github.com/revuloj/voko-cetonio.git
     # restart: always
     # ni devos atendi, ĝis cetonio-db akiris la datumbazon,
@@ -61,36 +63,27 @@ services:
         #volume:
         #  nocopy: true
 
-  cetonio-db:
-    image: ghcr.io/revuloj/voko-cetonio/voko-cetonio:latest
-    build: https://github.com/revuloj/voko-cetonio.git
-    command: ./bin/instalo.sh update-db
-    deploy:
-      # aktualigu la datumbazon ĉiutage (kvankam en Revo ĝi momente estas malpli ofte renovigita)
-      restart_policy:
-        delay: 24h
-    #secrets:
-      # FARENDA: dividu agordon nesekretan kaj sekretan kaj uzu configs + secrets
-      #- source: redaktilo.cfg
-      #  target: /home/cetonio/etc/redaktilo.cfg
-    volumes:
-      # en ~/etc/ estu dosieroj redaktilo.cfg
-      # La skemon vi povas trovi en Voko-Iloj.
-      # ni uzas sekreton "redaktilo.cfg" anstataŭ bind
-      #- type: bind
-      #  source: $HOME/etc
-      #  target: /home/cetonio/etc
-      #  read_only: false
-      - type: volume
-        source: sql
-        target: /home/cetonio/sql
-        #read_only: false
-        #volume:
-        #  nocopy: true
+# Aktualigon ni prefere faros per crontab, se ni uzas
+# docker-compose, i.a. ĉar tiu ne subtenas tiajn efemerajn taskojn per restart_policy...
+#  cetonio-db:
+#    image: ghcr.io/revuloj/voko-cetonio/voko-cetonio:latest
+#    build: https://github.com/revuloj/voko-cetonio.git
+#    command: ./bin/instalo.sh update-db
+#    deploy:
+#      # aktualigu la datumbazon ĉiutage (kvankam en Revo ĝi momente estas malpli ofte renovigita)
+#      restart_policy:
+#        delay: 24h
+#    volumes:
+#      - type: volume
+#        source: sql
+#        target: /home/cetonio/sql
+#        #read_only: false
+#        #volume:
+#        #  nocopy: true
 
   # servo por citaĵo-serĉo
   cikado:
-    image: ghcr.io/revuloj/voko-cikado/voko-cikado:latest
+    image: ghcr.io/revuloj/voko-cikado/voko-cikado:v2c
     build: https://github.com/revuloj/voko-cikado.git
     #restart: always
     #expose:
@@ -98,7 +91,7 @@ services:
 
   # servo por vortanalizo
   akrido:
-    image: ghcr.io/revuloj/voko-akrido/voko-akrido:latest
+    image: ghcr.io/revuloj/voko-akrido/voko-akrido:v2c
     build: https://github.com/revuloj/voko-akrido.git
     # restart: always
     #expose:
@@ -106,7 +99,7 @@ services:
 
   # servo por sintakskontrolo per RelaxNG (Jing)
   grilo:
-    image: ghcr.io/revuloj/voko-grilo/voko-grilo:latest
+    image: ghcr.io/revuloj/voko-grilo/voko-grilo:v2c
     build: https://github.com/revuloj/voko-grilo.git
     # restart: always
     #expose:
