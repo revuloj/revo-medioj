@@ -8,7 +8,7 @@ version: '3.3'
 
 services:
   cetonio:
-    image: ghcr.io/revuloj/voko-cetonio/voko-cetonio:v2c
+    image: ghcr.io/revuloj/voko-cetonio/voko-cetonio:2c
     build: https://github.com/revuloj/voko-cetonio.git
     # restart: always
     # ni devos atendi, ĝis cetonio-db akiris la datumbazon,
