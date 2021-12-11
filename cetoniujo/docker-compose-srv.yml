@@ -8,7 +8,7 @@ version: '3.3'
 
 services:
   cetonio:
-    image: ghcr.io/revuloj/voko-cetonio/voko-cetonio:2c
+    image: ghcr.io/revuloj/voko-cetonio/voko-cetonio:${VER}
     build: https://github.com/revuloj/voko-cetonio.git
     # restart: always
     # ni devos atendi, ĝis cetonio-db akiris la datumbazon,
@@ -83,7 +83,7 @@ services:
 
   # servo por citaĵo-serĉo
   cikado:
-    image: ghcr.io/revuloj/voko-cikado/voko-cikado:2c
+    image: ghcr.io/revuloj/voko-cikado/voko-cikado:${VER}
     build: https://github.com/revuloj/voko-cikado.git
     #restart: always
     #ports:
@@ -91,7 +91,7 @@ services:
 
   # servo por vortanalizo
   akrido:
-    image: ghcr.io/revuloj/voko-akrido/voko-akrido:2c
+    image: ghcr.io/revuloj/voko-akrido/voko-akrido:${VER}
     build: https://github.com/revuloj/voko-akrido.git
     # restart: always
     ports:
@@ -99,7 +99,7 @@ services:
 
   # servo por sintakskontrolo per RelaxNG (Jing)
   grilo:
-    image: ghcr.io/revuloj/voko-grilo/voko-grilo:2c
+    image: ghcr.io/revuloj/voko-grilo/voko-grilo:${VER}
     build: https://github.com/revuloj/voko-grilo.git
     # restart: always
     #ports:
