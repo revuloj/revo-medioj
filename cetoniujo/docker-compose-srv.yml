@@ -39,7 +39,7 @@ services:
       # por ensaluto k.a. la redaktilo bezonas scii la URL-on
       # elekstera, ekz-e https:://revaj.steloj.de/redaktilo
       # aŭ http://example.com:8080/, http://localhost:8080/redaktilo-test
-      - REDAKTILO_URL=${REDIAKTLO_URL:-http://localhost:8080/redaktilo}
+      - REDAKTILO_URL=${REDAKTLO_URL:-http://localhost:8080/redaktilo}
       # kien ni submetu redaktojn (revo-fonto aŭ revo-fonto-testo)
       - GITHUB_REPO=revo-fonto
     volumes:
@@ -86,15 +86,15 @@ services:
     image: ghcr.io/revuloj/voko-cikado/voko-cikado:2c
     build: https://github.com/revuloj/voko-cikado.git
     #restart: always
-    #expose:
-    #  - 8082      
+    #ports:
+    #  - 8082:8082    
 
   # servo por vortanalizo
   akrido:
     image: ghcr.io/revuloj/voko-akrido/voko-akrido:2c
     build: https://github.com/revuloj/voko-akrido.git
     # restart: always
-    expose:
+    ports:
       - ${AKRIDO_PORT:-8081}:8081
 
   # servo por sintakskontrolo per RelaxNG (Jing)
@@ -102,8 +102,8 @@ services:
     image: ghcr.io/revuloj/voko-grilo/voko-grilo:2c
     build: https://github.com/revuloj/voko-grilo.git
     # restart: always
-    #expose:
-    #  - 8787
+    #ports:
+    #  - 8787:8787
 
 #  retpoŝtservilo, necesas nur se pluraj uzantoj uzas la redaktilon samtempe
 #  tomocero:
