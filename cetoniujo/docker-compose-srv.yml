@@ -49,7 +49,7 @@ services:
       #  target: /home/cetonio/etc
       #  read_only: true
       - type: bind
-        source: $HOME/etc/redaktilo.skr
+        source: ${ETC_DIR}/redaktilo.skr
         target: /run/secrets/voko-cetonio.sekret-agordo
         read_only: true
       - type: bind
