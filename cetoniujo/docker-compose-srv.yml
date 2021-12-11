@@ -52,7 +52,7 @@ services:
         source: $HOME/etc/redaktilo.skr
         target: /run/secrets/voko-cetonio.sekret-agordo
         read_only: true
-      - type: volume
+      - type: bind
         source: ${SQL_DIR}
         target: /home/cetonio/sql
         #read_only: false
@@ -118,10 +118,7 @@ services:
 #
 # Via Nomo <via@retadre.so> <via@dua.retadre.so>
 
-volumes:
-  sql:
-
-
-  
+#volumes:
+#  sql:
 
 
