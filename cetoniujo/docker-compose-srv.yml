@@ -39,7 +39,7 @@ services:
       # por ensaluto k.a. la redaktilo bezonas scii la URL-on
       # elekstera, ekz-e https:://revaj.steloj.de/redaktilo
       # aŭ http://example.com:8080/, http://localhost:8080/redaktilo-test
-      - REDAKTILO_URL=${REDAKTLO_URL:-http://localhost:8080/redaktilo}
+      - REDAKTILO_URL=${REDAKTILO_URL:-http://localhost:8080/redaktilo}
       # kien ni submetu redaktojn (revo-fonto aŭ revo-fonto-testo)
       - GITHUB_REPO=revo-fonto
     volumes:
