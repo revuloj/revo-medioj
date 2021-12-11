@@ -52,12 +52,8 @@ services:
         source: $HOME/etc/redaktilo.skr
         target: /run/secrets/voko-cetonio.sekret-agordo
         read_only: true
-      - type: bind
-        source: $HOME/etc/redaktilo.url
-        target: /home/cetonio/etc/redaktilo.url
-        read_only: true
       - type: volume
-        source: sql
+        source: ${SQL_DIR}
         target: /home/cetonio/sql
         #read_only: false
         #volume:
