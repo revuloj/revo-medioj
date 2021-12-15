@@ -6,6 +6,8 @@ version: '3.3'
 #
 # docker-compose -f docker-compose-srv.yml up
 
+
+
 services:
   cetonio:
     image: ghcr.io/revuloj/voko-cetonio/voko-cetonio:${VER}
@@ -19,7 +21,9 @@ services:
       - akrido
       - grilo
         #command: bash -c 'cd pro && swipl -s redaktilo-servo.pl -g redaktilo_servo:daemon -t halt -p agordo=etc -- --workers=10 --port=8080 --no-fork'
-    ports:
+    network_mode: "host"
+
+    #ports:
       # ĉe IPv6 por havi la retpordon ne nur ĉe 0.0.0.0:8080, sed ankaŭ localhost:8080
       # uzu provizore:
       #   sysctl -w net.ipv4.ip_forward=1 
@@ -27,8 +31,12 @@ services:
       #   net.ipv4.ip_forward = 1 
       # anakŭ vi povas aldoni en la gastiganto /etc/hosts
       #   127.0.0.1  example.com
-      - ${CETONIO_PORT:-8080}:8080
+      #- ${CETONIO_PORT:-8080}:8080
     environment:
+      # ni bezonas reton de la gastiganto (host),
+      # tial la servo mem devas malfermi la publikan retpordon
+      # ni sendas ĝin tra medivariablo (vd. voko-cetonio/Dockerfile:CMD)
+      - CETONIO_PORT=${CETONIO_PORT:-8080}
       - CGI_USER
       - CGI_PWD
       # vi povas doni retpoŝtadreson de unuopa registrita redaktanto (vi)
@@ -82,8 +90,8 @@ services:
     image: ghcr.io/revuloj/voko-cikado/voko-cikado:${VER}
     build: https://github.com/revuloj/voko-cikado.git
     #restart: always
-    #ports:
-    #  - 8082:8082    
+    ports:
+      - "127.0.0.1:${CIKADO_PORT:-8082}:8082"
 
   # servo por vortanalizo
   akrido:
@@ -91,15 +99,15 @@ services:
     build: https://github.com/revuloj/voko-akrido.git
     # restart: always
     ports:
-      - ${AKRIDO_PORT:-8081}:8081
+      - "127.0.0.1:${AKRIDO_PORT:-8081}:8081"
 
   # servo por sintakskontrolo per RelaxNG (Jing)
   grilo:
     image: ghcr.io/revuloj/voko-grilo/voko-grilo:${VER}
     build: https://github.com/revuloj/voko-grilo.git
     # restart: always
-    #ports:
-    #  - 8787:8787
+    ports:
+      - "127.0.0.1:${GRILO_PORT:-8787}:8787"
 
 #  retpoŝtservilo, necesas nur se pluraj uzantoj uzas la redaktilon samtempe
 #  tomocero:
