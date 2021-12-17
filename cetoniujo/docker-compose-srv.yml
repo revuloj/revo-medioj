@@ -21,7 +21,14 @@ services:
       - akrido
       - grilo
         #command: bash -c 'cd pro && swipl -s redaktilo-servo.pl -g redaktilo_servo:daemon -t halt -p agordo=etc -- --workers=10 --port=8080 --no-fork'
+    # cetonio estu en la reto de la gastiganto por povi kontakti la poŝtservon:
     network_mode: "host"
+    # ĉar cetonio estas nun en la reto de gastiganto, ni bezonas informi ĝin
+    # kiel atingi la subservojn:
+    extra_hosts:
+      cikado: "127.0.0.1"
+      akrido: "127.0.0.1"
+      grilo: "127.0.0.1"
 
     #ports:
       # ĉe IPv6 por havi la retpordon ne nur ĉe 0.0.0.0:8080, sed ankaŭ localhost:8080
