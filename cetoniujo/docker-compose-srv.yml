@@ -44,6 +44,11 @@ services:
       # tial la servo mem devas malfermi la publikan retpordon
       # ni sendas ĝin tra medivariablo (vd. voko-cetonio/Dockerfile:CMD)
       - CETONIO_PORT=${CETONIO_PORT:-8080}
+      # permesu ŝangi subservajn retpodojn en .env
+      # kaj transdonu tiujn al Cetonio
+      - GRILO_PORT
+      - AKRIDO_PORT
+      - CIKADO_PORT
       - CGI_USER
       - CGI_PWD
       # vi povas doni retpoŝtadreson de unuopa registrita redaktanto (vi)

@@ -1,4 +1,5 @@
 #!/bin/bash
+
 env_file=../../etc/.env
 compose_file=docker-compose-srv.yml
 
