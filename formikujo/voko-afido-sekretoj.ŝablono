@@ -1,7 +1,8 @@
 #!/bin/bash
 
 keyfile_pub=${HOME}/.ssh/formiko.pub
-keyfile_github=${HOME}/.ssh/id_rsa_revo
+#keyfile_github=${HOME}/.ssh/id_rsa_revo
+keyfile_github=${HOME}/.ssh/id_rsa
 
 if [ ! -e ${keyfile_pub} ]; then
     echo "Mankas ${keyfile_pub}. Vi devas unue lanĉi voko-formiko-sekretojn por ricevi ŝlosilparon!"
