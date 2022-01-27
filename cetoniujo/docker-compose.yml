@@ -96,6 +96,10 @@ services:
     build: https://github.com/revuloj/voko-cikado.git
     networks:
       - creto
+    volumes:
+      - type: bind
+        source: ekstraj
+        target: /home/cetonio/txt/ekstraj      
     #restart: always
     #expose:
     #  - 8082      
