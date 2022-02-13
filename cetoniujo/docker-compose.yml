@@ -98,8 +98,8 @@ services:
       - creto
     volumes:
       - type: bind
-        source: ekstraj
-        target: /home/cetonio/txt/ekstraj      
+        source: ./ekstraj
+        target: /home/cikado/ekstraj      
     #restart: always
     #expose:
     #  - 8082      

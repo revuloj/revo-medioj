@@ -106,8 +106,8 @@ services:
       - "127.0.0.1:${CIKADO_PORT:-8082}:8082"
     volumes:
       - type: bind
-        source: ekstraj
-        target: /home/cetonio/txt/ekstraj      
+        source: ./ekstraj
+        target: /home/cikado/ekstraj      
 
   # servo por vortanalizo
   akrido:
