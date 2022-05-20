@@ -5,6 +5,8 @@
 #    export REDAKTANTO_RETPOSHTO
 #fi
 
+mkdir -p ./ekstraj
+
 docker stack deploy -c docker-compose.yml cetoniujo
 
 # ĉu sufiĉas? aliokaze skribu maŝon, kiu reprovas plurfoje...
