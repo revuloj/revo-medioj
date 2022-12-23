@@ -1,0 +1,2 @@
+# teni procezujon aktiva eĉ sen demono: https://stackoverflow.com/questions/38546755/docker-compose-keep-container-running
+command: tail -F anything

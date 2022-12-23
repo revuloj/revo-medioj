@@ -12,6 +12,9 @@ services:
   cetonio:
     image: ghcr.io/revuloj/voko-cetonio/voko-cetonio:${VER}
     build: https://github.com/revuloj/voko-cetonio.git
+    restart: "unless-stopped"
+    # ni ne uzas "always" ĉar la testan servon ni volas haltigi ankaŭ trans relanĉoj de la demono/sistemo
+    # alternative necesus flegi du diversajn kompon-dosierojn
     # restart: always
     # ni devos atendi, ĝis cetonio-db akiris la datumbazon,
     # jen estas informoj, kiel prokrasti la lanĉon: https://docs.docker.com/compose/startup-order/
