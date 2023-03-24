@@ -1,0 +1,172 @@
+version: '3.3'
+
+# Uzata kun komando docker-compose sur la servilo
+# Ĉar ĝi estas virtuala servilo, pro aparta limigo ĉe nia retprovizanto
+# funkcias nek k3d nek docker stack tie...:
+#
+# docker-compose -f docker-compose-srv.yml up
+
+services:
+  araneo:
+    image: voko-araneo
+    build: https://github.com/revuloj/voko-araneo.git
+    # restart: always
+    ports:
+      - 8088:80
+    network_mode: "host"
+    # ĉar cetonio estas nun en la reto de gastiganto, ni bezonas informi ĝin
+    # kiel atingi la subservojn:
+    extra_hosts:
+      abelo: "127.0.0.1"
+    depends_on:
+     - abelo
+    volumes:
+      - alveno:/hp/af/ag/ri/www/alveno
+##    secrets:
+##      - voko-abelo.mysql_password
+##      # uzata por eksporto de lastaj ŝanĝoj:
+##      - voko-abelo.mysql_root_password
+##      - voko-araneo.cgi_password
+      - type: bind
+        source: ${ETC_DIR}/araneo.skr
+        target: /run/secrets/voko-araneo.sekret-agordo
+        read_only: true
+      - type: bind
+        source: ${ETC_DIR}
+        target: /home/araneo/etc
+
+    environment:
+      EMAIL_SENDER_TRANSPORT: SMTPS
+      EMAIL_SENDER_TRANSPORT_ssl: ssl
+      # momente la sekvontoj valoroj estas en sekretoj:
+      # voko-afido.smtp_server 
+      # voko-afido.smtp_user 
+      # voko-afido.smtp_password resp. voko-tomocero.saslpassword
+      # ni prefere uzu pli ĝeneralajn sekretoj voko.smtp_server ktp.
+      # kaj kreu la mediovariablojn ekz. en entry-point.sh...
+      EMAIL_SENDER_TRANSPORT_host: tomocero
+      EMAIL_SENDER_TRANSPORT_sasl_username: tomocero@tomocero
+      EMAIL_SENDER_TRANSPORT_sasl_password: sekreta
+  # saluto de abelisto al abelo:
+  # servilo-nomo estas la nomo de abelo (docker ps)
+  # uzanto-nomo estas "root"
+  # db-nomo estas la skemo (usr_web277_1)
+  # pasvorto: vd. malsupre (MYSQL_ROOT_PASSWORD)
+  abelisto:
+    image: adminer
+    #restart: always
+    environment:
+      ADMINER_DESIGN: hever
+##    networks:
+##      - reto
+    ports:
+      - 8089:8080  
+    depends_on:
+      - abelo
+
+  abelo:
+    image: voko-abelo
+    build: https://github.com/revuloj/voko-abelo.git
+    # command: --default-authentication-plugin=mysql_native_password
+    command: mysqld --general-log=1 --general-log-file=/tmp/mysql-general-log.log
+    # restart: always
+    #expose:
+    #  - 3306
+    networks:
+      - reto
+##    secrets:
+##      - voko-abelo.mysql_root_password
+##      - voko-abelo.mysql_password
+##      - voko.redaktantoj
+    environment:
+      MYSQL_ROOT_PASSWORD_FILE: /run/secrets/voko-abelo.mysql_root_password
+      MYSQL_PASSWORD_FILE: /run/secrets/voko-abelo.mysql_password
+      MYSQL_DATABASE: db314802x3159000
+      MYSQL_USER: s314802_3159000
+    ports:
+      - "127.0.0.1:${ABELO_PORT:-3306}:3306"
+
+
+##  sesio:
+##    image: voko-sesio
+##    build: https://github.com/revuloj/voko-sesio.git
+##    # restart: always
+##    networks:
+##      - reto
+##    volumes:
+##      - alveno:/home/vsftpd/alveno
+##      - sesio-log:/var/log/vsftpd
+##    ports:
+##      - 0.0.0.0:21:21
+##      - 21200-21210:21200-21210
+##    secrets:
+##      - voko-sesio.ftp_password         
+##
+##  tomocero:
+##    image: voko-tomocero
+##    build: https://github.com/revuloj/voko-tomocero.git
+##    command: /usr/lib/postfix/master -d
+##    volumes:
+##      # eble ni eksterigu ankaŭ /var/spool/postfix resp. tutan /var/spool
+##      - mail:/var/mail
+##      - spool:/var/spool
+##    secrets:
+### ni bezonas nur sendi, ne legi poŝton en Araneujo
+###      - voko-tomocero.pop3_server
+###      - voko-tomocero.pop3_user
+###      - voko-tomocero.pop3_password
+##      - voko-tomocero.myhostname
+##      - voko-tomocero.saslpassword
+##      - voko-tomocero.relayhost
+##      - voko-tomocero.relayaddress
+##      - voko-tomocero.relaypassword
+
+secrets:
+  # FARENDA:
+  # necesas adapti revodb.pm por ke ĝi legu la pasvorton el /run/secrets/mysql_password
+  #
+  # vi povas krei taŭgajn pasvortojn per:
+  #   openssl rand -base64 20 | docker secret create mysql_root_password -
+  #   openssl rand -base64 20 | docker secret create mysql_password -
+  voko-abelo.mysql_root_password:
+    external: true
+  voko-abelo.mysql_password:
+    external: true
+  voko-sesio.ftp_password:
+    external: true
+
+  voko-araneo.cgi_password:
+    external: true    
+
+# ni bezonas nur sendi, ne legi poŝton en Araneujo
+#  voko-tomocero.pop3_server:
+#    external: true
+#  voko-tomocero.pop3_user:
+#    external: true
+#  voko-tomocero.pop3_password:
+#    external: true
+  voko-tomocero.myhostname:
+    external: true
+  voko-tomocero.saslpassword:
+    external: true
+  voko-tomocero.relayhost:
+    external: true
+  voko-tomocero.relayaddress:
+    external: true
+  voko-tomocero.relaypassword:
+    external: true    
+
+  voko.redaktantoj:
+    #external: true
+    file: ${HOME}/etc/redaktantoj
+
+volumes:
+  alveno:
+  sesio-log:
+  mail:
+  spool:
+
+networks:
+  reto:
+#    external: true
+
