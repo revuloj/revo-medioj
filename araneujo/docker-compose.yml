@@ -12,7 +12,7 @@ services:
     depends_on:
      - abelo
     volumes:
-     - alveno:/hp/af/ag/ri//www/alveno
+     - alveno:/hp/af/ag/ri/www/alveno
     secrets:
       - voko-abelo.mysql_password
       # uzata por eksporto de lastaj ŝanĝoj:
@@ -67,20 +67,20 @@ services:
       MYSQL_DATABASE: db314802x3159000
       MYSQL_USER: s314802_3159000
 
-  sesio:
-    image: voko-sesio
-    build: https://github.com/revuloj/voko-sesio.git
-    # restart: always
-    networks:
-      - reto
-    volumes:
-      - alveno:/home/vsftpd/alveno
-      - sesio-log:/var/log/vsftpd
-    ports:
-      - 0.0.0.0:21:21
-      - 21200-21210:21200-21210
-    secrets:
-      - voko-sesio.ftp_password         
+##  sesio:
+##    image: voko-sesio
+##    build: https://github.com/revuloj/voko-sesio.git
+##    # restart: always
+##    networks:
+##      - reto
+##    volumes:
+##      - alveno:/home/vsftpd/alveno
+##      - sesio-log:/var/log/vsftpd
+##    ports:
+##      - 0.0.0.0:21:21
+##      - 21200-21210:21200-21210
+##    secrets:
+##      - voko-sesio.ftp_password         
 
   tomocero:
     image: voko-tomocero
