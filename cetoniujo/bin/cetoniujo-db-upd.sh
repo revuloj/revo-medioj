@@ -6,5 +6,5 @@ target="${1:-update-db}"
 env_file=../../etc/.env
 compose_file=docker-compose-srv.yml
 
-docker-compose -f ${compose_file} --env-file ${env_file} exec cetonio bin/instalo.sh ${target}
+docker-compose -f ${compose_file} --env-file ${env_file} exec -T cetonio bin/instalo.sh ${target}
 
