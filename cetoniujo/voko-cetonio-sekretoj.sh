@@ -2,7 +2,11 @@
 
 # transdonu dosieron kun Prolog-difinoj pri sekretoj 
 # (OAuth Client-ID/Client secret, poŝtuzanto+pasvorto, ajax-sekreto)
-# kiel unuan argumenton
+# kiel unuan argumenton (vd. voko-cetonio/etc/redaktilo.skr.tmpl)
+# Vi devas redakti tiun dosieron enskribante la diversajn sekretojn
+# poste per tiu ĉi skripto ĝi estas transdonata la la procezujo kiel
+# docker-swarm-sekreto.
+
 SKR_FILE=$1
 
 if [ "${SKR_FILE}" == "" ]; then
