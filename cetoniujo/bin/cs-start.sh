@@ -1,6 +1,8 @@
 #!/bin/bash
 #set -x
 
+echo "Lanĉi Cetoniujon en docker swarm (stack)"
+
 #if [ "$REDAKTANTO_RETPOSHTO" != ""]; then
 #    export REDAKTANTO_RETPOSHTO
 #fi
