@@ -25,8 +25,13 @@ Estas tri retaplikaĵoj, kiuj kune formas la Revujon:
   - vaneso - fakte du vanesoj, unu sendas ŝanĝojn de artikolversioj al la retservo kaj alia ŝanĝojn de la retpaĝoj kreitaj de formiko
   - tomocero - retpoŝtservo, kiu kolektas retpoŝtojn por forsendo kaj komunikas kun poŝtservo de la provizanto
   
-Momente montriĝis ne jam bezonata, sed poste ni eble uzos tri mediojn:
-- kelo: tio estas loka medio por la programado, kiu funkcias sur unu komputilo (loka "docker swarm"),
-  sen bezono de veraj   poŝtfako, ret-atestiloj, retkontoj por redaktado
-- ĝardeno: tio estas medio por testi ĉion kune kun veraj retpoŝtfakoj, retserviloj k.s. sed izolite de la veraj servoj
-- mondo: tio estas la medio kie okazas la vera redaktado de Reta Vortaro
+Ni provizas agordojn de tiuj tri aplikaĵoj por kelkaj diversaj medioj:
+
+- 'docker swarm' (sufikso -s), tio estas la preferata medio kaj taŭgas same por lokaj programedo kaj testado kiel por
+  servado tra virtuala servilo.
+- 'docker compose' (sufikso -c), tio estas simila sed pli simpla rimedo, kiu ekzemple rezignas pri kelkaj aferoj kiel
+  speciala aranĝo de virtuala reto, kaŝitaj sekretoj kaj agordoj. En kelkaj cirkonstancoj 'docker swarm' ne
+  funkcias aŭ ne estas dezirate, tiam vi povas uzi tiun pli tradician kaj simplan agordon
+- 'kubernetes' (sufikso -k8s). Tio estas la profesia medio, kiun uzas renomaj provizantoj kiel Amazon, Google, MS k.a., tamen manke de konkreta bezono ni nur iom preparis tiujn mediojn, sed ne fintestis.
+
+Krome por Formikujo ni ankaŭ havas duan agordon por 'docker swarm' kun sufikso (-t), kiun ni uzas por lokaj testoj. Por la testoj cetere ni precipe uzas testan kadron por ŝelo [bats](https://github.com/bats-core/bats-core). La test-skriptoj habvas finaĵon `.bats`.

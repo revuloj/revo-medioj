@@ -2,5 +2,6 @@
 
 #cmd="${1:--h}"
 env_file=../../etc/.env
-compose_file=docker-compose-srv.yml
+compose_file=docker-compose
+.yml
 docker-compose -f ${compose_file} --env-file ${env_file} $@
