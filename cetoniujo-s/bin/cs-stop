@@ -1,0 +1,8 @@
+#!/bin/bash
+
+## | Haltigas Formikujon en loka medio 'docker swarm'
+
+echo "Haltigas Cetoniujon, supozante ke ĝi funkcias en docker swarm (stack)..."
+echo "(atendu minuton antaŭ restartigo)"
+
+docker stack rm cetoniujo

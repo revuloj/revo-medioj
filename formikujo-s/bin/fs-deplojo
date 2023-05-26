@@ -1,0 +1,64 @@
+#!/bin/bash
+
+## | Kreas certan enhavon per Formiko respektive
+## | deplojas ĝin al alia aplikaĵo (Araneo, Cetonio)
+##
+## Voku kiel:
+##    fs-deplojo.sh <celo>
+##
+## kie <celo> povas esti unu el la sekvontaj:
+
+# ni komprenas preparo | docker | servilo |index
+# kaj supozas "docker", se nenio donita argumente
+#target="${1:-araneo}"
+
+case $target in
+
+zip)
+    ## zip        : kreas la vortaron el la fontoj
+    formiko_id=$(docker ps --filter name=formikujo_formiko -q) && echo "Formiko: ${formiko_id}"
+    echo "exec docker exec -it -u1001 ${formiko_id} formiko srv-servo-formikujo... (povas daŭri longe!)"
+    docker exec -it -u1001 ${formiko_id} formiko srv-servo-formikujo
+    ;;
+db)
+    ## db         : kreas la sqlite-datumbazon uzata de la serĉo de Cetonio, deplojo tien per celo cetonio-db
+    formiko_id=$(docker ps --filter name=formikujo_formiko -q) && echo "Formiko: ${formiko_id}"
+    echo "exec docker exec -it -u1001 ${formiko_id} formiko sql-tuto... (povas daŭri iom!)"
+    docker exec -it -u1001 ${formiko_id} formiko sql-tuto
+    ;;
+araneo)
+    ## araneo     : aktualigas la vortaron de Araneo per zip-arĥivo el loka Formikujo (ambaŭ devas esti lanĉitaj), kreu ĝin antaŭe per celo zip
+    echo "Aktualigu la vortaron per ZIP-dosiero el loka Formikujo"    
+    echo "Tion vi povas antaŭe krei per celo zip)"
+
+    araneo_id=$(docker ps --filter name=araneujo_araneo -q)
+    formiko_id=$(docker ps --filter name=formikujo_formiko -q)
+
+    zip=revohtml_$(date '+%Y-%m-%d').zip
+    ht_dir=/usr/local/apache2/htdocs
+    
+    docker cp ${formiko_id}:/home/formiko/tgz/${zip} .
+    docker cp ./${zip} ${araneo_id}:${ht_dir}/
+    docker exec -u0 ${araneo_id} unzip -qo -d ${ht_dir} ${ht_dir}/${zip}
+    ;;
+cetonio-db)
+    ## cetonio-db : deplojas la indeksdatumbazon el Formikujo al Cetonio (ambaŭ devas esti lanĉitaj), kreu ĝin antaŭe per celo db
+    echo "Aktualigu la datumbazon en Cetonio per ZIP-dosiero el loka Formikujo"    
+    echo "Tion vi povas antaŭe krei per celo db)"
+
+    cetonio_id=$(docker ps --filter name=cetoniujo_cetonio -q)
+    formiko_id=$(docker ps --filter name=formikujo_formiko -q)
+
+    zip=revosql-inx_$(date '+%Y-%m-%d').zip
+    tmp_dir=/home/cetonio/tmp
+    sql_dir=/home/cetonio/sql
+
+    echo "docker cp ${formiko_id}:/home/formiko/tgz/${zip} ."
+    docker cp ${formiko_id}:/home/formiko/tgz/${zip} .
+    echo "docker cp ./${zip} ${cetonio_id}:${tmp_dir}/"
+    docker cp ./${zip} ${cetonio_id}:${tmp_dir}/
+    echo "docker exec -u1088 ${cetonio_id} unzip -qo -d ${tmp_dir} ${tmp_dir}/${zip}"
+    docker exec -u1088 ${cetonio_id} unzip -qo -d ${tmp_dir} ${tmp_dir}/${zip}
+    echo "docker exec -u1088 ${cetonio_id} cp ${tmp_dir}/revo-inx.db ${sql_dir}/revo-inx.db"
+    docker exec -u1088 ${cetonio_id} cp ${tmp_dir}/revo-inx.db ${sql_dir}/revo-inx.db
+esac

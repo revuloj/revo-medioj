@@ -1,0 +1,26 @@
+#!/bin/bash
+
+## | Kreas inter-aplikaĵan reton 'ghardeno' por 'docker swarm'
+##
+## Momente ni uzas nur internajn retojn por ke la partoj de la aplikaĵo
+## povu interkomuniki.
+##
+## Sed se la aplikaĵoj en medio 'docker swarm' interkomuniku inter si
+## ni bezonas reton de la speco 'overlay'
+## vd. https://serverfault.com/questions/935701/connection-between-two-docker-containers-of-two-stacks
+##
+## Per tiu ĉi skripto vi povas krei tiun, sed necesas ankaŭ aldoni ĝin en la koncernaj
+## dosieroj docker-compose.yml kiel reto de la speco 'external':
+##
+## networks:
+##   ghardeno:
+##     external: true
+##
+## kaj ankaŭ refenci ĝin en ĉiuj aplikaĵo-partoj (servoj), kiuj povu uzi ĝin.
+
+
+reto=$(docker network ls -f driver=overlay -f scope=swarm -fname=ghardeno -q)
+
+if [[-z ${reto}]]; then
+  docker network create -d overlay ghardeno
+fi

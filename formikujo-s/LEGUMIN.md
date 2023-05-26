@@ -9,7 +9,7 @@ Post sukcesa lanĉo de Formikujo vi povas lanĉi individuajn celojn por la progr
 
 ```
   # ĝeneralaj informoj kaj eblaj prefiksoj
-  ./fs-formikujo.sh formiko -h
+  ./fs-formiko.sh formiko -h
 
   # celoj de la prefikso inx- por krei diversajn indeksojn
   ./fs-formiko.sh formiko inx-?

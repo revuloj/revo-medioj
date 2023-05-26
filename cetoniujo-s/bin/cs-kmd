@@ -1,0 +1,9 @@
+#!/bin/bash
+
+## | Ebligas uzi aldonajn komandojn de 'docker stack': 'ps', 'rm' kaj 'services'
+##
+## Tio estas nur simpla utilaĵo por tajpi iomete malpli aŭ memorhelpo por la komandoj :-)
+
+echo "Vi povas uzi komandojn 'ps', 'rm' kaj 'services' por vidi la staton aŭ fini (rm) Cetoniujon"
+
+docker stack $1 cetoniujo
