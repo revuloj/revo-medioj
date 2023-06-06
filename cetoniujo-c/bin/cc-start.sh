@@ -1,0 +1,25 @@
+#!/bin/bash
+
+env_file=../../etc/.env
+compose_file=docker-compose.yml
+
+source ${env_file}
+
+if [[ ! -d "${ETC_DIR}" ]]; then
+    echo "Dosierujo ${ETC_DIR} mankas ankorau!"
+    exit 1
+fi
+
+if [[ ! -f "${ETC_DIR}/redaktilo.skr" ]]; then
+    echo "Dosiero ${ETC_DIR}/redaktilo.skr mankas ankorau!"
+    exit 1
+fi
+
+if [[ ! -d "${SQL_DIR}" ]]; then
+    echo "Dosierujo ${SQL_DIR} mankas ankorau!"
+    exit 1
+fi
+
+
+docker-compose -f ${compose_file} --env-file ${env_file} up -d --remove-orphans
+docker-compose -f ${compose_file} --env-file ${env_file} logs -f
