@@ -10,7 +10,7 @@
 
 # ni komprenas preparo | docker | servilo |index
 # kaj supozas "docker", se nenio donita argumente
-#target="${1:-araneo}"
+target="${1:-zip}"
 
 case $target in
 
