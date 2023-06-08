@@ -1,6 +1,11 @@
 #!/bin/bash
 #set -x
 
+if [[ ! -d "revo" ]]; then
+    echo "Dosierujo 'revo' mankas ankorau! Vi povas krei ĝin per 'mkdir revo'"
+    exit 1
+fi
+
 stack=formikotesto
 nw=$(docker network ls --filter name=${stack}_default -q)
 #formiko_id=$(docker ps --filter name=formikujo_formiko -q)
