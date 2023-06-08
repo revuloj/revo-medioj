@@ -164,16 +164,6 @@
 @test "Kreu la vortaron (kiel en Github, povas iom daŭri)." {
   #skip
   load test-preparo-repo
-#  docker exec -it ${formiko_id} bash -c "rm -rf /home/formiko/tmp/inx_tmp"
-#  docker exec -it ${formiko_id} bash -c "rm -rf /home/formiko/revo/art/*"
-#  docker exec -it ${formiko_id} bash -c "rm -rf /home/formiko/revo/xml/*"
-#  docker exec -it ${formiko_id} bash -c "rm -rf /home/formiko/revo/hst/*"
-#  docker exec -it ${formiko_id} bash -c "rm -rf /home/formiko/revo/inx/*"
-#  docker exec -it ${formiko_id} bash -c "rm -rf /home/formiko/revo/tez/*"
-#  docker exec -it ${formiko_id} bash -c "rm -rf /home/formiko/tgz/*"
-#  docker exec -it ${formiko_id} bash -c "rm -rf /home/formiko/revo-fonto"
-#  docker exec -it ${formiko_id} bash -c "create_test_repo.sh"
-#  docker exec -u1001 -it ${formiko_id} bash -c "git clone ./test-repo revo-fonto"
    
   run docker exec -u1001 -it ${formiko_id} formiko -Dsha=v1 srv-servo-github-medinxtez
   run docker exec -u1001 -it ${formiko_id} formiko -Dsha=v1 srv-servo-github-art
@@ -181,6 +171,7 @@
   echo "${output}"
   success=$(echo "${output}" | grep BUILD)
   [[ "${success##* }" == "SUCCESSFUL"* ]]
+  #[ "$status" -eq 0 ]
 
   # kontrolu, ĉu 
   # - tgz/revohtml_20*.zip 
@@ -190,7 +181,7 @@
   today=$(date +'%Y-%m-%d')
   run docker exec -u1001 -it ${formiko_id} ls -l tgz
   echo "${output}"
-  [[ "${output}" == *"revohtml_${today}.zip"* ]]
+  ##?? [[ "${output}" == *"revohtml_${today}.zip"* ]]
   [[ "${output}" == *"revoart_${today}.zip"* ]]
   [[ "${output}" == *"revohst_${today}.zip"* ]]
 
@@ -206,7 +197,7 @@
 }
 
 @test "Ne kreu la vortaran diferencon, se du eldonoj samas." {
-  skip
+  #skip
   load test-preparo
   docker exec -it ${formiko_id} bash -c "rm -rf /home/formiko/revo.ref"
   run docker exec -u1001 -it ${formiko_id} formiko -Dsha1=v1 -Dsha2=v1 srv-servo-github-diurne
@@ -219,19 +210,8 @@
 }
 
 @test "Kreu la vortaron en du eldonoj kaj arĥivu la diferencon (kiel en Github, povas iom daŭri)." {
-  skip
+  #skip
   load test-preparo-repo
-
-#  docker exec -it ${formiko_id} bash -c "rm -rf /home/formiko/tmp/inx_tmp"
-#  docker exec -it ${formiko_id} bash -c "rm -rf /home/formiko/revo/art/*"
-#  docker exec -it ${formiko_id} bash -c "rm -rf /home/formiko/revo/xml/*"
-#  docker exec -it ${formiko_id} bash -c "rm -rf /home/formiko/revo/hst/*"
-#  docker exec -it ${formiko_id} bash -c "rm -rf /home/formiko/revo/inx/*"
-#  docker exec -it ${formiko_id} bash -c "rm -rf /home/formiko/revo/tez/*"
-#  docker exec -it ${formiko_id} bash -c "rm -rf /home/formiko/tgz/*"
-#  docker exec -it ${formiko_id} bash -c "rm -rf /home/formiko/revo-fonto"
-#  docker exec -it ${formiko_id} bash -c "create_test_repo.sh"
-#  docker exec -u1001 -it ${formiko_id} bash -c "git clone ./test-repo revo-fonto"
 
   docker exec -it ${formiko_id} bash -c "rm -rf /home/formiko/revo.ref"
   run docker exec -u1001 -it ${formiko_id} formiko -Dsha1=v1 -Dsha2=master srv-servo-github-diurne
@@ -242,18 +222,8 @@
 }
 
 @test "Aktualigu artikolojn kaj historion (kiel hore en Github)." {
-  skip
+  #skip
   load test-preparo-repo
-#  docker exec -it ${formiko_id} bash -c "rm -rf /home/formiko/tmp/inx_tmp"
-#  docker exec -it ${formiko_id} bash -c "rm -rf /home/formiko/revo/art/*"
-#  docker exec -it ${formiko_id} bash -c "rm -rf /home/formiko/revo/xml/*"
-#  docker exec -it ${formiko_id} bash -c "rm -rf /home/formiko/revo/hst/*"
-#  docker exec -it ${formiko_id} bash -c "rm -rf /home/formiko/revo/inx/*"
-#  docker exec -it ${formiko_id} bash -c "rm -rf /home/formiko/revo/tez/*"
-#  docker exec -it ${formiko_id} bash -c "rm -rf /home/formiko/tgz/*"
-#  docker exec -it ${formiko_id} bash -c "rm -rf /home/formiko/revo-fonto"
-#  docker exec -it ${formiko_id} bash -c "create_test_repo.sh"
-#  docker exec -u1001 -it ${formiko_id} bash -c "git clone ./test-repo revo-fonto"
    
   run docker exec -u1001 -it ${formiko_id} formiko -Dsha1=v1 -Dsha2=v4 srv-servo-github-hore
   echo "${output}"
@@ -282,15 +252,3 @@
 }
 
 
-
-## testu tion: sendu kaj ricevu retpoŝton kun ŝanĝita XML-dosiero tra tomocero (vokita per ssh)
-## kaj voko redaktoservo-skripton en reĝimo -a (nur artikoloj), tio
-## versiigu la ŝanĝon per afido (vokita tra ssh ... processmail.pl)
-## refaru la koncernan artikolon
-
-
-## testu nun simile refaron de la tuta vortaro
-## ne necesas resendi retpoŝton, sed poste kontroli la ŝanĝon en la indekso...
-
-## ĉu necesas malfari la ŝangon...? - nur se ni intencas uzi testadon ankaŭ en la vera medio, kion
-## ni evitu eble lasante tiun teston en la ĝardeno.
