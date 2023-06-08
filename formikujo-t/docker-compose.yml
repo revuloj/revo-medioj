@@ -10,9 +10,9 @@ services:
     networks:
       - reto
     volumes:
-#      - type: bind
-#        source: ./revo
-#        target: /home/formiko/revo
+      - type: bind
+        source: ./revo
+        target: /home/formiko/revo
       - formiko-tmp:/home/formiko/tmp
       - formiko-log:/home/formiko/log
 #      - mail:/var/mail
@@ -110,20 +110,20 @@ services:
       MYSQL_USER: web277
       # MYSQL_ROOT_PASSWORD: sekreto28343
 
-  sesio:
-    image: voko-sesio
-    build: https://github.com/revuloj/voko-sesio.git
-    # restart: always
-    networks:
-      - reto
-    volumes:
-      - alveno:/home/vsftpd/alveno
-      - sesio-log:/var/log/vsftpd
-    ports:
-      - 0.0.0.0:21:21
-      - 21200-21210:21200-21210
-    secrets:
-      - voko-sesio.ftp_password    
+#  sesio:
+#    image: voko-sesio
+#    build: https://github.com/revuloj/voko-sesio.git
+#    # restart: always
+#    networks:
+#      - reto
+#    volumes:
+#      - alveno:/home/vsftpd/alveno
+#      - sesio-log:/var/log/vsftpd
+#    ports:
+#      - 0.0.0.0:21:21
+#      - 21200-21210:21200-21210
+#    secrets:
+#      - voko-sesio.ftp_password    
 
 
 #  afido:
