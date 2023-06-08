@@ -222,7 +222,8 @@
 }
 
 @test "Aktualigu artikolojn kaj historion (kiel hore en Github)." {
-  #skip
+  skip
+  # tiu testo eble ne plu estas konforma al la efektiva procedo. (ftp-alŝuto...)
   load test-preparo-repo
    
   run docker exec -u1001 -it ${formiko_id} formiko -Dsha1=v1 -Dsha2=v4 srv-servo-github-hore
