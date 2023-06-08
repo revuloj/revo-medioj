@@ -5,7 +5,7 @@
 # https://github.com/sstephenson/bats/issues/10
 
 echo "ATENTU: Tiuj testoj ne plu estas aktualaj!"
-echo "Aktualaj testoj estas en medioj ../../afido-testo kaj ../../formiko-testo"
+echo "Aktualaj testoj estas en medioj ../../afido-testo kaj ../../formikujo-t"
 echo "Finante nun sen daŭrigi testadon!"
 exit 1
 
