@@ -1,0 +1,39 @@
+
+==== cs-akir ====
+
+ | Ŝargas la procezujojn Cetonio, Grilo, Akrido kaj Cikadoel Github (Ghcr)
+ | Poste vi povas lanĉi Cetoniujon kun ili uzante cs-start.sh
+
+==== cs-cetonio ====
+
+ | Lanĉas programon donitan kiel argumentaro en la procezujo cetoniujo_cetonio
+
+==== cs-db ====
+
+ | Lanĉas la skripton instalo.sh, necesa por krei kaj aktualigi datumbazojn, en la procezujo cetoniujo_cetonio
+
+==== cs-kmd ====
+
+ | Ebligas uzi aldonajn komandojn de 'docker stack': 'ps', 'rm' kaj 'services'
+
+ Tio estas nur simpla utilaĵo por tajpi iomete malpli aŭ memorhelpo por la komandoj :-)
+
+==== cs-sekret ====
+
+ | Enigas la agordon de sekretoj en Cetonion
+
+ Transdonu dosieron kun Prolog-difinoj pri sekretoj 
+ (OAuth Client-ID/Client secret, poŝtuzanto+pasvorto, ajax-sekreto)
+ kiel unuan argumenton (vd. voko-cetonio/etc/redaktilo.skr.tmpl)
+
+ Vi devas redakti tiun dosieron enskribante la diversajn sekretojn
+ poste per tiu ĉi skripto ĝi estas transdonata la la procezujo kiel
+ docker-swarm-sekreto.
+
+==== cs-start ====
+
+ | Lanĉas Cetoniujon en 'docker swarm' (stack)
+
+==== cs-stop ====
+
+ | Haltigas Formikujon en loka medio 'docker swarm'

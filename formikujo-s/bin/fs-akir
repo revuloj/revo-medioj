@@ -1,0 +1,13 @@
+#!/bin/bash
+
+## | Ŝargas la procezujojn Formiko kaj Afido el Github (Ghcr)
+## | Poste vi povas lanĉi Formikujon kun ili uzante fs-start.sh
+
+echo "Ni ŝargas la procezujojn por Formikujo el la deponejo ĉe Github (Ghcr)"
+
+docker pull ghcr.io/revuloj/voko-formiko/voko-formiko
+docker pull ghcr.io/revuloj/voko-afido/voko-afido
+
+# alinomu por loka uzo
+docker tag ghcr.io/revuloj/voko-formiko/voko-formiko voko-formiko
+docker tag ghcr.io/revuloj/voko-afido/voko-afido voko-afido

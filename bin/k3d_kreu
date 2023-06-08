@@ -1,0 +1,15 @@
+#!/bin/bash
+
+## | Kreas k3d-medion sen aparta registrejo.
+##
+## Necesas unue fari la bazan instaladon de k3d, vd. https://k3d.io/
+## k3d estas kuberneto-medio de marko 'rancher', kiun oni povas instali kiel unuopa docker-procezujo.
+## Tio estas tre utila por loka testado.
+
+
+k3d create --volume /home/${USER}/.k3d/registries.yaml:/etc/rancher/k3s/registries.yaml \
+  --publish 8080:80 --image=docker.io/rancher/k3s:v1.0.0
+
+k3d get-kubeconfig
+
+#docker network connect k3d-k3s-default registry.local

@@ -1,0 +1,9 @@
+#!/bin/bash
+
+## | Lanĉas programon donitan kiel argumentaro en la procezujo cetoniujo_cetonio
+
+### Ĉu Afido estas aktiva? Ni bezonas la n-ron...
+cetonio_id=$(docker ps --filter name=cetoniujo_cetonio -q) && echo "Cetonio: ${cetonio_id}"
+
+exec docker exec -it -u1088 ${cetonio_id} $@
+

@@ -8,7 +8,8 @@ services:
     environment:
       - GIT_REPO_REVO=https://github.com/revuloj/revo-fonto.git
     networks:
-      - ghardeno
+      - reto
+      #- ghardeno
     volumes:
       - type: bind
         source: ./revo
@@ -52,7 +53,8 @@ services:
     build: https://github.com/revuloj/voko-afido.git
     # command: processmail.pl
     networks:
-      - ghardeno
+      - reto
+      #- ghardeno
     volumes:
 #      - type: bind
 #        source: ./cvsroot
@@ -213,6 +215,7 @@ volumes:
 #    external: true
   
 networks:
-  ghardeno:
-    external: true
+  reto:
+  #ghardeno:
+  #  external: true
 

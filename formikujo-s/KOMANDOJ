@@ -1,0 +1,117 @@
+
+==== cp-formiko-revo ====
+
+ | Kopias dosierojn donitajn kiel argumentoj en Formikon en la dosierujon revo/
+
+ Vi povas uzi tiun skripton aparte por aktualigi unuopajn dosierojn dum programado kaj testado.
+
+==== cp-formiko-voko ====
+
+ | Kopias dosierojn donitajn kiel argumentoj en Formikon en la dosierujon voko/
+
+ Vi povas uzi tiun skripton aparte por aktualigi unuopajn dosierojn dum programado kaj testado.
+
+==== fs-afido ====
+
+ | Lanĉas komandon donitan kiel argumentaro en Afido
+
+==== fs-akir ====
+
+ | Ŝargas la procezujojn Formiko kaj Afido el Github (Ghcr)
+ | Poste vi povas lanĉi Formikujon kun ili uzante fs-start.sh
+
+==== fs-deplojo ====
+
+ | Kreas certan enhavon per Formiko respektive
+ | deplojas ĝin al alia aplikaĵo (Araneo, Cetonio)
+
+ Voku kiel:
+    fs-deplojo.sh <celo>
+
+ kie <celo> povas esti unu el la sekvontaj:
+     zip        : kreas la vortaron el la fontoj
+     db         : kreas la sqlite-datumbazon uzata de la serĉo de Cetonio, deplojo tien per celo cetonio-db
+     araneo     : aktualigas la vortaron de Araneo per zip-arĥivo el loka Formikujo (ambaŭ devas esti lanĉitaj), kreu ĝin antaŭe per celo zip
+     cetonio-db : deplojas la indeksdatumbazon el Formikujo al Cetonio (ambaŭ devas esti lanĉitaj), kreu ĝin antaŭe per celo db
+
+==== fs-formiko ====
+
+ | Lanĉas komandon donitan kiel argumento en la procezujo formikujo_formiko
+ | kiel uzanto 'formiko'
+
+ Voku kiel:
+   fs-formiko.sh <komando>
+
+ ekz-e:
+   fs-formiko.sh formiko -h
+
+==== fs-formiko-r ====
+
+ | Lanĉas komandon donitan kiel argumento en la procezujo formikujo_formiko
+ | kiel administranto (root)
+
+==== fs-rsync ====
+
+ | Sinkronigas lokaj dosierojn kun la servilo per 'rsync'
+
+ Tiu ĉi skripto estas utila por mana (amasa) aktualigo de dosieroj en Reta vortaro,
+ ĉar la regulaj aktualigoj koncernas ĉiam nur difinitajn partojn kaj ekzemple ne
+ pova aktualigi ĉiujn artikolojn aŭ ĉiujn indeksojn post struktura adapto (XSL-ŝanĝo)
+ Por uzi la skripton necesas unu krei ĝustan, kompletan kaj aktualan eldonon de
+ Revo-dosieroj kaj krome adapti la skripton en la malsupra parto por difini kio 
+ ekzakte sinkroniĝu kien.
+ Prefere limiĝu ĉiam al nur elektitaj dosierujoj kaj bone pripensu kaj kontrolu
+ antaŭ sinkronigi ion en la publikan servilon!
+
+==== fs-start ====
+
+ | Lanĉas Formikujon en medio 'docker swarm'
+
+ Vi devas unue akiri la procezujojn voko-formiko kaj voko-afido el Ghcr
+ aŭ loke kompili ilin el la fnotoj.
+
+ Vi ankaŭ povas uzi la komandojn 'docker stack...'', sed tiuj ĉi
+ skriptoj faciligas la aferon kaj aldonas iujn antaŭtestojn.
+
+==== fs-stop ====
+
+ | Haltigas Formikujon en loka medio 'docker swarm'
+
+==== voko-afido-sekretoj ====
+
+ | Agordo de sekretoj por Afido
+
+ Afido estas la akceptilo por submetitaj / senditaj redaktoj
+ kaj bezonas kelkajn sekretojn por enpreni sendojn (ekz-e el poŝtfako aŭ la datumbazo)
+
+==== voko-formiko-sekretoj ====
+
+ | Agordo de sekretoj por Formiko
+
+ La transformilo Formiko bezonas SSH-ŝlosilon kaj -agordon por interkomunikado
+
+==== voko-tomocero-sekretoj ====
+
+ | Agordo de sekretoj por Tomocero
+
+ Tomocero estas loka retpoŝtservo kiu povas ekz-e interŝanĝi retpoŝtojn kun pulbika servilo
+ Se ni volas testi retpoŝtan akcepton de redaktoj kaj forsendon de raportoj, tiu povas
+ utili. Por multaj aliaj taskoj ĝi ne estas nepre bezonata.
+ Por uzo neceas informoj pri la poŝtfako de la interreta provzanto, kun kiu ni inerŝanĝu poŝtaĵojn.
+ Do vi devos agordi la koncernajn malsuprajn liniojn akorde kun la nomoj kaj sekretoj de via provizanto.
+
+==== xx-agordo-cron ====
+
+ | Kreas agordon de redaktoservo kun la programo 'cron'.
+
+ Momente ni rulas la redaktoservon ĉe Github kaj ne bezonas tion ĉi.
+ Sed principe eblas ruli la redaktoservon ankaŭ en iu servilo kun regulas
+ tempoplano. Tiam ĉi-agordo helpas aranĝi ĉion.
+
+==== xx-agordo-redaktoservo ====
+
+ | Kreas agordon por loka/servila uzo de Formiko.
+
+ Ĝi difinas la poŝŧoservilon, protoklon, CGI por servila tempo.
+ Momente ni apenaŭ bezonas ĝin. Plej multaj taskoj en programdo kaj
+ testo funkicas izolite.
