@@ -1,5 +1,10 @@
 #!/bin/bash
 
+if [ $# -eq 0 ]; then
+    echo "Vi devas doni komandon, kiun ni lanĉu enla procezujo, kiel argumento, ekz-e: bin/ft-formiko formiko -h"
+    exit 1
+fi
+
 ### Ĉu Afido estas aktiva? Ni bezonas la n-ron...
 formiko_id=$(docker ps --filter name=formikotesto_formiko -q) && echo "Formiko: ${formiko_id}"
 
