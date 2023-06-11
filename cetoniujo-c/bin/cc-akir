@@ -9,5 +9,5 @@ docker-compose -f ${compose_file} --env-file ${env_file} pull
 #source ${env_file}
 #tag="${VER:-latest}"
 #docker image ls | grep " ${tag} " -
-echo "procezujo-pakoj de voko laŭ aĝo:"
+echo "### procezujo-pakoj de voko laŭ aĝo:"
 docker image ls | grep "voko-" -
