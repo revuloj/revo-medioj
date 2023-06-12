@@ -1,0 +1,20 @@
+#!/bin/bash
+
+label="${1:-latest}"
+
+## | Ŝargas la procezujojn Cetonio, Grilo, Akrido kaj Cikadoel Github (Ghcr)
+## | Poste vi povas lanĉi Cetoniujon kun ili uzante cs-start.sh
+
+echo "Ni ŝargas la procezujojn por Araneujo el la deponejo ĉe Github (Ghcr), etikedo: '${label}'"
+
+docker pull ghcr.io/revuloj/voko-araneo/voko-araneo:${label}
+docker pull ghcr.io/revuloj/voko-abelo/voko-abelo:${label}
+docker pull ghcr.io/revuloj/voko-abelisto/voko-abelisto:${label}
+#docker pull ghcr.io/revuloj/voko-tomocero/voko-tomocero:${label}
+
+# alinomu por loka uzo
+docker tag ghcr.io/revuloj/voko-araneo/voko-araneo:${label} voko-araneo
+docker tag ghcr.io/revuloj/voko-abelo/voko-abelo:${label} voko-abelo
+docker tag ghcr.io/revuloj/voko-abelisto/voko-abelisto:${label} voko-abelisto
+#docker tag ghcr.io/revuloj/voko-tomocero/voko-tomocero:${label} voko-tomocero
+

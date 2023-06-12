@@ -82,24 +82,24 @@ services:
 ##    secrets:
 ##      - voko-sesio.ftp_password         
 
-  tomocero:
-    image: voko-tomocero
-    build: https://github.com/revuloj/voko-tomocero.git
-    command: /usr/lib/postfix/master -d
-    volumes:
-      # eble ni eksterigu ankaŭ /var/spool/postfix resp. tutan /var/spool
-      - mail:/var/mail
-      - spool:/var/spool
-    secrets:
-# ni bezonas nur sendi, ne legi poŝton en Araneujo
-#      - voko-tomocero.pop3_server
-#      - voko-tomocero.pop3_user
-#      - voko-tomocero.pop3_password
-      - voko-tomocero.myhostname
-      - voko-tomocero.saslpassword
-      - voko-tomocero.relayhost
-      - voko-tomocero.relayaddress
-      - voko-tomocero.relaypassword
+##   tomocero:
+##     image: voko-tomocero
+##     build: https://github.com/revuloj/voko-tomocero.git
+##     command: /usr/lib/postfix/master -d
+##     volumes:
+##       # eble ni eksterigu ankaŭ /var/spool/postfix resp. tutan /var/spool
+##       - mail:/var/mail
+##       - spool:/var/spool
+##     secrets:
+## # ni bezonas nur sendi, ne legi poŝton en Araneujo
+## #      - voko-tomocero.pop3_server
+## #      - voko-tomocero.pop3_user
+## #      - voko-tomocero.pop3_password
+##       - voko-tomocero.myhostname
+##       - voko-tomocero.saslpassword
+##       - voko-tomocero.relayhost
+##       - voko-tomocero.relayaddress
+##       - voko-tomocero.relaypassword
 
 secrets:
   # FARENDA:
