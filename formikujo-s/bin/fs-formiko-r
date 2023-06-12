@@ -3,6 +3,12 @@
 ## | Lanĉas komandon donitan kiel argumento en la procezujo formikujo_formiko
 ## | kiel administranto (root)
 
+
+if [ $# -eq 0 ]; then
+    echo "Vi devas doni komandon, kiun ni lanĉu enla procezujo, kiel argumento, ekz-e: bin/fs-formiko formiko -h"
+    exit 1
+fi
+
 # Ĉu Afido estas aktiva? Ni bezonas la n-ron...
 formiko_id=$(docker ps --filter name=formikujo_formiko -q) && echo "Formiko: ${formiko_id}"
 

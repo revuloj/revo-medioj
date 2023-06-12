@@ -2,6 +2,11 @@
 
 ## | Lanĉas programon donitan kiel argumentaro en la procezujo cetoniujo_cetonio
 
+if [ $# -eq 0 ]; then
+    echo "Vi devas doni komandon, kiun ni lanĉu enla procezujo, kiel argumento, ekz-e: bin/cs-cetonio bash"
+    exit 1
+fi
+
 ### Ĉu Afido estas aktiva? Ni bezonas la n-ron...
 cetonio_id=$(docker ps --filter name=cetoniujo_cetonio -q) && echo "Cetonio: ${cetonio_id}"
 
