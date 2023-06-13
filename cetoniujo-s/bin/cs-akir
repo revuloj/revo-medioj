@@ -1,6 +1,14 @@
 #!/bin/bash
 
-label="${1:-latest}"
+# vi povas doni eldonon kiel argumento en la komandlinio.
+# aliokaze ni uzas la nunan branĉon, se la branĉo estas "master"
+# ni uzu "latest" kiel etikedon
+branch=$(git rev-parse --abbrev-ref HEAD)
+label="${1:-${branch}}"
+
+if [[ "${label}" == "master" ]]; then
+  label="latest"
+fi
 
 ## | Ŝargas la procezujojn Cetonio, Grilo, Akrido kaj Cikadoel Github (Ghcr)
 ## | Poste vi povas lanĉi Cetoniujon kun ili uzante cs-start.sh
@@ -14,7 +22,7 @@ docker pull ghcr.io/revuloj/voko-cikado/voko-cikado:${label}
 
 # alinomu por loka uzo
 docker tag ghcr.io/revuloj/voko-cetonio/voko-cetonio:${label} voko-cetonio
-docker tag ghcr.io/revuloj/voko-grilo/voko-grilo:{label} voko-grilo
+docker tag ghcr.io/revuloj/voko-grilo/voko-grilo:${label} voko-grilo
 docker tag ghcr.io/revuloj/voko-akrido/voko-akrido:${label} voko-akrido
 docker tag ghcr.io/revuloj/voko-cikado/voko-cikado:${label} voko-cikado
 
