@@ -5,6 +5,16 @@ label="${1:-latest}"
 ## | Ŝargas la procezujojn Cetonio, Grilo, Akrido kaj Cikadoel Github (Ghcr)
 ## | Poste vi povas lanĉi Cetoniujon kun ili uzante cs-start.sh
 
+# vi povas doni eldonon kiel argumento en la komandlinio.
+# aliokaze ni uzas la nunan branĉon, se la branĉo estas "master"
+# ni uzu "latest" kiel etikedon
+branch=$(git rev-parse --abbrev-ref HEAD)
+label="${1:-${branch}}"
+
+if [[ "${label}" == "master" ]]; then
+  label="latest"
+fi
+
 echo "Ni ŝargas la procezujojn por Araneujo el la deponejo ĉe Github (Ghcr), etikedo: '${label}'"
 
 docker pull ghcr.io/revuloj/voko-araneo/voko-araneo:${label}
