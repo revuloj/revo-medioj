@@ -7,7 +7,7 @@
 ##   fs-formiko.sh <komando>
 ##
 ## ekz-e:
-##   fs-formiko.sh formiko -h
+##   fs-formiko formiko -h
 
 if [ $# -eq 0 ]; then
     echo "Vi devas doni komandon, kiun ni lanĉu enla procezujo, kiel argumento, ekz-e: bin/fs-formiko formiko -h"
