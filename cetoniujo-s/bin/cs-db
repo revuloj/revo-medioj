@@ -1,10 +1,18 @@
 #!/bin/bash
 
 ## | Lanĉas la skripton instalo.sh, necesa por krei kaj aktualigi datumbazojn, en la procezujo cetoniujo_cetonio
+## | Argumento povas esti kreu-db, update-db kaj redaktantoj
 
+# Povas okazi, ke la dosierujo /home/cetonio/sql aŭ dosiero en ĝi
+# ne havas la ĝustan posedanton (1088). Tiam vi devas eniri la 
+# procezujon kiel uzanto 0 kaj korekti tion:
+# docker exec -it -u0 ${cetonio_id} bash
+# $> chown 1088 /home/cetonio/sql
+# $> rm /home/cetonio/sql revo-inx.db
 
 # Ĉu Afido estas aktiva? Ni bezonas la n-ron...
 cetonio_id=$(docker ps --filter name=cetoniujo_cetonio -q) && echo "Cetonio: ${cetonio_id}"
 
 exec docker exec -it -u1088 ${cetonio_id} ./bin/instalo.sh $@
+
 

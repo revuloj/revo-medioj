@@ -35,6 +35,11 @@ services:
       # elekstera, ekz-e https:://revaj.steloj.de/redaktilo
       # aŭ http://example.com:8080/, http://localhost:8080/redaktilo-test
       - REDAKTILO_URL
+      # por ŝargi datumbazojn de redaktantoj anstatŭ uzi la redaktilon
+      # por unuopa redaktanto per REDAKTANTO_RETPOSHTO
+      # ni bezonas aliri CGI-skripton kun sekvanta salutnomo kaj pasvorto
+      # - CGI_USER
+      # - CGI_PWD      
       # kien ni submetu redaktojn (revo-fonto aŭ revo-fonto-testo)
       - GITHUB_REPO
     secrets:
