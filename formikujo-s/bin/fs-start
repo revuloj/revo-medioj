@@ -4,7 +4,7 @@
 ## | Lanĉas Formikujon en medio 'docker swarm'
 ##
 ## Vi devas unue akiri la procezujojn voko-formiko kaj voko-afido el Ghcr
-## aŭ loke kompili ilin el la fnotoj.
+## plej bone per bin/vs-akir (aŭ loke kompili ilin el la fontoj).
 ##
 ## Vi ankaŭ povas uzi la komandojn 'docker stack...'', sed tiuj ĉi
 ## skriptoj faciligas la aferon kaj aldonas iujn antaŭtestojn.
