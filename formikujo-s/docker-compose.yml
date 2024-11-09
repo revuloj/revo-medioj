@@ -21,8 +21,8 @@ services:
       # sekreta parto SSH-ŝlosilo, per kiu
       # Formiko povas lanĉi ekz-e 'processmail' en Afido
       - voko-formiko.ssh_key
-      # la listo de redaktatnoj
-      - voko.redaktantoj
+      # la listo de redaktantoj
+      ##- voko.redaktantoj
       # pasvorto per kiu ni povas sendi ŝanĝitajn dosierojn per
       # FTP al la servilo de la vortaro
       ## - voko-sesio.ftp_password
