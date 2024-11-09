@@ -18,19 +18,24 @@ services:
       - formiko-log:/home/formiko/log
       - mail:/var/mail
     secrets:
+      # sekreta parto SSH-ŝlosilo, per kiu
+      # Formiko povas lanĉi ekz-e 'processmail' en Afido
       - voko-formiko.ssh_key
+      # la listo de redaktatnoj
       - voko.redaktantoj
-      - voko-sesio.ftp_password
+      # pasvorto per kiu ni povas sendi ŝanĝitajn dosierojn per
+      # FTP al la servilo de la vortaro
+      ## - voko-sesio.ftp_password
       - voko-araneo.cgi_password
       # provizore por la nova servilo ni bezonas duan agordon
-      - voko-sesio.ftp_server2
-      - voko-sesio.ftp_user2
-      - voko-sesio.ftp_password2
+      ##- voko-sesio.ftp_server2
+      ##- voko-sesio.ftp_user2
+      ##- voko-sesio.ftp_password2
       - voko-araneo.cgi_server2
       - voko-araneo.cgi_user2
       - voko-araneo.cgi_password2
     # necesas unufoje akcepti la ssh-servo-ŝlosilon de afido
-    # KOREKTU: ofte afido ankoraŭ ne estas aktiva, iel ni devos atendi ĝis afido reagas kaj funkcias la komando!
+    # KOREKTU: ofte afido ankoraŭ ne estas aktiva, iel ni devos atendi ĝis afido reagas kaj la komando funkcias!
     command: >
       bash -c 
       "su -c 'ssh -i /run/secrets/voko-formiko.ssh_key -o StrictHostKeyChecking=no -o PasswordAuthentication=no afido@afido exit' formiko
@@ -56,9 +61,6 @@ services:
       - reto
       #- ghardeno
     volumes:
-#      - type: bind
-#        source: ./cvsroot
-#        target: /home/afido/dict/cvsroot
       - type: bind
         source: ./revo/xml
         target: /home/afido/dict/xml        
@@ -68,11 +70,24 @@ services:
       - afido:/var/afido # tmp, log
       - mail:/var/mail
     environment:
-      - CVSROOT=/home/afido/dict/cvsroot
+      GIT_REPO_REVO: revo-fonto-testo
+      REVO_HOST: reta-vortaro.de
+      CGI_USER: steloj
+
     secrets:
+      ### por meti tiujn sekretojn vi povas uzi
+      ### bin/voko-afido-sekretoj
+      # listo de redaktantoj
       - voko.redaktantoj
+      # publika parto SSH-ŝlosilo aldonota al authorized_keys,
+      # kaj per kiu Formiko povas lanĉi ekz-e 'processmail' en Afido
       - voko-afido.ssh_key.pub
+      # SSH-ŝlosilo por Github, per kiu
+      # Afido povas sendi ŝanĝoj al la stokejo revo-fonto en Github
       - voko-afido.github_key
+      # sekretoj por forsendi konfirmojn al redaktantoj
+      # alternative eblas medivariabloj (environment)
+      # SMTP_{SERVER|USER|PASSWORD}
       - voko-afido.smtp_server
       - voko-afido.smtp_user
       - voko-afido.smtp_password
@@ -136,22 +151,22 @@ services:
 #   echo "" | docker secret create voko-afido.smtp_password -
 
 secrets:
-  voko-tomocero.pop3_server:
-    external: true
-  voko-tomocero.pop3_user:
-    external: true
-  voko-tomocero.pop3_password:
-    external: true
-  voko-tomocero.myhostname:
-    external: true
-  voko-tomocero.saslpassword:
-    external: true
-  voko-tomocero.relayhost:
-    external: true
-  voko-tomocero.relayaddress:
-    external: true
-  voko-tomocero.relaypassword:
-    external: true
+##  voko-tomocero.pop3_server:
+##    external: true
+##  voko-tomocero.pop3_user:
+##    external: true
+##  voko-tomocero.pop3_password:
+##    external: true
+##  voko-tomocero.myhostname:
+##    external: true
+##  voko-tomocero.saslpassword:
+##    external: true
+##  voko-tomocero.relayhost:
+##    external: true
+##  voko-tomocero.relayaddress:
+##    external: true
+##  voko-tomocero.relaypassword:
+##    external: true
 
   voko-formiko.ssh_key:
     external: true
