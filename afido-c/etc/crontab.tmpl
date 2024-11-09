@@ -1,0 +1,8 @@
+# aldonu regulan trakton de retpoŝtaj redaktoj per
+# crontab -e
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+SHELL=/bin/bash
+HOME=/root
+# regula trakto de retpoŝtaj redaktoj
+45 16 * * * source $HOME/.profile; fetchmail && $HOME/revo-medioj/afido-c/bin/ac-afido mail && sendmail -q 2>&1 > /var/log/afido.log
