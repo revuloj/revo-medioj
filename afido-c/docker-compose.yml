@@ -1,0 +1,97 @@
+version: '3.7'
+
+services:
+
+  afido:
+    image: voko-afido
+    build: https://github.com/revuloj/voko-afido.git
+    # command: processmail.pl
+    networks:
+      - reto
+      #- ghardeno
+    volumes:
+      - type: bind
+        source: ./revo/xml
+        target: /home/afido/dict/xml        
+#      - type: bind
+#        source: ./revo-fonto
+#        target: /home/afido/dict/revo-fonto        
+      - afido:/var/afido # tmp, log
+      - mail:/var/mail
+    environment:
+      GIT_REPO_REVO: revo-fonto-testo
+      #REVO_HOST: reta-vortaro.de
+
+    secrets:
+      ### por meti tiujn sekretojn vi povas uzi
+      ### bin/voko-afido-sekretoj
+
+      # SSH-ŝlosilo por Github, per kiu
+      # Afido povas sendi ŝanĝoj al la stokejo revo-fonto en Github
+      - voko-afido.github_key
+      # sekretoj por forsendi konfirmojn al redaktantoj
+      # alternative eblas medivariabloj (environment)
+      # SMTP_{SERVER|USER|PASSWORD}
+      - voko-afido.smtp_server
+      - voko-afido.smtp_user
+      - voko-afido.smtp_password
+      #- voko-tomocero.saslpassword
+      # listo de redaktantoj ... anst. sekreto, ni aktualigos pli bone regule per https
+      # por tio ni bezonas cgi_user kaj cgi_password
+      # - voko.redaktantoj
+      - voko-afido.cgi_user
+      - voko-afido.cgi_password
+
+# kreu sekretojn ekzemple tiel, kondiĉe ke vi uzas propran poŝtfakon
+# redaktoservo@provizanto.org por ricevi kaj forsendi artikolojn
+#   echo "mail.provizanto.org" | docker secret create voko-afido.pop3_server -
+#   echo "redaktoservo@provizanto.org" | docker secret create voko-afido.pop3_user -
+#   echo "MiaTr3SekretaP4svorto" | docker secret create voko-afido.pop3_password -
+#   
+#   echo "smtp.provizanto.org" | docker secret create voko-afido.smtp_server -
+#   echo "redaktoservo@provizanto.org" | docker secret create voko-afido.smtp_user -
+#   echo "MiaTr3SekretaP4svorto" | docker secret create voko-afido.smtp_password -
+# Uzante la procesumon voko-tomocero por forsendo de retpoŝtoj vi anstataŭe donu por smtp
+# la sekvan agordon. La avantaĝo estas, ke tomocero transsendas la retpoŝtojn en serioj
+# kaj tiel ne por ĉiu unuopa retpoŝto okazas rekonekto, kion kelkaj provizantoj
+# malhelpas per kelkminuta deviga paŭzo.
+#   echo "voko-tomocero" | docker secret create voko-afido.smtp_server -
+#   echo "" | docker secret create voko-afido.smtp_user -
+#   echo "" | docker secret create voko-afido.smtp_password -
+
+secrets:
+
+  voko-afido.ssh_key.pub:
+    external: true
+  voko-afido.github_key:
+    external: true
+  voko-afido.smtp_server:
+    external: true
+  voko-afido.smtp_user:
+    external: true
+  # uzante tomoceron por sendo, sama kiel sasl-password
+  voko-afido.smtp_password:
+    external: true
+
+  # uzanto por ricevi datumojn el https://reta-vortaro.de/cgi-bin/admin
+  # resp. http://araneo/cgi-bin/admin
+  # ni bezonas i.a. por ricevi la liston de redaktantoj
+  voko-afido.cgi_user:
+    external: true
+  voko-afido.cgi_password:
+    external: true
+
+  #voko.redaktantoj:
+  #  #external: true
+  #  file: ${HOME}/etc/redaktantoj
+    
+volumes:
+  mail:
+  spool:
+  afido:
+  
+networks:
+  reto:
+  #ghardeno:
+  #  external: true
+

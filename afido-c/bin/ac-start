@@ -1,0 +1,25 @@
+#!/bin/bash
+#set -x
+
+env_file=../../etc/.env
+compose_file=docker-compose.yml
+
+source ${env_file}
+
+## | Lanĉas Afidon per 'docker compose'
+##
+## Vi devas unue akiri la procezujon voko-afido el Ghcr
+## plej bone per bin/ac-akir (aŭ loke kompili el la fontoj).
+
+if [ ! -e revo ]; then
+  echo "Mankas la loka dosierujo revo/ !"
+  exit 1
+fi
+
+if [ ! -e revo/xml ]; then
+  mkdir -p revo/xml
+  chown 1074 revo/xml
+fi
+
+docker compose -f ${compose_file} --env-file ${env_file} up -d --remove-orphans
+docker compose -f ${compose_file} --env-file ${env_file} logs -f

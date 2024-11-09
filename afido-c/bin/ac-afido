@@ -1,0 +1,10 @@
+#!/bin/bash
+
+## | Lanĉas komandon afido en Procezujo Afido
+
+env_file=../../etc/.env
+compose_file=docker-compose.yml
+
+$fonto=="${1:-mail}"
+
+docker compose -f ${compose_file} --env-file ${env_file} afido $fonto

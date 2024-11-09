@@ -1,0 +1,63 @@
+#!/bin/bash
+
+## | Agordo de sekretoj por Afido
+##
+## Afido estas la akceptilo por submetitaj / senditaj redaktoj
+## kaj bezonas kelkajn sekretojn por enpreni sendojn (ekz-e el poŝtfako aŭ la datumbazo)
+
+# SSH-ŝlosilo per kiu Formiko eniros/vokos Afidon
+#keyfile_pub=${HOME}/.ssh/formiko.pub
+#keyfile_github=${HOME}/.ssh/id_rsa_revo
+
+# ŝlosilo por sendi ŝanĝojn al Github (revuloj/revo-fonto)
+keyfile_github=${HOME}/.ssh/id_rsa
+
+#if [ ! -e ${keyfile_pub} ]; then
+#    echo "Mankas ${keyfile_pub}. Vi devas unue lanĉi 'voko-formiko-sekretoj' por ricevi ŝlosilparon!"
+#    exit 1
+#fi
+
+if [ ! -e ${keyfile_github} ]; then
+    echo "Mankas ${keyfile_github}. Vi bezonas ŝlosilon por povi puŝi ŝangojn al github.com - demandu Revo-administranton!"
+    exit 1
+fi
+
+echo "# forigante malnovajn sekretojn voko-afido.* ..."
+secrets=$(docker secret ls --filter name=voko-afido. -q)
+docker secret rm ${secrets}
+
+echo
+echo "# metante novajn sekretojn..."
+#cat ${keyfile_pub} | docker secret create voko-afido.ssh_key.pub -
+cat ${keyfile_github} | docker secret create voko-afido.github_key -
+
+# ni supozas tie ĉi, ke la tri sekretoj estas difinitaj
+# kiel medivariabloj antaŭ voki tiun ĉi skripton
+# alternative vi povas tajpi ilin rekte en la skritpon
+# kiel en malsupra ekzemplo, sed tiam certigu ke vi ne sendu ilin al la publika
+# kode-stokejo poste!
+echo ${SMPT_SERVER} | docker secret create voko-afido.smtp_server -
+echo ${SMTP_USER} | docker secret create voko-afido.smtp_user -
+echo ${SMTP_PASSWORD} | docker secret create voko-afido.smtp_password -
+
+#echo "smtp.provizanto.org" | docker secret create voko-afido.smtp_server -
+#echo "redaktoservo@provizanto.org" | docker secret create voko-afido.smtp_user -
+#echo "M14P$svort0" | docker secret create voko-afido.smtp_password -
+
+echo ${CGI_USER} | docker secret create voko-arfid.cgi_user -
+echo ${CGI_PASSWORD} | docker secret create voko-afido.cgi_password -
+
+
+docker secret ls --filter name=voko-afido. 
+
+# Uzante la procesumon voko-tomocero por forsendo de retpoŝtoj vi anstataŭe donu por smtp
+# la sekvan agordon. La avantaĝo estas, ke tomocero transsendas la retpoŝtojn en serioj
+# kaj tiel ne por ĉiu unuopa retpoŝto okazas rekonekto, kion kelkaj provizantoj
+# malhelpas per kelkminuta deviga paŭzo.
+#   echo "voko-tomocero" | docker secret create voko-afido.smtp_server -
+#   echo "" | docker secret create voko-afido.smtp_user -
+#   echo "" | docker secret create voko-afido.smtp_password -
+# aŭ: (ni ne vere uzis ĝin ĝis nun kaj dependas de ĝia agordo)
+#echo "tomocero" | docker secret create voko-afido.smtp_server -
+#echo "tomocero@tomocero" | docker secret create voko-afido.smtp_user -
+#echo "sekreta" | docker secret create voko-afido.smtp_password -
