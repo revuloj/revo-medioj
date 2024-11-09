@@ -3,7 +3,7 @@ version: '3.7'
 services:
 
   afido:
-    image: ghcr.io/revuloj/voko-cetonio/voko-afido:${VER}
+    image: ghcr.io/revuloj/voko-afido/voko-afido:${VER}
     build: https://github.com/revuloj/voko-afido.git
     # command: processmail.pl
     networks:
