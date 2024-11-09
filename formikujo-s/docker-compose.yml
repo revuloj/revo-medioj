@@ -26,14 +26,15 @@ services:
       # pasvorto per kiu ni povas sendi ŝanĝitajn dosierojn per
       # FTP al la servilo de la vortaro
       ## - voko-sesio.ftp_password
+      - voko-araneo.cgi_user
       - voko-araneo.cgi_password
       # provizore por la nova servilo ni bezonas duan agordon
       ##- voko-sesio.ftp_server2
       ##- voko-sesio.ftp_user2
       ##- voko-sesio.ftp_password2
-      - voko-araneo.cgi_server2
-      - voko-araneo.cgi_user2
-      - voko-araneo.cgi_password2
+      ##- voko-araneo.cgi_server2
+      ##- voko-araneo.cgi_user2
+      ##- voko-araneo.cgi_password2
     # necesas unufoje akcepti la ssh-servo-ŝlosilon de afido
     # KOREKTU: ofte afido ankoraŭ ne estas aktiva, iel ni devos atendi ĝis afido reagas kaj la komando funkcias!
     command: >
@@ -71,14 +72,12 @@ services:
       - mail:/var/mail
     environment:
       GIT_REPO_REVO: revo-fonto-testo
-      REVO_HOST: reta-vortaro.de
-      CGI_USER: steloj
+      #REVO_HOST: reta-vortaro.de
 
     secrets:
       ### por meti tiujn sekretojn vi povas uzi
       ### bin/voko-afido-sekretoj
-      # listo de redaktantoj
-      - voko.redaktantoj
+
       # publika parto SSH-ŝlosilo aldonota al authorized_keys,
       # kaj per kiu Formiko povas lanĉi ekz-e 'processmail' en Afido
       - voko-afido.ssh_key.pub
@@ -92,6 +91,13 @@ services:
       - voko-afido.smtp_user
       - voko-afido.smtp_password
       #- voko-tomocero.saslpassword
+      # listo de redaktantoj ... anst. sekreto, ni aktualigos pli bone regule per https
+      # por tio ni bezonas cgi_user kaj cgi_password
+      # - voko.redaktantoj
+      - voko-araneo.cgi_user
+      - voko-araneo.cgi_password
+
+
 
 ##   tomocero:
 ##     image: voko-tomocero
@@ -183,15 +189,22 @@ secrets:
   voko-afido.smtp_password:
     external: true
 
+  # uzanto por ricevi datumojn el https://reta-vortaro.de/cgi-bin/admin
+  # resp. http://araneo/cgi-bin/admin
+  # ni bezonas i.a. por ricevi la liston de redaktantoj
+  voko-araneo.cgi_user:
+    external: true
   voko-araneo.cgi_password:
     external: true
 
-  voko-araneo.cgi_server2:
-    external: true
-  voko-araneo.cgi_user2:
-    external: true
-  voko-araneo.cgi_password2:
-    external: true
+  # tion ni uzis por transiro al nova servilo
+  # de reta-vortaro.de
+  # voko-araneo.cgi_server2:
+  #   external: true
+  # voko-araneo.cgi_user2:
+  #   external: true
+  # voko-araneo.cgi_password2:
+  #   external: true
 
   voko-sesio.ftp_password:
     external: true
@@ -204,9 +217,9 @@ secrets:
     external: true
 
 
-  voko.redaktantoj:
-    #external: true
-    file: ${HOME}/etc/redaktantoj
+  #voko.redaktantoj:
+  #  #external: true
+  #  file: ${HOME}/etc/redaktantoj
     
 configs:
   # alternative uzu "file: ..."
