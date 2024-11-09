@@ -16,19 +16,6 @@ HOME=/home/revo
 #VOKO=/home/revo/voko
 #LOG=$HOME/revolog
 
-# refaru vortaron komplete kun indeksoj ĉiutage je 22:10
-10 22 * * * source $HOME/.bashrc; $VOKO/bin/redaktoservo.sh > /dev/null
-
-# traktu nur artikolojn ĉiuhore de 3:10 ĝis 21:10
-10 3-21 * * * source $HOME/.bashrc; $VOKO/bin/redaktoservo.sh -a > /dev/null
-
-# resumon kreu kaj sendu ĉiutage je 15:50
-50 15 * * * source $HOME/.bashrc; $VOKO/bin/redaktoservo.sh -r
-
-# purigu ĉiun 28a de monato je 1:50
-50 1 28 * * source $HOME/.bashrc; $VOKO/bin/redaktoservo.sh -p
-
-#ant -f /home/revo/voko/ant/medio.xml med-cfg
 EOT
 
 docker config ls --filter name=voko-formiko. 

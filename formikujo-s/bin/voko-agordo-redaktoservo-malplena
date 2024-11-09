@@ -1,0 +1,20 @@
+#!/bin/bash
+
+## | Kreas agordon por loka/servila uzo de Formiko.
+##
+## Ĝi difinas la poŝŧoservilon, protoklon, CGI por servila tempo.
+## Momente ni apenaŭ bezonas ĝin. Plej multaj taskoj en programdo kaj
+## testo funkicas izolite.
+
+echo "# forigante malnovan agordon voko-formiko.agordo-redaktoservo ..."
+oldcfg=$(docker config ls --filter name=voko-formiko.agordo-redaktoservo -q)
+docker config rm ${oldcfg}
+
+echo "# kreante novan agordon voko-formiko.agordo-redaktoservo ..."
+cat <<EOT | docker config create voko-formiko.agordo-redaktoservo -
+#revo-tempo.url=http://araneo/cgi-bin/admin/time.pl
+revo-tempo.url=http://retavortaro.de/cgi-bin/admin/time.pl
+servoprotokolo=/home/formiko/log/redaktoservo.log
+EOT
+
+docker config ls --filter name=voko-formiko. 

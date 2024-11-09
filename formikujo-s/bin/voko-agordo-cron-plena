@@ -1,0 +1,33 @@
+#!/bin/bash
+
+## | Kreas agordon de redaktoservo kun la programo 'cron'.
+##
+## Momente ni rulas la redaktoservon ĉe Github kaj ne bezonas tion ĉi.
+## Sed principe eblas ruli la redaktoservon ankaŭ en iu servilo kun regulas
+## tempoplano. Tiam ĉi-agordo helpas aranĝi ĉion.
+
+# ŝanĝu tion al via retpoŝtadreso:
+admin_mail=vi@esperanto.eo
+
+cat <<EOT | docker config create voko-formiko.agordo-cron -
+MAILTO=${admin_mail}
+SHELL=/bin/bash
+HOME=/home/revo
+#VOKO=/home/revo/voko
+#LOG=$HOME/revolog
+
+# refaru vortaron komplete kun indeksoj ĉiutage je 22:10
+10 22 * * * source $HOME/.bashrc; $VOKO/bin/redaktoservo.sh > /dev/null
+
+# traktu nur artikolojn ĉiuhore de 3:10 ĝis 21:10
+10 3-21 * * * source $HOME/.bashrc; $VOKO/bin/redaktoservo.sh -a > /dev/null
+
+# resumon kreu kaj sendu ĉiutage je 15:50
+50 15 * * * source $HOME/.bashrc; $VOKO/bin/redaktoservo.sh -r
+
+# purigu ĉiun 28a de monato je 1:50
+50 1 28 * * source $HOME/.bashrc; $VOKO/bin/redaktoservo.sh -p
+
+EOT
+
+docker config ls --filter name=voko-formiko. 
