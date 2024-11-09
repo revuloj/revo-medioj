@@ -1,0 +1,18 @@
+@startuml
+'left to right direction
+ artifact poŝtfako
+ component [poŝtservo]
+ poŝtfako --> poŝtservo : fetchmail
+ component github
+
+component Formikujo {
+  top to bottom direction
+  [Afido]
+  [Formiko]
+  [Formiko] -> [Afido] : ssh
+  [Afido] -> poŝtfako
+  [Afido] -> [poŝtservo] : smtp
+  [Afido] --> [github] : ssh
+  [Formiko] -> [github] : https
+}
+@enduml
