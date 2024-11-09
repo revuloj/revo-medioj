@@ -19,9 +19,13 @@ services:
       - afido:/var/afido # tmp, log
       - mail:/var/mail
     environment:
-      GIT_REPO_REVO: revo-fonto-testo
+      - GIT_REPO_REVO=revo-fonto-testo
       #REVO_HOST: reta-vortaro.de
-
+      - CGI_USER
+      - CGI_PASSWORD
+      - SMTP_SERVER
+      - SMTP_USER
+      - SMTP_PASSWORD
     secrets:
       ### por meti tiujn sekretojn vi povas uzi
       ### bin/voko-afido-sekretoj
@@ -32,15 +36,15 @@ services:
       # sekretoj por forsendi konfirmojn al redaktantoj
       # alternative eblas medivariabloj (environment)
       # SMTP_{SERVER|USER|PASSWORD}
-      - voko-afido.smtp_server
-      - voko-afido.smtp_user
-      - voko-afido.smtp_password
+      #- voko-afido.smtp_server
+      #- voko-afido.smtp_user
+      #- voko-afido.smtp_password
       #- voko-tomocero.saslpassword
       # listo de redaktantoj ... anst. sekreto, ni aktualigos pli bone regule per https
       # por tio ni bezonas cgi_user kaj cgi_password
       # - voko.redaktantoj
-      - voko-afido.cgi_user
-      - voko-afido.cgi_password
+      #- voko-afido.cgi_user
+      #- voko-afido.cgi_password
 
 # kreu sekretojn ekzemple tiel, kondiĉe ke vi uzas propran poŝtfakon
 # redaktoservo@provizanto.org por ricevi kaj forsendi artikolojn
@@ -61,25 +65,26 @@ services:
 
 secrets:
 
-  voko-afido.ssh_key.pub:
-    external: true
+  # voko-afido.ssh_key.pub:
+  #  external: true
   voko-afido.github_key:
-    external: true
-  voko-afido.smtp_server:
-    external: true
-  voko-afido.smtp_user:
-    external: true
-  # uzante tomoceron por sendo, sama kiel sasl-password
-  voko-afido.smtp_password:
-    external: true
-
-  # uzanto por ricevi datumojn el https://reta-vortaro.de/cgi-bin/admin
-  # resp. http://araneo/cgi-bin/admin
-  # ni bezonas i.a. por ricevi la liston de redaktantoj
-  voko-afido.cgi_user:
-    external: true
-  voko-afido.cgi_password:
-    external: true
+    file: ${HOME}/.ssh/id_rsa
+  #   external: true
+  # voko-afido.smtp_server:
+  #   external: true
+  # voko-afido.smtp_user:
+  #   external: true
+  # # uzante tomoceron por sendo, sama kiel sasl-password
+  # voko-afido.smtp_password:
+  #   external: true
+# 
+  # # uzanto por ricevi datumojn el https://reta-vortaro.de/cgi-bin/admin
+  # # resp. http://araneo/cgi-bin/admin
+  # # ni bezonas i.a. por ricevi la liston de redaktantoj
+  # voko-afido.cgi_user:
+  #   external: true
+  # voko-afido.cgi_password:
+  #   external: true
 
   #voko.redaktantoj:
   #  #external: true
