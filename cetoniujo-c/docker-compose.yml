@@ -1,4 +1,4 @@
-version: '3.3'
+#version: '3.3'
 
 # Uzata kun komando docker-compose sur la servilo
 # Ĉar ĝi estas virtuala servilo, pro aparta limigo ĉe nia retprovizanto
