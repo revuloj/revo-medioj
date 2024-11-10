@@ -13,9 +13,9 @@ services:
       - type: bind
         source: ./revo/xml
         target: /home/afido/dict/xml        
-#      - type: bind
-#        source: ./revo-fonto
-#        target: /home/afido/dict/revo-fonto        
+      - type: bind
+        source: /home/revo/revo-fonto
+        target: /home/afido/dict/revo-fonto        
 #      - mail:/var/mail
       - type: bind
         source: /var/mail
