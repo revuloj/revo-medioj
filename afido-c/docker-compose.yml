@@ -16,8 +16,14 @@ services:
 #      - type: bind
 #        source: ./revo-fonto
 #        target: /home/afido/dict/revo-fonto        
-      - afido:/var/afido # tmp, log
-      - mail:/var/mail
+#      - mail:/var/mail
+      - type: bind
+        source: /var/mail
+        target: /var/mail        
+#      - afido:/var/afido # tmp, log
+      - type: bind
+        source: /home/revo/afido/log
+        target: /home/afido/log
     environment:
       - GIT_REPO_REVO=revo-fonto-testo
       #REVO_HOST: reta-vortaro.de

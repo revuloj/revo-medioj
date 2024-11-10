@@ -5,4 +5,4 @@
 SHELL=/bin/bash
 HOME=/root
 # regula trakto de retpoŝtaj redaktoj
-45 16 * * * source $HOME/.profile; fetchmail && $HOME/revo-medioj/afido-c/bin/ac-afido mail && sendmail -q 2>&1 > /var/log/afido.log
+45 16 * * * source $HOME/.profile; sudo -u revo FETCHMAILHOME=/home/revo/etc fetchmail && $HOME/revo-medioj/afido-c/bin/ac-afido mail && sendmail -q 2>&1 > /var/log/afido.log
