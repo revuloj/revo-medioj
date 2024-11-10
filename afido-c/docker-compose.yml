@@ -68,7 +68,7 @@ secrets:
   # voko-afido.ssh_key.pub:
   #  external: true
   voko-afido.github_key:
-    file: ${HOME}/.ssh/id_rsa
+    file: ${GH_KEY}
   #   external: true
   # voko-afido.smtp_server:
   #   external: true
