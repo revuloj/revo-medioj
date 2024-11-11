@@ -6,15 +6,16 @@ services:
     image: ghcr.io/revuloj/voko-afido/voko-afido:${VER}
     build: https://github.com/revuloj/voko-afido.git
     # command: processmail.pl
-    networks:
-      - reto
-      #- ghardeno
+    network_mode: "host"
+    #networks:
+    #  - reto
+    ##- ghardeno
     volumes:
       - type: bind
         source: ./revo/xml
         target: /home/afido/dict/xml        
       - type: bind
-        source: /home/revo/revo-fonto
+        source: ./revo-fonto
         target: /home/afido/dict/revo-fonto        
 #      - mail:/var/mail
       - type: bind
@@ -22,7 +23,7 @@ services:
         target: /var/mail        
 #      - afido:/var/afido # tmp, log
       - type: bind
-        source: /home/revo/afido/log
+        source: ./log
         target: /home/afido/log
     environment:
       - GIT_REPO_REVO=revo-fonto-testo
