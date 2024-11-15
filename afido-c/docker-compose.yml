@@ -36,7 +36,7 @@ services:
       - SMTP_SERVER
       - SMTP_USER
       - SMTP_PASSWORD
-      - SMPT_PORT
+      - SMTP_PORT
     secrets:
       ### por meti tiujn sekretojn vi povas uzi
       ### bin/voko-afido-sekretoj
