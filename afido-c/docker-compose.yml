@@ -12,8 +12,8 @@ services:
     ##- ghardeno
     volumes:
       - type: bind
-        source: /home/afido/dict
-        target: /home/afido/dict
+        source: ${AFIDO_HOME}/dict
+        target: ${AFIDO_HOME}/dict
       #- type: bind
       #  source: /home/afido/revo-fonto
       #  target: /home/afido/dict/revo-fonto        
@@ -23,7 +23,7 @@ services:
         target: /var/mail        
 #      - afido:/var/afido # tmp, log
       - type: bind
-        source: /home/afido/var
+        source: ${AFIDO_HOME}/var
         target: /var/afido/        
     environment:
       # ni ne povas uzi aprioran retpordon 22, ĉar tio konfliktus kun la gastiga reto
