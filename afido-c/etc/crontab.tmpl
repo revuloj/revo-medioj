@@ -5,4 +5,7 @@
 SHELL=/bin/bash
 HOME=/root
 # regula trakto de retpoŝtaj redaktoj
-45 16 * * * source $HOME/.profile; sudo -u afido FETCHMAILHOME=/home/afido/etc fetchmail && $HOME/revo-medioj/afido-c/bin/ac-afido mail && sendmail -q 2>&1 > /var/log/afido.log
+
+10 */2 * * * source ${HOME}/.profile; cd ~revo/revo-medioj/afido-c; bin/ac-servo 2>&1 > /var/log/afido-servo.log
+
+33 07 * * * source ${HOME}/.profile; cd ~revo/revo-medioj/afido-c; bin/ac-taga-resumo -a | mail -s "redakto-servo - taga resumo" via@poŝto.eo

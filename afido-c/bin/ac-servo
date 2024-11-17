@@ -1,0 +1,9 @@
+#!/bin/bash
+
+# faras ĉion kune:
+# prenas retpoŝton, lanĉas afidon,
+# traktas retpoŝton kaj finas afidon
+bin/ac-fetchmail \
+  && bin/ac-start & sleep 15 \
+  && bin/ac-afido \
+  && bin/ac-stop
