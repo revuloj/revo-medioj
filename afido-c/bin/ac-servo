@@ -10,7 +10,7 @@ datetime=$(date +%Y%m%d_%H%M%S)
 log_prefix="${AFIDO_HOME}/var/log/redsrv-"
 log=${log_prefix}${datetime}.log
 
-(echo -e "${proc}\ntempo:" $(datetime)"\n" \
+(echo -e "${proc}\ntempo:" ${datetime}"\n" \
   && bin/ac-fetchmail \
   && (bin/ac-start & sleep 15 \
   && bin/ac-afido \
