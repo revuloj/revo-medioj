@@ -1,9 +1,17 @@
 #!/bin/bash
 
+source ../../etc/.env
+
 # faras ĉion kune:
 # prenas retpoŝton, lanĉas afidon,
 # traktas retpoŝton kaj finas afidon
-bin/ac-fetchmail \
+
+datetime=$(date +%Y%m%d_%H%M%S)
+log_prefix="${AFIDO_HOME}/var/log/redsrv-"
+log=${log_prefix}${datetime}.log
+
+(echo -e "${proc}\nTIME:" $(date)"\n" \
+  && bin/ac-fetchmail \
   && bin/ac-start & sleep 15 \
   && bin/ac-afido \
-  && bin/ac-stop
+  && bin/ac-stop) 2>&1 | tee -a ${log}
