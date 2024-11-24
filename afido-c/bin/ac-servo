@@ -1,6 +1,7 @@
 #!/bin/bash
 
 source ../../etc/.env
+compose_file=docker-compose.yml
 
 # faras ĉion kune:
 # prenas retpoŝton, lanĉas afidon,
