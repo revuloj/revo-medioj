@@ -13,5 +13,6 @@ log=${log_prefix}${datetime}.log
 (echo -e "${proc}\ntempo:" ${datetime}"\n" \
   && bin/ac-fetchmail \
   && (bin/ac-start & sleep 15 \
-  && bin/ac-afido \
-  && bin/ac-stop)) 2>&1 | tee -a ${log}
+  && bin/ac-afido)) 2>&1 | tee -a ${log}
+
+bin/ac-stop 2>&1 | tee -a ${log}

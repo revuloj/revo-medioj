@@ -28,6 +28,7 @@ services:
     environment:
       # ni ne povas uzi aprioran retpordon 22, ĉar tio konfliktus kun la gastiga reto
       # (vd. supre netword_mode = "host")
+      # - DEBUG=1
       - AFIDO_PORT=${AFIDO_PORT:-2222}
       - GIT_REPO_REVO=${GIT_REPO_REVO:-revo-fonto}
       #REVO_HOST: reta-vortaro.de
