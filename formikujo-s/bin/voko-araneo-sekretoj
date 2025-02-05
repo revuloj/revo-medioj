@@ -1,7 +1,7 @@
 #!/bin/bash
 
 secrets=$(docker secret ls --filter name=voko-araneo. -q)
-if [ ! -z ${secrets} ]; then
+if [ ! -z "${secrets}" ]; then
     echo "# forigante malnovajn sekretojn voko-araneo.* ..."
     docker secret rm ${secrets}
 fi
