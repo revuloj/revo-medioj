@@ -12,13 +12,13 @@ source ../../etc/.env
 # kontrolu la staton de la atestiloj
 revaj="revaj.steloj.de"
 svagaj="svagaj.steloj.de"
-PORT="443"
-## echo necesas por fermi openssl s_client ##
-echo -n Q | openssl s_client -servername $revaj -connect $revaj:$PORT \
-| openssl x509 -noout -dates
 
-echo -n Q | openssl s_client -servername $svagaj -connect $svagaj:$PORT \
-| openssl x509 -noout -dates
+## echo necesas por fermi openssl s_client ##
+echo ">>> $revaj <<<"
+echo -n Q | openssl s_client -connect $revaj:443 < /dev/null | openssl x509 -noout -dates
+
+echo -e "\n>>> $svagaj <<<"
+echo -n Q | openssl s_client -connect $svagaj:443 < /dev/null | openssl x509 -noout -dates
 
 
 # kreu resumon de la afido-protokolo
