@@ -5,11 +5,5 @@ etc_dir=${HOME}/etc
 # necesas instali "whois" por ekhavi mkpasswd
 echo "Krei konton por 'submeto' - traktado de submetoj (/redaktilo/admin/)"
 
-if [ "$#" -ne 1 ]; then
-    echo "Necesas doni pasvorton kiel argumenton!"
-    exit 1
-else
-    set +x
-    echo "submeto:$(mkpasswd -s -5 $2)" > ${etc_dir}/cetonio_passwd
-fi
-;; 
+set +x
+echo "submeto:$(mkpasswd -s -5 $2)" > ${etc_dir}/cetonio_passwd
