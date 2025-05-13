@@ -1,0 +1,14 @@
+#!/bin/bash
+
+etc_dir=${HOME}/etc
+
+echo "Krei konton por 'submeto' - tradktado de submetoj (/redaktilo/admin/)"
+
+if [ "$#" -ne 1 ]; then
+    echo "Necesas doni pasvorton kiel argumenton!"
+    exit 1
+else
+    set +x
+    echo "submeto:$(mkpasswd -s -5 $2)" > ${etc_dir}/cetonio_passwd
+fi
+;; 

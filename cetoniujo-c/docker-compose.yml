@@ -76,6 +76,10 @@ services:
         target: /run/secrets/voko-cetonio.sekret-agordo
         read_only: true
       - type: bind
+        source: ${ETC_DIR}/passwd
+        target: /run/secrets/voko-cetonio.passwd
+        read_only: true
+      - type: bind
         source: ${SQL_DIR}
         target: /home/cetonio/sql
         #read_only: false
