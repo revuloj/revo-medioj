@@ -2,7 +2,8 @@
 
 etc_dir=${HOME}/etc
 
-echo "Krei konton por 'submeto' - tradktado de submetoj (/redaktilo/admin/)"
+# necesas instali "whois" por ekhavi mkpasswd
+echo "Krei konton por 'submeto' - traktado de submetoj (/redaktilo/admin/)"
 
 if [ "$#" -ne 1 ]; then
     echo "Necesas doni pasvorton kiel argumenton!"
