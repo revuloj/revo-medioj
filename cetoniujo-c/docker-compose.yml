@@ -76,7 +76,7 @@ services:
         target: /run/secrets/voko-cetonio.sekret-agordo
         read_only: true
       - type: bind
-        source: ${ETC_DIR}/passwd
+        source: ${ETC_DIR}/cetonio_passwd
         target: /run/secrets/voko-cetonio.passwd
         read_only: true
       - type: bind

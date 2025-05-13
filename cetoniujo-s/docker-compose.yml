@@ -146,7 +146,7 @@ secrets:
   voko-cetonio.sekret-agordo:
     external: true
   voko-cetonio.passwd:
-    file: ${HOME}/etc/passwd
+    file: ${HOME}/etc/cetonio_passwd
   #redaktilo.cfg:
   #  # adaptu redaktilo.cfg laŭ viaj bezonoj kaj 
   #  # a) registru per
