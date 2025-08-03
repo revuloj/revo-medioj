@@ -22,6 +22,12 @@ if [ ! -e ${SKR_FILE} ]; then
     exit 1
 fi
 
+# pasvorto por submetoj el Cetonio
+# ni povas legi tion rekte en docker-compos.yml el la dosiero
+#if [[ -z ${ADM_PASSWD} ]]; then
+#    ADM_PASSWD=$(cat ${HOME}/etc/cetonio_passwd)
+#fi
+
 echo "# forigante malnovajn sekretojn voko-cetonio.* ..."
 secrets=$(docker secret ls --filter name=voko-cetonio. -q)
 
@@ -31,6 +37,9 @@ docker secret rm ${secrets}
 echo
 echo "# metante novajn sekretojn..."
 cat ${SKR_FILE} | docker secret create voko-cetonio.sekret-agordo -
+
+# ni povas legi tion rekte en docker-compos.yml el la dosiero
+# echo ${ADM_PASSWD} | docker secret create voko-cetonio.passwd -
 
 docker secret ls --filter name=voko-cetonio. 
 

@@ -1,37 +1,52 @@
-version: '3.7'
+# version: '3.7'
 
 services:
   afido:
     image: voko-afido
     build: https://github.com/revuloj/voko-afido.git
-      # restart: always
+    deploy:
+      restart_policy:
+        condition: none
+      # afido ne estas dajmono, sed efemera tasko, ni lanĉas
+      # ĝin do poste per docker compose run ...
+      # por ke ĝi povu atingi la servojn araneo, cetonio ktp. ni
+      # malsupre difinas 'reto' kun atributo 'attachable'
+      replicas: 0 # ni lanĉos poste per `docker compose run...`
 #    environment:
 #      - GIT_REPO_REVO=https://github.com/revuloj/revo-fonto-testo.git
     networks:
-      - reto
-    #volumes:
+      - afidotesto_reto
+    volumes:
       #- afido-dict:/home/afido/dict
 #      - mail:/var/mail
+       - ${PWD}/bin/create_test_repo.sh:/usr/local/bin/create_test_repo.sh
+
     environment:
       #GIT_REPO_REVO: revo-fonto-testo
       GIT_REPO_REVO: test-repo
-      REVO_HOST: araneo
-      CGI_USER: steloj
+      # fakte ni volas testi kaj araneo+/cgi_bin/admin+steloj kaj cetonio+/admin+submeto
+      # kiel ŝanĝi dinamike inter ambaŭ? ĉu uzi du instancojn paralele afido-araneo, afido-cetonio?
+      #REVO_HOST: araneo
+      #ADM_URL: /cgi-bin/admin
+      #CGI_USER: steloj
+      REVO_HOST: cetonio:8080
+      ADM_URL: /admin
+      ADM_USER: submeto
     secrets:
 #      - voko-formiko.ssh_key
       - voko.redaktantoj.json
         # SSH deploy key por puŝi ŝangojn al git-arĥivo
       #- voko-afido.github_key
         # "Github personal access token" por uzi Github REST-Api, t.e. legi kaj skribi ĉe gists.github.com
-      - voko-afido.access_token
+      ###- voko-afido.access_token
         # Sigelilo estas uzata por sigeli redaktojn uzante HMAC
-      - voko-afido.sigelilo
+      ###- voko-afido.sigelilo
         # Agordo de poŝtservilo por sendi raportojn al redaktantoj
-      - voko-afido.smtp_server
-      - voko-afido.smtp_user
-      - voko-afido.smtp_password
-      - voko-araneo.cgi_password
-
+      ### - voko-afido.smtp_server
+      ### - voko-afido.smtp_user
+      ### - voko-afido.smtp_password
+      ### - voko-afido.adm_passwd
+      ### - voko-araneo.cgi_password
 
     # necesas unufoje akcepti la ssh-servo-ŝlosilon de afido
     # KOREKTU: ofte afido ankoraŭ ne estas aktiva, iel ni devos atendi ĝis afido reagas kaj funkcias la komando!
@@ -224,6 +239,11 @@ secrets:
   voko-afido.smtp_password:
     external: true
 
+  # pasvorto por preni submetojn de Cetonio
+  # en voko-cetonio.passwd ĝis estas enskribita nur hakita
+  voko-afido.adm_passwd:
+    external: true
+
   voko.redaktantoj.json:
     #external: true
     file: ${HOME}/etc/redaktantoj.json
@@ -247,5 +267,10 @@ volumes:
   
 networks:
   reto:
-#    external: true
+    driver: overlay
+    # per 'attachable' ni povas uzi docker compose or lanĉi afido-taskojn tiel
+    # ke ĝi povas atingi la servojn araneo, cetonio ktp
+    attachable: true
+  afidotesto_reto:
+    external: true
 

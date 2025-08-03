@@ -5,6 +5,7 @@ services:
   afido:
     image: ghcr.io/revuloj/voko-afido/voko-afido:${VER}
     build: https://github.com/revuloj/voko-afido.git
+    restart: "no"
     # command: processmail.pl
     network_mode: "host"
     #networks:

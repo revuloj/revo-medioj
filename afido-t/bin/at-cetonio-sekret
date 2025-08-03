@@ -18,14 +18,14 @@ if [ "${SKR_FILE}" == "" ]; then
 fi
 
 if [ ! -e ${SKR_FILE} ]; then
-    echo "Ne ekzistantas la sekreto-dosiero ${SKR_FILE}!"
+    echo "Ne ekzistas la sekreto-dosiero ${SKR_FILE}!"
     exit 1
 fi
 
 echo "# forigante malnovajn sekretojn voko-cetonio.* ..."
 secrets=$(docker secret ls --filter name=voko-cetonio. -q)
 
-# PLIBONIGU: se ne jam ekzistas la sekreto ni reicevas (ignoreblan) eraron
+# PLIBONIGU: se ne jam ekzistas la sekreto ni ricevas (ignoreblan) eraron
 docker secret rm ${secrets}
 
 echo

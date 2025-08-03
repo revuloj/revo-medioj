@@ -7,4 +7,6 @@ compose_file=docker-compose.yml
 
 fonto="${1:-mail}"
 
-docker compose -f ${compose_file} --env-file ${env_file} exec -T -u 1074 afido afido $fonto
+#docker compose -f ${compose_file} --env-file ${env_file} exec -T -u 1074 afido afido $fonto
+
+docker compose -f ${compose_file} --env-file ${env_file} run afido afido $fonto
