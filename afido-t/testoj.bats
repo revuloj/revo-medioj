@@ -204,10 +204,19 @@ fi
   #[[ "$output" == *"redaktantoj.json"* ]]
 
   #run docker exec -u1074 -it ${afido_id} bash -c "perl /usr/local/bin/processsubm.pl"
-  run docker compose run afido afido subm
+  # vi devas antaŭdifini la du medivariablojn por submetoj: TEST_RETADRESO kaj ADM_PASSWORD
+  run docker compose run --rm -e ADM_PASSWORD -e TEST_RETADRESO afido afido subm
   echo "${output}"
-  [[ "$output" == *"id:111111"* ]]
-  [[ "$output" == *"id:2222222"* ]]
+  # kreo de Git-repo
+  [[ "$output" == *"create mode 100644 revo/artefakt.xml"* ]]
+  [[ "$output" == *"create mode 100644 revo/modif.xml"* ]]
+  # enŝovo de ŝanĝoj al sqlite-db
+  [[ "$output" == *"1|diestel@steloj.de|nov|testa aldono"* ]]
+  # preno de redaktantoj
+  [[ "$output" == *"/home/afido/etc/redaktantoj.json <- http://cetonio:8080/admin/redaktantoj-json.pl"* ]]
+  # kopiado de Git-repo
+  [[ "$output" == *"Elŝutante /home/afido/test-repo al revo-fonto..."* ]]
+
   #[[ "$output" == *"revo-fonto/revo/cxeval.xml': No such file"* ]]
   [[ "$output" == *"vi redaktis (cxeval)"* ]]
   #[[ "$output" == *"sigelo por gisto"*"ne pruviĝis valida"* ]]

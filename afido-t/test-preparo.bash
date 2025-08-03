@@ -23,7 +23,9 @@ stack=afidotesto
 ## 
 ## docker service update --rollback ${stack}_afido
 
-docker compose run --rm --entrypoint="" --remove-orphans afido rm -rf /home/afido/dict/gists /home/afido/dict/xml /home/afido/dict/tmp /home/afido/dict/log /home/afido/test-repo /home/afido/revo-fonto
+### ni ne plu bezonas forigi dosierojn, ĉar ni nun uzas docker compose run, kio kreas
+### novan procezujon ĉiufoje
+### docker compose run --entrypoint="" afido rm -rf /home/afido/dict/gists /home/afido/dict/xml /home/afido/dict/tmp /home/afido/dict/log /home/afido/test-repo /home/afido/revo-fonto
 
 
 

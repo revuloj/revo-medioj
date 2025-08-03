@@ -20,7 +20,7 @@ services:
       #- afido-dict:/home/afido/dict
 #      - mail:/var/mail
        - ${PWD}/bin/create_test_repo.sh:/usr/local/bin/create_test_repo.sh
-
+       - test_repo:/home/afido/test-repo
     environment:
       #GIT_REPO_REVO: revo-fonto-testo
       GIT_REPO_REVO: test-repo
@@ -32,6 +32,9 @@ services:
       REVO_HOST: cetonio:8080
       ADM_URL: /admin
       ADM_USER: submeto
+      ADM_PASSWORD:
+      TEST_RETADRESO:
+
     secrets:
 #      - voko-formiko.ssh_key
       - voko.redaktantoj.json
@@ -257,6 +260,7 @@ secrets:
 volumes:
   alveno:
   sql:
+  test_repo:
 #  mail:
 #  spool:
 #  afido:

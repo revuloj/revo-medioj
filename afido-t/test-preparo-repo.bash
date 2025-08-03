@@ -30,7 +30,7 @@ stack=afidotesto
 #docker exec -it -u1074 ${afido_id} bash -c "create_test_repo.sh"
 #docker exec -it -u1074 ${afido_id} bash -c "create_test_gist.sh ${TEST_RETADRESO}"
 
-docker compose run --rm afido create_test_repo.sh
+docker compose run --entrypoint="" afido create_test_repo.sh
 
 
 
