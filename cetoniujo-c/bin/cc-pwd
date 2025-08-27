@@ -7,4 +7,4 @@ source ${env_file}
 echo "Krei konton por 'submeto' - traktado de submetoj (/redaktilo/admin/)"
 
 set +x
-echo "submeto:$(mkpasswd -s -5 $2)" > ${ETC_DIR}/cetonio_passwd
+echo "submeto:$(mkpasswd -s -5 $1)" > ${ETC_DIR}/cetonio_passwd
