@@ -1,13 +1,13 @@
 #!/bin/bash
 
-set -x
+#set -x
 
 # ni difinas jam en docker-compose.yml 
 # mkdir test-repo
 rm -rf test-repo/.git
 rm -rf test-repo/*
 
-git config --global init.defaultBranch testo
+git config --global init.defaultBranch master
 
 cd test-repo
 git init

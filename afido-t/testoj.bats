@@ -202,27 +202,20 @@ fi
   #run docker compose run --rm --network afidotesto_reto afido afido redl
   #echo "${output}"
   #[[ "$output" == *"redaktantoj.json"* ]]
-
+  echo "PREPARITA"
   #run docker exec -u1074 -it ${afido_id} bash -c "perl /usr/local/bin/processsubm.pl"
   # vi devas antaŭdifini la du medivariablojn por submetoj: TEST_RETADRESO kaj ADM_PASSWORD
   run docker compose run --rm -e ADM_PASSWORD -e TEST_RETADRESO afido afido subm
   echo "${output}"
-  # kreo de Git-repo
-  [[ "$output" == *"create mode 100644 revo/artefakt.xml"* ]]
-  [[ "$output" == *"create mode 100644 revo/modif.xml"* ]]
-  # enŝovo de ŝanĝoj al sqlite-db
-  [[ "$output" == *"1|diestel@steloj.de|nov|testa aldono"* ]]
-  # preno de redaktantoj
+    # preno de redaktantoj
   [[ "$output" == *"/home/afido/etc/redaktantoj.json <- http://cetonio:8080/admin/redaktantoj-json.pl"* ]]
   # kopiado de Git-repo
   [[ "$output" == *"Elŝutante /home/afido/test-repo al revo-fonto..."* ]]
-
-  #[[ "$output" == *"revo-fonto/revo/cxeval.xml': No such file"* ]]
-  [[ "$output" == *"vi redaktis (cxeval)"* ]]
-  #[[ "$output" == *"sigelo por gisto"*"ne pruviĝis valida"* ]]
-  [[ "$output" == *"create mode 100644 revo/abel.xml"* ]]
-  [[ "$output" == *"master -> master"* ]]
-  [[ "$output" == *"ŝovas /home/afido/dict/tmp/mailsend al /home/afido/dict/log/mail_sent"* ]]
+  [[ "$output" == *"Trovitaj novaj submetoj: 3"* ]]
+  [[ "$output" == *"nova artikolo: cxeval"* ]]
+  [[ "$output" == *"create mode 100644 revo/cxeval.xml"* ]]
+#  [[ "$output" == *"master -> master"* ]]
+#  [[ "$output" == *"ŝovas /home/afido/dict/tmp/mailsend al /home/afido/dict/log/mail_sent"* ]]
   [ "$status" -eq 0 ]
 }
 

@@ -6,8 +6,6 @@
 #
 # docker-compose -f docker-compose-srv.yml up
 
-
-
 services:
   cetonio:
     image: ghcr.io/revuloj/voko-cetonio/voko-cetonio:${VER}

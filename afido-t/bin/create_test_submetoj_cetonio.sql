@@ -7,7 +7,7 @@ VALUES ('${TEST_RETADRESO}','aldono','nov','testa aldono;\nde ''cxeval''','cxeva
 '<?xml version="1.0"?>
 <!DOCTYPE vortaro SYSTEM "../dtd/vokoxml.dtd">
 <vortaro>
-<art mrk="\$Id: cxeval.xml,v 1.74 2019/07/03 08:10:19 revo Exp \$">
+<art mrk="$Id: cxeval.xml,v 1.74 2019/07/03 08:10:19 revo Exp $">
 <kap>
   <ofc>*</ofc><rad>&ccirc;eval</rad>/o <fnt><bib>PV</bib></fnt>
 </kap>
@@ -142,7 +142,7 @@ VALUES ('${TEST_RETADRESO}','aldono','nov','testa aldono;\nde ''cxeval''','cxeva
 </drv>
 </art>
 <!--
-\$Log: cxeval.xml,v \$
+$Log: cxeval.xml,v $
 Revision 1.74  2019/07/03 08:10:19  revo
 A A: zh: -ind- anstataux ol -klr-
 
@@ -157,7 +157,7 @@ VALUES ('${TEST_RETADRESO}','redakto','nov','testa ŝanĝo;\r\tde \"modif\"','mo
 <!DOCTYPE vortaro SYSTEM "../dtd/vokoxml.dtd">
 
 <vortaro>
-<art mrk="\$Id: modif.xml,v 1.1 2021/06/30 07:47:08 revo Exp \$">
+<art mrk="$Id: modif.xml,v 1.1 2021/06/30 07:47:08 revo Exp $">
 <kap>
   <ofc>3</ofc>
   <rad>modif</rad>/i
@@ -179,7 +179,7 @@ VALUES ('${TEST_RETADRESO}','redakto','nov','testa ŝanĝo;\r\tde \"modif\"','mo
 </drv>
 </art>
 <!--
-\$Log\$
+$Log$
 -->
 </vortaro>');
 
@@ -188,7 +188,7 @@ VALUES ('${TEST_RETADRESO}','redakto','nov','testa ŝanĝo;\r\tde \"abel\"','abe
 '<?xml version="1.0"?>
 <!DOCTYPE vortaro SYSTEM "../dtd/vokoxml.dtd">
 <vortaro>
-<art mrk="\$Id\$">
+<art mrk="$Id$">
 <kap>
   <ofc>*</ofc><rad>abel</rad>/o
 </kap>
@@ -281,7 +281,7 @@ VALUES ('${TEST_RETADRESO}','redakto','nov','testa ŝanĝo;\r\tde \"abel\"','abe
 </drv>
 </art>
 <!--
-\$Log: abel.xml,v \$
+$Log: abel.xml,v \
 Revision 1.77  2019/06/30 07:47:08  revo
 adaptis URL de Monato
 
@@ -294,3 +294,4 @@ W D: pliaj ekz-oj, rim hom Abelo (matematikisto)
 </vortaro>');
 
 SELECT sub_id,sub_email,sub_state,sub_desc FROM submeto;
+
