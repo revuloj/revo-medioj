@@ -82,7 +82,7 @@ $ chmod 600 sender_canonical
 $ postmap /etc/postfix/sender_canonical
 ```
 
-Post relanĉo de la poŝtservo administranto nun jam povus forsendi releterojn, sed ni volos permesi al posta uzanto `revo` kiun ni uzos kun `fetchmail` la forsendadon. Por simpligi ni simple permesos al ĉiuj lokaj uzantoj forsendadon de retleteroj. Se vi volas limigi tion al nur certaj uzantoj, vi bv. studi la dokumentaron de `postfix` kiel atingi tion :-)
+Post relanĉo de la poŝtservo administranto nun jam povus forsendi retleterojn, sed ni volos permesi al posta uzanto `revo` kiun ni uzos kun `fetchmail` la forsendadon. Por simpligi ni simple permesos al ĉiuj lokaj uzantoj forsendadon de retleteroj. Se vi volas limigi tion al nur certaj uzantoj, vi bv. studi la dokumentaron de `postfix` kiel atingi tion :-)
 
 La agordo jam estas preparita en `master.cf`, sed ni devos forkomenti kelkajn liniojn, t.e. vi trovu ilin kaj forigu la antaŭmetitan `#`.
 
