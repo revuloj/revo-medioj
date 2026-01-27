@@ -15,6 +15,7 @@ if [[ ! ${nw} = "" ]]; then
   exit 1
 fi
 
+
 docker stack deploy -c docker-compose.yml ${stack}
 
 # ĉu sufiĉas aliokaze skribu maŝon, kiu reprovas plurfoje...
