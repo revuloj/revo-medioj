@@ -14,8 +14,8 @@ services:
       replicas: 0 # ni lanĉos poste per `docker compose run...`
 #    environment:
 #      - GIT_REPO_REVO=https://github.com/revuloj/revo-fonto-testo.git
-    networks:
-      - afidotesto_reto
+##    networks:
+##      - afidotesto_reto
     volumes:
       #- afido-dict:/home/afido/dict
 #      - mail:/var/mail
@@ -275,6 +275,6 @@ networks:
     # per 'attachable' ni povas uzi docker compose or lanĉi afido-taskojn tiel
     # ke ĝi povas atingi la servojn araneo, cetonio ktp
     attachable: true
-  afidotesto_reto:
-    external: true
+##  afidotesto_reto:
+##    external: true
 
