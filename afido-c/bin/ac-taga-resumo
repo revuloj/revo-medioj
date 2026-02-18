@@ -20,6 +20,7 @@ echo -n Q | openssl s_client -connect $revaj:443 < /dev/null | openssl x509 -noo
 echo -e "\n>>> $svagaj <<<"
 echo -n Q | openssl s_client -connect $svagaj:443 < /dev/null | openssl x509 -noout -dates
 
+echo ""
 
 # kreu resumon de la afido-protokolo
 log_prefix="${AFIDO_HOME}/var/log/redsrv-"

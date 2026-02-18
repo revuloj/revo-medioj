@@ -15,11 +15,11 @@ log=${log_prefix}${datetime}.log
 
 (echo -e "${proc}\ntempo:" ${datetime}"\n" \
   && bin/ac-fetchmail \
-  && docker compose -f ${compose_file} --env-file ${env_file} up -d --remove-orphans \
+#  && docker compose -f ${compose_file} --env-file ${env_file} up -d --remove-orphans \
   && sleep 15 \
   && bin/ac-afido \
-  && docker compose -f ${compose_file} --env-file ${env_file} logs \
-  && docker compose -f ${compose_file} --env-file ${env_file} down \ 
+#  && docker compose -f ${compose_file} --env-file ${env_file} logs \
+#  && docker compose -f ${compose_file} --env-file ${env_file} down \ 
 ) 2>&1 | tee -a ${log}
 
 

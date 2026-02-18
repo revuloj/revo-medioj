@@ -40,6 +40,7 @@ services:
     secrets:
       # farenda: dividu agordon nesekretan kaj sekretan kaj uzu configs + secrets
       - voko-cetonio.sekret-agordo
+      - voko-cetonio.passwd
       #- source: redaktilo.cfg
       #  target: /home/cetonio/etc/redaktilo.cfg
       #- source: auth_cfg
@@ -144,6 +145,8 @@ services:
 secrets:
   voko-cetonio.sekret-agordo:
     external: true
+  voko-cetonio.passwd:
+    file: ${HOME}/etc/cetonio_passwd
   #redaktilo.cfg:
   #  # adaptu redaktilo.cfg laŭ viaj bezonoj kaj 
   #  # a) registru per

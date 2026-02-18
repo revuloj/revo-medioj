@@ -1,7 +1,14 @@
 #!/bin/bash
-  
-rm -rf test-repo  
-mkdir test-repo
+
+#set -x
+
+# ni difinas jam en docker-compose.yml 
+# mkdir test-repo
+rm -rf test-repo/.git
+rm -rf test-repo/*
+
+git config --global init.defaultBranch master
+
 cd test-repo
 git init
 #git config receive.denyCurrentBranch warn
@@ -89,3 +96,6 @@ git add revo
 git commit -m"v2"
 git tag "v2"
 
+#git config --global --add safe.directory test_repo/.git
+chown -R afido:users .git revo
+ls -ld .git

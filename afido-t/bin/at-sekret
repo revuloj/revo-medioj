@@ -38,6 +38,15 @@ fi
 #    docker secret rm ${secrets}
 #fi
 
+# pasvorto por submetoj el Cetonio
+if [[ -z ${ADM_PASSWD} ]]; then
+    echo "Vi ne antaŭdifinis medivariablon ADM_PASSWD (submetoj) por sekurigi ĝiun en sekreto!"
+    exit 1
+fi
+
+#  ADM_PASSWD=$(cat ${HOME}/etc/cetonio_passwd)
+#fi
+
 echo
 echo "# metante novajn sekretojn..."
 echo ${access_token} | docker secret create voko-afido.access_token -
@@ -45,6 +54,9 @@ echo ${access_token} | docker secret create voko-afido.access_token -
 cat ${keyfile_github} | docker secret create voko-afido.github_key -
 
 echo ${sigelilo} | docker secret create voko-afido.sigelilo -
+
+# ni metos tion en la medio por Cetonio jam...
+echo ${ADM_PASSWD} | docker secret create voko-afido.adm_passwd -
 
 # transdonante retpoŝtojn rekte al ekstera retprovizanto.
 # (~/etc/afido.cfg)

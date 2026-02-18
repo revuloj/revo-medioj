@@ -15,19 +15,19 @@ if [[ ! ${nw} = "" ]]; then
   exit 1
 fi
 
+
 docker stack deploy -c docker-compose.yml ${stack}
 
 # ĉu sufiĉas aliokaze skribu maŝon, kiu reprovas plurfoje...
 sleep 10
 
-#afido_id=$(docker ps --filter name=${stack}_afido -q) && echo "Afido: ${afido_id}"
 #tomocero_id=$(docker ps --filter name=${stack}_tomocero -q) && echo "Tomocero: ${tomocero_id}"
-afido_id=$(docker ps --filter name=${stack}_afido -q) && echo "Afido: ${afido_id}"
+# afido_id=$(docker ps --filter name=${stack}_afido -q) && echo "Afido: ${afido_id}"
 
 # Plibonigu: kiel ni povas montri tion en "bats"?
-#if [ "${afido_id}" = "" ]; then echo "Afido ne aktiva!" 1>&2; exit 1; fi
 #if [ "${tomocero_id}" = "" ]; then echo "Tomocero ne aktiva!" 1>&2; exit 1; fi
-if [ "${afido_id}" = "" ]; then echo "Afido ne aktiva!" 1>&2; exit 1; fi
+
+###if [ "${afido_id}" = "" ]; then echo "Afido ne aktiva!" 1>&2; exit 1; fi
 
 docker service logs ${stack}_afido 
 

@@ -6,8 +6,6 @@
 #
 # docker-compose -f docker-compose-srv.yml up
 
-
-
 services:
   cetonio:
     image: ghcr.io/revuloj/voko-cetonio/voko-cetonio:${VER}
@@ -74,6 +72,10 @@ services:
       - type: bind
         source: ${ETC_DIR}/redaktilo.skr
         target: /run/secrets/voko-cetonio.sekret-agordo
+        read_only: true
+      - type: bind
+        source: ${ETC_DIR}/cetonio_passwd
+        target: /run/secrets/voko-cetonio.passwd
         read_only: true
       - type: bind
         source: ${SQL_DIR}

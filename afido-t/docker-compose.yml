@@ -1,37 +1,55 @@
-version: '3.7'
+# version: '3.7'
 
 services:
   afido:
     image: voko-afido
     build: https://github.com/revuloj/voko-afido.git
-      # restart: always
+    deploy:
+      restart_policy:
+        condition: none
+      # afido ne estas dajmono, sed efemera tasko, ni lanĉas
+      # ĝin do poste per docker compose run ...
+      # por ke ĝi povu atingi la servojn araneo, cetonio ktp. ni
+      # malsupre difinas 'reto' kun atributo 'attachable'
+      replicas: 0 # ni lanĉos poste per `docker compose run...`
 #    environment:
 #      - GIT_REPO_REVO=https://github.com/revuloj/revo-fonto-testo.git
     networks:
-      - reto
-    #volumes:
+      - afidotesto_reto
+    volumes:
       #- afido-dict:/home/afido/dict
 #      - mail:/var/mail
+       - ${PWD}/bin/create_test_repo.sh:/usr/local/bin/create_test_repo.sh
+       - test_repo:/home/afido/test-repo
     environment:
       #GIT_REPO_REVO: revo-fonto-testo
       GIT_REPO_REVO: test-repo
-      REVO_HOST: araneo
-      CGI_USER: steloj
+      # fakte ni volas testi kaj araneo+/cgi_bin/admin+steloj kaj cetonio+/admin+submeto
+      # kiel ŝanĝi dinamike inter ambaŭ? ĉu uzi du instancojn paralele afido-araneo, afido-cetonio?
+      #REVO_HOST: araneo
+      #ADM_URL: /cgi-bin/admin
+      #CGI_USER: steloj
+      REVO_HOST: cetonio:8080
+      ADM_URL: /admin
+      ADM_USER: submeto
+      ADM_PASSWORD:
+      TEST_RETADRESO:
+
     secrets:
 #      - voko-formiko.ssh_key
       - voko.redaktantoj.json
         # SSH deploy key por puŝi ŝangojn al git-arĥivo
       #- voko-afido.github_key
         # "Github personal access token" por uzi Github REST-Api, t.e. legi kaj skribi ĉe gists.github.com
-      - voko-afido.access_token
+      ###- voko-afido.access_token
         # Sigelilo estas uzata por sigeli redaktojn uzante HMAC
-      - voko-afido.sigelilo
+      ###- voko-afido.sigelilo
         # Agordo de poŝtservilo por sendi raportojn al redaktantoj
-      - voko-afido.smtp_server
-      - voko-afido.smtp_user
-      - voko-afido.smtp_password
-      - voko-araneo.cgi_password
-
+      ### - voko-afido.smtp_server
+      ### - voko-afido.smtp_user
+      ### - voko-afido.smtp_password
+      ### - voko-afido.adm_passwd
+      ### - voko-araneo.cgi_password
 
     # necesas unufoje akcepti la ssh-servo-ŝlosilon de afido
     # KOREKTU: ofte afido ankoraŭ ne estas aktiva, iel ni devos atendi ĝis afido reagas kaj funkcias la komando!
@@ -101,6 +119,61 @@ services:
       #EMAIL_SENDER_TRANSPORT_sasl_username: tomocero@tomocero
       #EMAIL_SENDER_TRANSPORT_sasl_password: sekreta
 
+  cetonio:
+    image: voko-cetonio
+    build: https://github.com/revuloj/voko-cetonio.git
+
+    #depends_on:
+    #  - cikado
+    #  - akrido
+    #  - grilo
+        #command: bash -c 'cd pro && swipl -s redaktilo-servo.pl -g redaktilo_servo:daemon -t halt -p agordo=etc -- --workers=10 --port=8080 --no-fork'
+    networks:
+      - reto
+    ports:
+      # ĉe IPv6 por havi la retpordon ne nur ĉe 0.0.0.0:8080, sed ankaŭ localhost:8080
+      # uzu provizore:
+      #   sysctl -w net.ipv4.ip_forward=1 
+      # aŭ por havi tion konstante, aldonu en /etc/sysctl.conf
+      #   net.ipv4.ip_forward = 1 
+      # anakŭ vi povas aldoni en la gastiganto /etc/hosts
+      #   127.0.0.1  example.com
+      - 8080:8080
+    environment:
+      # vi povas doni retpoŝtadreson de unuopa registrita redaktanto (vi)
+      # se vi volas redakti nur loke sola. Donu mediovariablon antaŭ
+      # lanĉi REDAKTANTO_RETPOSHTO='via@retadreso.org' ./cetoniujo-deploy.sh
+      - REDAKTANTO_RETPOSHTO
+      # por ensaluto k.a. la redaktilo bezonas scii la URL-on
+      # elekstera, ekz-e https:://revaj.steloj.de/redaktilo
+      # aŭ http://example.com:8080/, http://localhost:8080/redaktilo-test
+      - REDAKTILO_URL
+      # kien ni submetu redaktojn (revo-fonto aŭ revo-fonto-testo)
+      - GITHUB_REPO
+    secrets:
+      # farenda: dividu agordon nesekretan kaj sekretan kaj uzu configs + secrets
+      - voko-cetonio.sekret-agordo
+      - voko-cetonio.passwd
+      #- source: redaktilo.cfg
+      #  target: /home/cetonio/etc/redaktilo.cfg
+      #- source: auth_cfg
+      #  target: /home/cetonio/etc/auth_cfg
+      #- source: redaktantoj
+      #  target: /home/cetonio/etc/redaktantoj
+    volumes:
+      # ŝanĝita: ni nun uzas secrets anstatŭ bind 
+      #- type: bind
+      #  source: $HOME/etc
+      #  target: /home/cetonio/etc
+      #  read_only: true
+      - type: volume
+        source: sql
+        target: /home/cetonio/sql
+        #read_only: false
+        #volume:
+        #  nocopy: true
+
+
 #
 #  tomocero:
 #    image: voko-tomocero
@@ -169,13 +242,25 @@ secrets:
   voko-afido.smtp_password:
     external: true
 
+  # pasvorto por preni submetojn de Cetonio
+  # en voko-cetonio.passwd ĝis estas enskribita nur hakita
+  voko-afido.adm_passwd:
+    external: true
+
   voko.redaktantoj.json:
     #external: true
     file: ${HOME}/etc/redaktantoj.json
 
+  voko-cetonio.sekret-agordo:
+    external: true
+  voko-cetonio.passwd:
+    file: ${HOME}/etc/cetonio_passwd
+
+
 volumes:
   alveno:
-
+  sql:
+  test_repo:
 #  mail:
 #  spool:
 #  afido:
@@ -186,5 +271,10 @@ volumes:
   
 networks:
   reto:
-#    external: true
+    driver: overlay
+    # per 'attachable' ni povas uzi docker compose or lanĉi afido-taskojn tiel
+    # ke ĝi povas atingi la servojn araneo, cetonio ktp
+    attachable: true
+  afidotesto_reto:
+    external: true
 

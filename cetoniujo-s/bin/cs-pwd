@@ -1,0 +1,9 @@
+#!/bin/bash
+
+etc_dir=${HOME}/etc
+
+# necesas instali "whois" por ekhavi mkpasswd
+echo "Krei konton por 'submeto' - traktado de submetoj (/redaktilo/admin/)"
+
+set +x
+echo "submeto:$(mkpasswd -s -5 $2)" > ${etc_dir}/cetonio_passwd
