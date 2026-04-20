@@ -53,7 +53,8 @@ services:
   # db-nomo estas la skemo (usr_web277_1)
   # pasvorto: vd. malsupre (MYSQL_ROOT_PASSWORD)
   abelisto:
-    image: adminer
+    image: adminer:standalone@sha256:41898b976011fd87f2d3037366ad97f7d89fddfebc8aa8b3a7d77d0c465aa37b
+
     #restart: always
     environment:
       ADMINER_DESIGN: hever

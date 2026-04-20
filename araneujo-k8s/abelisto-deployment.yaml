@@ -19,7 +19,7 @@ spec:
       - env:
         - name: ADMINER_DESIGN
           value: hever
-        image: adminer
+        image: adminer:standalone@sha256:41898b976011fd87f2d3037366ad97f7d89fddfebc8aa8b3a7d77d0c465aa37b
         name: abelisto
         ports:
         - containerPort: 8080
