@@ -1,0 +1,3 @@
+#!/bin/bash
+stack=araneujotesto
+docker stack rm ${stack}

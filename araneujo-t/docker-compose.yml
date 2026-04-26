@@ -11,9 +11,7 @@ services:
       - reto
     depends_on:
       - abelo
-      - skorpio
     volumes:
-      # komuna dosierujo alveno (kun skorpio)
       - alveno:/hp/af/ag/ri/www/alveno
     secrets:
       - voko-abelo.mysql_password
@@ -23,15 +21,19 @@ services:
     environment:
       EMAIL_SENDER_TRANSPORT: SMTPS
       EMAIL_SENDER_TRANSPORT_ssl: ssl
-      # necesas aldonaj sekretoj por retpoŝŧa forsendo:... voko.smtp_server ktp.
+      # momente la sekvontoj valoroj estas en sekretoj:
+      # voko-afido.smtp_server 
+      # voko-afido.smtp_user 
+      # voko-afido.smtp_password resp. voko-tomocero.saslpassword
+      # ni prefere uzu pli ĝeneralajn sekretoj voko.smtp_server ktp.
       # kaj kreu la mediovariablojn ekz. en entry-point.sh...
-      # EMAIL_SENDER_TRANSPORT_host: tomocero
-      # EMAIL_SENDER_TRANSPORT_sasl_username: tomocero@tomocero
-      # EMAIL_SENDER_TRANSPORT_sasl_password: sekreta
+      EMAIL_SENDER_TRANSPORT_host: tomocero
+      EMAIL_SENDER_TRANSPORT_sasl_username: tomocero@tomocero
+      EMAIL_SENDER_TRANSPORT_sasl_password: sekreta
   # saluto de abelisto al abelo:
   # servilo-nomo estas la nomo de abelo (docker ps)
   # uzanto-nomo estas "root"
-  # db-nomo estas la skemo 
+  # db-nomo estas la skemo (usr_web277_1)
   # pasvorto: vd. malsupre (MYSQL_ROOT_PASSWORD)
   abelisto:
     image: adminer:standalone@sha256:41898b976011fd87f2d3037366ad97f7d89fddfebc8aa8b3a7d77d0c465aa37b
@@ -65,21 +67,20 @@ services:
       MYSQL_DATABASE: db314802x3159000
       MYSQL_USER: s314802_3159000
 
-  skorpio:
-    image: voko-skorpio
-    build: https://github.com/revuloj/voko-skorpio.git
-    # restart: always
-    # ni bezonas/havu nur aleksteran reton
-    # networks:
-    #   - reto
-    volumes:
-      - alveno:/home/skorpio/alveno
-    ports:
-    # ????
-    #  - 0.0.0.0:22:22
-      - 8222:22
-    secrets:
-      - voko-skorpio.ssh_password         
+##  sesio:
+##    image: voko-sesio
+##    build: https://github.com/revuloj/voko-sesio.git
+##    # restart: always
+##    networks:
+##      - reto
+##    volumes:
+##      - alveno:/home/vsftpd/alveno
+##      - sesio-log:/var/log/vsftpd
+##    ports:
+##      - 0.0.0.0:21:21
+##      - 21200-21210:21200-21210
+##    secrets:
+##      - voko-sesio.ftp_password         
 
 ##   tomocero:
 ##     image: voko-tomocero
@@ -111,31 +112,29 @@ secrets:
     external: true
   voko-abelo.mysql_password:
     external: true
-#  voko-sesio.ftp_password:
-#    external: true
-  voko-skorpio.ssh_password:
+  voko-sesio.ftp_password:
     external: true
 
   voko-araneo.cgi_password:
     external: true    
 
 # ni bezonas nur sendi, ne legi poŝton en Araneujo
-##  voko-tomocero.pop3_server:
-##    external: true
-##  voko-tomocero.pop3_user:
-##    external: true
-##  voko-tomocero.pop3_password:
-##    external: true
-#  voko-tomocero.myhostname:
+#  voko-tomocero.pop3_server:
 #    external: true
-#  voko-tomocero.saslpassword:
+#  voko-tomocero.pop3_user:
 #    external: true
-#  voko-tomocero.relayhost:
+#  voko-tomocero.pop3_password:
 #    external: true
-#  voko-tomocero.relayaddress:
-#    external: true
-#  voko-tomocero.relaypassword:
-#    external: true    
+  voko-tomocero.myhostname:
+    external: true
+  voko-tomocero.saslpassword:
+    external: true
+  voko-tomocero.relayhost:
+    external: true
+  voko-tomocero.relayaddress:
+    external: true
+  voko-tomocero.relaypassword:
+    external: true    
 
   voko.redaktantoj:
     #external: true
@@ -143,9 +142,9 @@ secrets:
 
 volumes:
   alveno:
-#  sesio-log:
-#  mail:
-#  spool:
+  sesio-log:
+  mail:
+  spool:
 
 networks:
   reto:

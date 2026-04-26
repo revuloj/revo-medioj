@@ -1,0 +1,5 @@
+#!/bin/bash
+stack=araneujotesto
+araneo_id=$(docker ps --filter name=${stack}_araneo -q)
+
+docker exec -it ${araneo_id} bash

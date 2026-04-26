@@ -1,0 +1,15 @@
+#!/bin/bash
+
+secrets=$(docker secret ls --filter name=voko-skorpio. -q)
+if [ ! -z "${secrets}" ]; then
+    echo "# forigante malnovajn sekretojn voko-skorpio.* ..."
+    docker secret rm ${secrets}
+fi
+
+echo
+echo "# metante novajn sekretojn..."
+ssh_password=$(cat /dev/urandom | tr -dc A-Z_a-z-0-9 | head -c${1:-16})
+echo ${ssh_password} | docker secret create voko-skorpio.ssh_password -
+
+docker secret ls --filter name=voko-skorpio. 
+

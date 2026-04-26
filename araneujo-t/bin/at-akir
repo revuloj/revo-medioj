@@ -19,7 +19,6 @@ echo "Ni ŝargas la procezujojn por Araneujo el la deponejo ĉe Github (Ghcr), e
 
 docker pull ghcr.io/revuloj/voko-araneo/voko-araneo:${label}
 docker pull ghcr.io/revuloj/voko-abelo/voko-abelo:${label}
-docker pull ghcr.io/revuloj/voko-skorpio/voko-skorpio:${label}
 # vd. https://hub.docker.com/_/adminer/:standalone
 docker pull adminer:standalone@sha256:41898b976011fd87f2d3037366ad97f7d89fddfebc8aa8b3a7d77d0c465aa37b
 #docker pull ghcr.io/revuloj/voko-tomocero/voko-tomocero:${label}
@@ -27,6 +26,5 @@ docker pull adminer:standalone@sha256:41898b976011fd87f2d3037366ad97f7d89fddfebc
 # alinomu por loka uzo
 docker tag ghcr.io/revuloj/voko-araneo/voko-araneo:${label} voko-araneo
 docker tag ghcr.io/revuloj/voko-abelo/voko-abelo:${label} voko-abelo
-docker tag ghcr.io/revuloj/voko-skorpio/voko-skorpio:${label} voko-skorpio
 #docker tag ghcr.io/revuloj/voko-tomocero/voko-tomocero:${label} voko-tomocero
 
