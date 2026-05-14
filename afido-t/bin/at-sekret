@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # access_token ni uzas por aliri Github-API nome de reta-vortaro
-access_token=$1
+# access_token=$1
 
 # tiun ŝlosilon ni uzas, por ke formiko povas voko afidon, verŝajne ni ne bezonas tion plu...
 #keyfile_pub=${HOME}/.ssh/formiko.pub
@@ -10,15 +10,10 @@ access_token=$1
 keyfile_github=${HOME}/.ssh/id_rsa_revo_test
 
 
-if [[ -z ${access_token} ]]; then
-  echo "Vi devas doni ĵetonon de Github ('personal access token') kiel argumento por krei sekreton."
-  exit 1
-fi  
-
-#if [ ! -e ${keyfile_pub} ]; then
-#    echo "Mankas ${keyfile_pub}. Vi devas unue lanĉi voko-formiko-sekretojn por ricevi ŝlosilparon!"
-#    exit 1
-#fi
+#if [[ -z ${access_token} ]]; then
+#  echo "Vi devas doni ĵetonon de Github ('personal access token') kiel argumento por krei sekreton."
+#  exit 1
+#fi  
 
 if [ ! -e ${keyfile_github} ]; then
     echo "Mankas ${keyfile_github}. Vi bezonas ŝlosilon por povi puŝi ŝangojn al github.com - demandu Revo-administranton!"

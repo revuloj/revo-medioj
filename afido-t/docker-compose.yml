@@ -225,8 +225,8 @@ secrets:
 #
 #  voko-afido.ssh_key.pub:
 #    external: true
-  voko-afido.access_token:
-    external: true
+##  voko-afido.access_token:
+##    external: true
   #voko-afido.github_key:
   #  external: true
 
