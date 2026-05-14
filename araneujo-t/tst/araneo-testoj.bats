@@ -68,7 +68,7 @@
 
 }
 
-@test "La antaŭrigardo de nova vokomailx.pl..." {
+@test "La antaŭrigardo de nova vokosubmx.pl..." {
   #skip
   load test-preparo
 
@@ -84,7 +84,7 @@
   # echo "$testfrom_addr"
   # local -r testmail_addr=$(docker  exec -u1074 ${tomocero_id} cat /run/secrets/voko-tomocero.relayaddress)
 
-  url="http://${araneo_host}:${pnum}/cgi-bin/vokomailx.pl?art=test"
+  url="http://${araneo_host}:${pnum}/cgi-bin/vokosubmx.pl?art=test"
   echo "$url"
   tst_dir=$(dirname $BATS_TEST_FILENAME)
 
