@@ -82,6 +82,21 @@ services:
 ##    secrets:
 ##      - voko-sesio.ftp_password         
 
+    # por testi retpoŝtan sendadon sen vere
+    # sendi ilin (nur akcepti), ni uzas mailpit (ne postfix)
+  tomocero:
+    image: axllent/mailpit:latest
+    ports:
+      #- 1025:1025 # SMTP
+      - 1587:1025
+      - 8025:8025 # WebUI
+    environment:
+      - MP_SMTP_TLS_CERT=sans:localhost
+      - MP_SMTP_TLS_KEY=sans:localhost
+      - MP_SMTP_REQUIRE_STARTTLS=true
+      - MP_SMTP_STRICT_RFC_HEADERS=true
+      - MP_VERBOSE
+
 ##   tomocero:
 ##     image: voko-tomocero
 ##     build: https://github.com/revuloj/voko-tomocero.git
